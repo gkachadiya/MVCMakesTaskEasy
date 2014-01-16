@@ -1,0 +1,1158 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+
+@{
+    ViewBag.Title = "UniversityInformation";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model UniversitySearchModel
+@using (Html.BeginForm("UniversityInformation", "AdminSec", FormMethod.Post))
+{
+    <div class="pattern_box">
+        <div class="row-fluid">
+            <div class="msg_replay_hide">
+
+                <div class="span3">
+                    <div class="searh_box">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <h2>Search</h2>
+                            </div>
+                            <ul>
+                                <li>
+                                    <span>From Country: </span>
+                                    @Html.DropDownListFor(m => m.CountryFrom, DropDownHelper.getCountry("0"))
+
+                                </li>
+                            </ul>
+                            <ul class="checkbox_list">
+                                <li>
+                                    @Html.CheckBoxFor(m => m.Incompletecost)
+                                    @Html.LabelFor(m => m.Incompletecost)
+                                </li>
+                                <li>@Html.CheckBoxFor(m => m.IncompleteEnrollment)
+                                    @Html.LabelFor(m => m.IncompleteEnrollment)
+                                </li>
+                                <li>@Html.CheckBoxFor(m => m.Nologoimage)
+                                    @Html.LabelFor(m => m.Nologoimage)
+                                </li>
+                                <li>@Html.CheckBoxFor(m => m.Nolargeimage)
+                                    @Html.LabelFor(m => m.Nolargeimage)
+                                </li>
+                                <li>@Html.CheckBoxFor(m => m.Isactive)
+                                    @Html.LabelFor(m => m.Isactive)
+                                </li>
+                                <li>@Html.CheckBoxFor(m => m.IsNotActive)
+                                    @Html.LabelFor(m => m.IsNotActive)
+                                </li>
+                                <li>
+                                    <input type="submit" name="btnSearchUniversity" id="btnSearchUniversity" value="Search" class="button" />
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span9">
+                    <div class="shadowbox">
+                        <div id="pnlUniversityInfo">
+                            <div id="UniversityInfo" class="width100per">
+                                <div class="h2_heading">
+                                    <h2>University Information</h2>
+                                    @Html.ActionLink("Add New University", "AddUniversity", "AdminSec", new { @class = "edit fright" })
+                                </div>
+                                <div class="box">
+                                    <span id="lblNoOfResult" class="box">@ViewBag.lblNoOfResult</span>
+                                    <input type="hidden" id="hdnAllRecipients" value="@ViewBag.hdnAllRecipients" />
+                                </div>
+                                @if (@Model.UniversityList.Count == 0)
+                                {
+                                    <div style="color: black; font-size: larger" id="errorMsgDiv" class="left_right_space">No Univertsity Detail Found</div>
+                                }
+                                <table id="GrvUniversityInfo" class="table box pagination">
+                                    <tbody>
+                                        @if (@Model.UniversityList.Count != 0)
+                                        {
+                                            <tr>
+                                                <th style="width: 4%;" scope="col"></th>
+                                                <th style="width: 10%;" scope="col">UserName</th>
+                                                <th style="width: 10%;" scope="col">
+                                                    <input type="submit" value="University Name" name="btnSort" /></th>
+                                                <th style="width: 10%;" scope="col">Admin<br /> Name</th>
+                                                <th style="width: 6%;" scope="col">Is<br />Active</th>
+                                                <th style="width: 5%;" scope="col">Edit</th>
+                                                <th style="width: 7%;" scope="col">Student</th>
+                                                <th style="width: 8%;" scope="col">Student<br />message</th>
+                                                <th style="width: 6%;" scope="col">Delete</th>
+                                            </tr>
+                                        }
+                                        @foreach (var r in @Model.UniversityList)
+                                        {
+                                            <tr>
+                                                <td style="width: 4%">
+                                                    <input type="checkbox" id="chkSelect" class="chkSelectClass" value="@r.UserName" />
+                                                </td>
+                                                <td style="width: 10%"><a id="@r.UserName" href="javascript:OpenFullInfoPopup('@r.UserName')">@r.UserName</a>
+                                                </td>
+                                                <td style="width: 10%">
+                                                    @r.UniversityName
+                                                </td>
+                                                <td style="width: 10%">
+                                                    @r.AdminName
+                                                </td>
+                                                <td style="width: 6%">
+                                                    <input type="checkbox" id="chkStatus" value="@r.UserName" checked="@r.User.IsActive" name="chkStatus" class="chkStatusClass"/>
+                                                </td>
+                                                <td style="width: 5%">
+                                                    <a href="/AdminSec/AddUniversity?id=@r.UserName">Edit</a>
+                                                </td>
+                                                <td style="width: 7%">
+                                                    <a id="lnkMessage" style="cursor: pointer" onclick="javascript:openStudentDetail('@r.UserName')">Student</a>
+                                                </td>
+                                                <td style="width: 8%">
+                                                    @*<a href="javascript:void(0);" onclick="javascript:OpenMsgPopup('@r.UniversityName','@r.UserName')">Message</a>*@
+                                                     <a href="/AdminSec/MessageDetails/@r.UniversityId">Message</a>
+                                                </td>
+                                                <td style="width: 6%">
+                                                    <a id='@("lnkBtnDelete" + r.UniversityId)' href="javascript:UniversityDelete('@r.UniversityId')">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div id="noUniversityMsg" class="left_right_space" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No More University</div>
+
+                                <div id="waitdiv" class="left_right_space" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;please wait...</div>
+
+                                <div class="left_right_space">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="chkAll" value="&nbsp;&nbsp;Check All Search Result" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="btnSend" value="Send Message" class="large_button" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Delete" class="large_button" id="btnchkDelete" />
+                                    <input type="button" value="View More" class="button fright" id="btnViewMore" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="msg_replay_show messagereplayfrom">
+                        <div class="span8">
+                            <div id="messageList" class="student_msg message_right shadowbox">
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <ul class="student_right_block" id="ulMessageBetween">
+                                <li></li>
+                            </ul>
+                </div>
+            </div>
+        </div>
+    </div> 
+}
+<div id="dialog-confirm" title="Delete" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+</div>
+<div id="LoadingImage" style="display:none"  class="modal_loder">
+    @*<img src="/Images/ajaxloader.gif" />*@
+</div>
+@*<%--Message Box--%>*@
+@Html.Partial("_MessageBox")
+
+@*<%--For popup, opened by click on student link--%>*@
+<div id="studentsConversation" class="studentsconversation" style="display: none" title="Students Conversation">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="shadowbox" id="studentList">
+                <div class="over_hidden">
+                    <div class="pre-scrollable">
+                        <ul class="user_msg_box" id="ulStudentList">
+                            <li>
+                                <div class="user_img">
+                                    <img id="ImgBtnPhoto1" src="../Images/no_image.jpg" />
+                                </div>
+                                <div class="user_name">
+                                    <label>
+                                        <a href="#" class="msg_conversation_open_click">
+                                            <span id="lblStudentname">Jayesh G</span>
+                                        </a>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="noMsgAlert" style="display: none" class="left_right_space">
+                    No More Students Found
+                </div>
+                <div id="waitDiv" style="display: none" class="left_right_space">
+                    please wait...<br />
+                    <img src="../Images/ajaxloader.gif" />
+                </div>
+            </div>
+        </div>
+        <div class="span9">
+            <div class="shadowbox">
+                <ul id="ulDisplayConversation" class="user_msg_box">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Group Message Box*@
+<div id="groupMsgBox" class="student_msg" style="display: none; margin: 0" title="Group Message Box">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="message_right">
+                <ul class="profile_form">
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Send to :</label>
+                        </div>
+                        <div class="span5">
+                            <input type="text" id="txtGrpSendTo" disabled="disabled" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Subject :</label>
+                        </div>
+                        <div class="span5">
+                            <input type="text" id="txtGrpSubject" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Message :</label>
+                        </div>
+                        <div class="span6">
+                            <textarea id="txtGrpDesc"></textarea>
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4"></div>
+                        <div class="span6">
+                            <input type="button" id="btnSendGroupMessage" value="Send" class="large_button" />
+                            <input type="button" id="btnGrpCancel" class="large_button" value="Cancel" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<%--Full Information Popup --%>*@
+<div id="myModal" title="University Information" class="popup_block" style="width: 100% !important; display: none;">
+    <ul class="list_4">
+        <li>
+            <label>University Name :</label>
+            <span id="lblusername"></span>
+        </li>
+         <li>
+            <label>Contact No :</label>
+            <span id="lblContact"></span>
+        </li>
+        <li>
+            <label>Address :</label>
+            <span id="lbladdress"></span>
+        </li>
+    </ul>
+    <div class="simple_block">
+        <a id="hoverimg" class="preview" target="_blank">
+        <img src="" id="imgprofile" height="100" width="100" /></a>
+        <p>
+            <span id="lblDescription"></span>
+        </p>
+    </div>
+    <div class="accordion_wrapper">
+        <h1>About This College</h1>
+        <div class="shadowbox">
+            <div class="accordion-header">
+                <div class="h2_heading">
+                    <h2>Cost for International students: </h2>
+                </div>
+            </div>
+            <div class="accordion-content">
+                <p>
+                    1.Tuition for international students pursuing Bachelor's degree :
+                        <span id="lblundergradutefee"></span>
+                </p>
+                <p>
+                    2.Tuition for international students pursuing Master's degree :
+                        <span id="lblgraduatefee"></span>
+                </p>
+                <p>
+                    3.Books and supplies :
+                        <span id="lblbookfee"></span>
+                </p>
+                <p>
+                    4.Off-campus room and Board :
+                        <span id="lblroom"></span>
+                </p>
+                <p>
+                    5.Application Fee :
+                        <span id="lblapplication"></span>
+                </p>
+            </div>
+        </div>
+        <div class="shadowbox">
+            <div class="accordion-header">
+                <div class="h2_heading">
+                    <h2>Enrollment Number </h2>
+                </div>
+            </div>
+            <div class="accordion-content">
+                    <p>
+                        Avg Number of international students pursuing bachelor's degree each year :
+                        <span id="lblgradustudent"></span>
+                    </p>
+                    <p>
+                        Avg Number of international students pursuing Master's degree each year :
+                        <span id="lblundergradute"></span>
+                    </p>
+                    <p>
+                        Avg Number of international students pursuing Phd degree each year :
+                        <span id="lblinternational"></span>
+                    </p>
+                     <p>
+                       Avg Number of international students pursuing associates degree each year :
+                        <span id="lblAssociateDegree"></span>
+                    </p>
+                    <p id="EnroledPerYearChina">
+                      Avg. number of students enrolled, per year, from china :
+                        <span id="lblEnroledPerYearChina"></span>
+                    </p>
+                    <p id="EnroledPerYearIndianSub">
+                        Avg. number of students enrolled, per year, from Indian-sub continent 
+(i.e India, Pakistan, Bangladesh,Nepal, Sri-Lanka) :
+                        <span id="lblEnroledPerYearIndianSub"></span>
+                    </p>
+                    <p id="EnroledPerYearAfrica">
+                       Avg. number of students enrolled, per year, from African continent :
+                        <span id="lblEnroledPerYearAfrica"></span>
+                    </p>
+                    <p id="EnroledPerYearMidEast">
+                       Avg. number of students enrolled, per year, from Middle East countries :
+                        <span id="lblEnroledPerYearMidEast"></span>
+                    </p>
+                    <p id="EnroledPerYearSouthAmerica">
+                        Avg. number of students enrolled, per year, from South America :
+                        <span id="lblEnroledPerYearSouthAmerica"></span>
+                    </p>
+                    <p id="EnroledPerYearEurope">
+                       Avg. number of students enrolled, per year, from European countries :
+                        <span id="lblEnroledPerYearEurope"></span>
+                    </p>
+                </div>
+        </div>
+        <div class="shadowbox">
+            <div class="accordion-header">
+                <div class="h2_heading">
+                    <h2>Programs and majors</h2>
+                </div>
+            </div>
+            <div class="accordion-content">
+                <p>
+                    1.Degree Level Offred :
+                        <span id="lbldegreelvloffred"></span>
+                </p>
+
+                <p>
+                    2.Courses Offred :
+                        <span id="lblcourceoffered"></span>
+                </p>
+            </div>
+
+            <div class="accordion-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Dialog-Alert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Message Text</p>
+</div>
+<div id="Dialog-SelectAlert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Select University</p>
+</div>
+
+<script>
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+
+        $("#lnkCollege").addClass('navi_active');
+
+        $(".msg_replay_show").hide();
+        $("#btnViewMore").show();
+    });
+
+    //For Activate to University
+    $(".chkStatusClass").change(function () {
+
+        var u = this.value;
+        //if ($("#chkStatus").is(":checked")){
+        if (this.checked) {
+            var username = {
+                UserName: u
+            };
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "_StatusActive",
+                data: JSON.stringify(username),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                }
+            });
+        }
+        else {
+            var username = {
+                UserName: u
+            };
+            $.ajax({
+
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "_StatusInActive",
+                data: JSON.stringify(username),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                }
+            });
+        }
+    });
+
+    //For Send Group message to selected University
+    $("#btnSendGroupMessage").click(function () {
+
+        var str = $("#txtGrpSendTo").val();
+        var user = {
+            users: str,
+            Title: $("#txtGrpSubject").val(),
+            Description: $("#txtGrpDesc").val()
+        };
+        if ($("#txtGrpSubject").val() != "" && $("#txtGrpDesc").val() != "") {
+            $("#btnSendGroupMessage").hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "_sendGroupMessage",
+                data: JSON.stringify(user),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtGrpSubject").val("");
+                    $("#txtGrpSendTo").val("");
+                    $("#txtGrpDesc").val("");
+                    $("#btnSendGroupMessage").show();
+                    $("#groupMsgBox").dialog("close");
+                },
+                error: function (xhr, status, error) {
+                    $("#LoadingImage").hide();
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    alert(xhr.statusText);
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+
+        }
+
+    });
+
+    //For Open Massegebox
+    function OpenMsgPopup(sendToUserName, username) {
+        var user = {
+            ToUserName: username,
+        };
+        $("#btnMsgSend").show();
+        $("#hndMsgToUserName").val(username);
+        $("#messageList").hide();
+        $("#ulMessageBetween").html("");
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+           // complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_Getstatus",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                if (data != "") {
+                    retriveConversation(data);
+                }
+                else {
+                    $("#txtSendToUserName").val(sendToUserName);
+                    $("#messageList").hide();
+                    $("#LoadingImage").hide();
+                    $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+                }
+            },
+            fail: function (ex) { alert("Error : " + ex); }
+        });
+
+
+    }
+
+    //For retriving message conversion
+    function retriveConversation(parentId) {
+        var msgId = {
+            messageId: parentId
+        };
+        $("#messageList").html("please wait...");
+        $("#ulMessageBetween").html("");
+        $("#divLoader").show();
+
+        $.ajax({
+            type: "POST",
+            url: "_GetAllConversation",
+            data: JSON.stringify(msgId),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                $("#messageList").html(data[0]);
+                $("#ulMessageBetween").html(data[1]);
+                $("#messageList").show();
+                $(".msg_replay_hide").hide();
+                $(".msg_replay_show").show();
+                $("#LoadingImage").hide();
+                bindToDisplayRemainMessage();
+            }
+        });
+
+    }
+
+    //For Send Message
+    $("#btnMsgSend").click(function () {
+        var Message = {
+            Title: $("#txtSubject").val(),
+            Description: $("#txtMessage").val(),
+            sendToUserName: $("#hndMsgToUserName").val(),
+            ParentId: "0",
+        };
+        if ($("#txtSubject").val() != "" && $("#txtMessage").val() != "") {
+            $(this).hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "_SendMessage",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#divLoader").hide();
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    $("#messagebox").dialog("close");
+                    $(this).show();
+                    $("#hndMsgToUserName").val("");
+                    // retriveConversation(msg);
+                    $(".msg_replay_hide").show();
+                    $(".msg_replay_show").hide();
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // for Cancel Message
+    $("#btnMsgCancel").click(function () {
+        $("#txtSubject").val("");
+        $("#txtMessage").val("");
+        $("#messagebox").dialog().dialog("close");
+        $(".msg_replay_hide").show();
+        $(".msg_replay_show").hide();
+    });
+
+    //For sending message reply
+    function SaveMessageReply(parentMsgId, title, fromuser, touser) {
+        var msgdata = {
+            parentMsgId: parentMsgId,
+            msgDesc: $('#txtReplyDesc').val(),
+            msgTitle: title,
+            fromusername: fromuser,
+            tousername: touser
+        };
+        if ($('#txtReplyDesc').val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SaveMessageReply",
+                data: JSON.stringify(msgdata),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtReplyDesc").val("");
+                    $("#ulMessage").html(msg + $("#ulMessage").html());
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    }
+
+    function bindToDisplayRemainMessage() {
+        var str = $("#openAll").text();
+        var status = true;
+        $("#openAll").click(function () {
+            $(".remainMsg").toggle(1000);
+
+            if (status) {
+                $(this).text("hide Messages");
+                status = false;
+            }
+            else {
+                $(this).text(str);
+                status = true;
+            }
+        });
+    }
+
+    // For get all Selected Row from table
+    function getAllCheckedItem() {
+        var username = Array();
+
+        var chk = $("input[id^=chkSelect]");
+
+        for (i = 0; i < chk.length; i++) {
+            if (chk[i].checked) {
+                username.push($(chk[i]).val());
+            }
+        }
+        return username.join(',');
+    }
+
+    //For Sending Group Message
+    $("#btnSend").click(function () {
+        var user = '';
+
+        if ($("#chkAll").attr('checked'))
+            user = $("#hdnAllRecipients").val();
+        else
+            user = getAllCheckedItem();
+
+        if (user != '') {
+            $("#btnSendGroupMessage").show();
+            $("#groupMsgBox").dialog({ modal: true, minWidth: 650, resizable: false, closeOnEscape: true, closeText: "" });
+
+            $("#txtGrpSendTo").val(user);
+            $("#btnSendGroupMessage").show();
+            $("#btnMsgSend").hide();
+        }
+        else {
+            $("#Dialog-SelectAlert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    //For Check All the checkbox
+    $("#chkAll").change(function () {
+        if (this.checked) {
+            var arr = $("input[id^=chkSelect]");
+            for (i = 0; i < arr.length; i++) {
+                arr[i].checked = true;
+            }
+        }
+        else {
+            var arr = $("input[id^=chkSelect]");
+            for (i = 0; i < arr.length; i++) {
+                arr[i].checked = false;
+            }
+        }
+    });
+
+    // for Cancel Message
+    $("#btnGrpCancel").click(function () {
+        $("#txtGrpSubject").val("");
+        $("#txtGrpDesc").val("");
+        $("#groupMsgBox").dialog("close");
+    });
+
+    // For Delete University record
+    function UniversityDelete(universityId) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    var Uni = {
+                        UniversityId: universityId
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "_UniversityDelete",
+                        data: JSON.stringify(Uni),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#lnkBtnDelete" + universityId).parent().parent().remove();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    // For Delete Selected University record
+    $("#btnchkDelete").click(function () {
+        var user = '';
+
+        if ($("#chkAll").attr('checked'))
+            user = $("#hdnAllRecipients").val();
+        else
+            user = getAllCheckedItem();
+
+        if (user != '') {
+            $("#dialog-confirm").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "Yes": function () {
+                        var Std = {
+                            users: user
+                        };
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "_SelectedUniversityDelete",
+                            data: JSON.stringify(Std),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                if ($("#chkAll").attr('checked'))
+                                    $("#GrvBasicStudentInfo").remove();
+                                else {
+                                    var chk = $(".chkSelectClass");
+                                    for (i = 0; i < chk.length; i++) {
+                                        if (chk[i].checked) {
+                                            $(chk[i]).parent().parent().remove();
+                                            // $(chk[i]).val().parent.parent.remove();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+        else {
+            $("#Dialog-SelectAlert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // For Delete Message
+    function MsgDelete(messageid) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    var msg = {
+                        Messageid: messageid
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "_MsgDelete",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#msgdel" + messageid).parent().parent().parent().remove();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    // For Delete All Message
+    function MsgDeleteAll(parentMsg) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    var msg = {
+                        parentid: parentMsg
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "_DeleteAllConversation",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            flag_showpopup = false;
+                            $(".msg_replay_show").hide();
+                            $(".msg_replay_hide").show();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    //For Full details of University
+    function OpenFullInfoPopup(universityUserName) {
+        $("#EnroledPerYearChina").show();
+        $("#EnroledPerYearIndianSub").show();
+        $("#EnroledPerYearAfrica").show();
+        $("#EnroledPerYearMidEast").show();
+        $("#EnroledPerYearSouthAmerica").show();
+        $("#EnroledPerYearEurope").show();
+        var University = {
+            UniversityUserName: universityUserName,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_GetUniversityData",
+            data: JSON.stringify(University),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                document.getElementById("lbladdress").innerHTML = data[0] + " " + data[1] + " " + data[2];
+                if (data[3] != null)
+                    document.getElementById("lblgradustudent").innerHTML = data[3];
+                else
+                    document.getElementById("lblgradustudent").innerHTML = "Not Available";
+                if (data[4] != null)
+                    document.getElementById("lblundergradute").innerHTML = data[4];
+                else
+                    document.getElementById("lblundergradute").innerHTML = "Not Available";
+                if (data[5] != null) {
+                    document.getElementById("lblinternational").innerHTML = data[5]; imgprofile;
+                }
+                else
+                    document.getElementById("lblinternational").innerHTML = "Not Available";
+
+                if (data[6] == null)
+                    document.getElementById("imgprofile").src = "/Images/no_image.jpg";
+                else {
+                    document.getElementById("imgprofile").src = "/Images/Profile/" + data[6];
+                    document.getElementById("hoverimg").href = "/Images/Profile/" + data[6];
+                }
+
+                document.getElementById("lblDescription").innerHTML = data[7];
+
+                if (data[8] != null)
+                    document.getElementById("lblundergradutefee").innerHTML = data[8];
+                else
+                    document.getElementById("lblundergradutefee").innerHTML = "Not Available";
+
+                if (data[9] != null)
+                    document.getElementById("lblgraduatefee").innerHTML = data[9];
+                else
+                    document.getElementById("lblgraduatefee").innerHTML = "Not Available";
+
+                if (data[10] != null)
+                    document.getElementById("lblbookfee").innerHTML = data[10];
+                else
+                    document.getElementById("lblbookfee").innerHTML = "Not Available";
+
+                if (data[11] != null)
+                    document.getElementById("lblroom").innerHTML = data[11];
+                else
+                    document.getElementById("lblroom").innerHTML = "Not Available";
+
+                if (data[22] != null)
+                    document.getElementById("lblapplication").innerHTML = data[11];
+                else
+                    document.getElementById("lblapplication").innerHTML = "Not Available";
+
+                if (data[12] != "")
+                    document.getElementById("lbldegreelvloffred").innerHTML = data[12];
+                else
+                    document.getElementById("lbldegreelvloffred").innerHTML = "Not Available";
+
+                if (data[13] != "")
+                    document.getElementById("lblcourceoffered").innerHTML = data[13];
+                else
+                    document.getElementById("lblcourceoffered").innerHTML = "Not Available";
+
+                if (data[14] != null)
+                    document.getElementById("lblAssociateDegree").innerHTML = data[14];
+                else
+                    document.getElementById("lblAssociateDegree").innerHTML = "Not Available";
+
+                if (data[15] != null && data[15] != 0)
+                    document.getElementById("lblEnroledPerYearChina").innerHTML = data[15];
+                else
+                    $("#EnroledPerYearChina").hide();
+
+                if (data[16] != null && data[16] != 0)
+                    document.getElementById("lblEnroledPerYearIndianSub").innerHTML = data[16];
+                else
+                    $("#EnroledPerYearIndianSub").hide();
+
+                if (data[17] != null && data[17] != 0)
+                    document.getElementById("lblEnroledPerYearAfrica").innerHTML = data[17];
+                else
+                    $("#EnroledPerYearAfrica").hide();
+
+                if (data[18] != null && data[18] != 0)
+                    document.getElementById("lblEnroledPerYearMidEast").innerHTML = data[18];
+                else
+                    $("#EnroledPerYearMidEast").hide();
+
+                if (data[19] != null && data[19] != 0)
+                    document.getElementById("lblEnroledPerYearSouthAmerica").innerHTML = data[19];
+                else
+                    $("#EnroledPerYearSouthAmerica").hide();
+
+                if (data[20] != null && data[20] != 0)
+                    document.getElementById("lblEnroledPerYearEurope").innerHTML = data[20];
+                else
+                    $("#EnroledPerYearEurope").hide();
+
+                document.getElementById("lblusername").innerHTML = data[21];
+
+                if (data[23] != null)
+                    document.getElementById("lblContact").innerHTML = data[23];
+
+                $("#myModal").dialog({ modal: true, minWidth: 700, resizable: false, minHeight: 300, closeOnEscape: true, closeText: "" });
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('request failed' + JSON.stringify(xhr) + " " + JSON.stringify(textStatus) + " " + JSON.stringify(errorThrown));
+            }
+        });
+    }
+
+    //For Getting Student (University And Student) Conversation
+    function openStudentDetail(username) {
+        $("#studentsConversation").dialog({ modal: true, minWidth: 1170, resizable: false, minHeight: 600, closeOnEscape: true, closeText: "" });
+        $("#ulStudentList").html("<li>loading Students</li>");
+        $("#ulDisplayConversation").html("Click On UsreName to Retrive Conversation.")
+        var user = {
+            university: username,
+        };
+        $.ajax({
+            type: "POST",
+            url: "/AdminSec/_retriveStudentList",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg == "no")
+                    $("#ulStudentList").html("<li>No Data Found</li>");
+                else {
+                    $("#ulStudentList").html(msg);
+                    activate(username);
+                }
+            },
+            error: function (e1, e2, e3, e4) { alert(JSON.stringify(e2)); }
+        });
+    }
+    function activate(university) {
+        var university = university;
+        $("#ulDisplayConversation").html("Click On UsreName to Retrive Conversation.");
+
+        $(".msg_conversation_open_click").click(function () {
+            $("#ulDisplayConversation").html("<li>Loading Conversation...</li>");
+            var id = this.id;
+            var user = {
+                studentusername: id,
+                university: university,
+            };
+            $.ajax({
+                type: "POST",
+                url: "/AdminSec/_retriveConversationBetweenUni",
+                data: JSON.stringify(user),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == "")
+                        $("#ulDisplayConversation").html("<li>No Conversation Found</li>");
+                    else {
+                        $("#ulDisplayConversation").html(msg);
+                    }
+                },
+                error: function (e1, e2, e3, e4) { alert(JSON.stringify(e2)); }
+            });
+        });
+    }
+
+    //For Scrolling
+
+    $("#btnViewMore").click(function () {
+        $("#waitdiv").show();
+        $("#btnViewMore").hide();
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#waitdiv").show(); },
+            complete: function () { $("#waitdiv").hide(); },
+            url: "/AdminSec/_AppendAndDisplayUniversityList",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data == "no") {
+                    $("#noUniversityMsg").show();
+                    $("#btnViewMore").hide();
+                }
+                else {
+                    $("#noUniversityMsg").hide();
+                    $("#btnViewMore").show();
+                    $("#GrvUniversityInfo").append(data);
+
+                }
+               // $("#btnViewMore").show();
+                $("#waitdiv").hide();
+            }
+        });
+    });
+
+    //var flag = true;
+    //$(window).scroll(function () {
+    //    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+    //        if (flag) {
+    //            $("#waitdiv").show();
+    //            flag = false
+    //            $.ajax({
+    //                type: "POST",
+    //                beforeSend: function () { $("#waitdiv").show(); },
+    //                complete: function () { $("#waitdiv").hide(); },
+    //                url: "_AppendAndDisplayUniversityList",
+    //                contentType: "application/json; charset=utf-8",
+    //                success: function (data) {
+    //                    if (data == "no")
+    //                        $("#noUniversityMsg").show();
+    //                    else {
+    //                        $("#noUniversityMsg").hide();
+    //                        flag = true;
+    //                        $("#GrvUniversityInfo").append(data);
+    //                    }
+    //                    $("#waitdiv").hide();
+    //                }
+    //            });
+    //        }
+    //        else {
+
+    //        }
+    //    }
+    //});
+
+   
+</script>
+
+

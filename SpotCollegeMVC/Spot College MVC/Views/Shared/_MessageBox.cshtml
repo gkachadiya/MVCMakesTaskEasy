@@ -1,0 +1,55 @@
+﻿@using SpotCollege.Common
+@using Newtonsoft.Json
+@using SpotCollege.DAL.DataModels
+<div id="messagebox" class="student_msg" style="display: none" title="Message Box">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="message_right">
+                <ul class="profile_form">
+                    <li class="row-fluid">
+
+                        <div class="span4">
+                            <label>Send to :</label>
+                        </div>
+                        <div class="span4">
+                            <input id="txtSendToUserName" type="text" disabled="disabled" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Subject :</label>
+                        </div>
+                        <div class="span4">
+                            <input id="txtSubject" type="text" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Message :</label>
+                        </div>
+                        <div class="span6">
+                            @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                            {
+                                <textarea id="txtMessage" maxlength="300"></textarea>
+                            }
+                            else
+                            {
+                                <textarea id="txtMessage"></textarea>
+                            }
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4"></div>
+                        <div class="span6">
+                            <input type="button" id="btnMsgSend" value="Send" class="large_button" />
+                            <input type="button" id="btnMsgCancel" value="Cancel" class="large_button" />
+                        </div>
+                        <input type="hidden" id="hndMsgToUserName" />
+                        <input type="hidden" id="hndSendMsgId" />
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,496 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@using SpotCollege.BLL
+@using SpotCollege.DAL
+@{
+    ViewBag.Title = "MessageCenter";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model MessageCenterModel
+
+<div class="pattern_box">
+    <div class="row-fluid">
+
+        <div class="span3">
+            <div class="searh_box msg_center_box">
+
+                <div class="shadowbox box_space">
+                    <form method="post" id="frmMsg">
+                        <ul>
+                            <li><span>User Type : </span>
+                                @if (CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                                {
+                                    PermissionBLL permissionBLL = new PermissionBLL();
+                                    Permission permission = permissionBLL.GetbyUsername(CookieHelper.Username);
+
+                                    if (permission.CollegeMessage == true && permission.StudentMessage == false)
+                                    {
+                                    @Html.LabelFor(m => m.userType, "University")
+                                    }
+                                    else if (permission.CollegeMessage == false && permission.StudentMessage == true)
+                                    {
+                                    @Html.LabelFor(m => m.userType, "Student")
+                                    }
+                                    else
+                                    {
+                                    @Html.DropDownListFor(m => m.userType, DropDownHelper.getUsers(Model.userType))
+                                    }
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => m.userType, DropDownHelper.getUsers(Model.userType))
+                                }
+                            </li>
+                        </ul>
+                    </form>
+                    <script type="text/javascript">
+
+                        $("#@Html.IdFor(m => m.userType)").change(function () {
+                            $('#frmMsg').submit()
+                        });
+                    </script>
+                    <div class="over_hidden">
+                        <div class="pre-scrollable" id="studentList">
+                            @{
+                                MessageBLL messageBLL = new MessageBLL();
+                                StudentBLL studentBll = new StudentBLL();
+                                UniversityBLL universityBLL = new UniversityBLL();
+                                string imgurl = "";
+                                string lblStudentname = "";
+                            }
+                            @if (Model.universityList != null)
+                            {
+                                if (Model.universityList.Count == 0)
+                                { 
+                                <div style="color: black; font-size: larger">No Record Found</div>
+                                }
+                                <ul id="dlUniversitylist" class="list_4">
+                                    @foreach (var r in Model.universityList)
+                                    {
+                                        <li>
+                                            <div class="user_img">
+                                                <img id="UniImage" src='..\Images\Profile\@r.Image' />
+                                            </div>
+                                            <div class="user_name">
+                                                <a onclick="javascript:openUnApprovesMsgs(this,'@r.uname')" style="cursor: pointer">@r.UniversityName</a>
+                                                <span id="lblNoOfUnApprovedMsg" class="user_count_mg img-polaroid">@r.cnt</span>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            @if (Model.studentList != null)
+                            {
+                                if (Model.studentList.Count == 0)
+                                { 
+                                <div style="color: black; font-size: larger">No Record Found</div>
+                                }
+                                <ul id="dlStudentList" class="list_4">
+                                    @foreach (var r in Model.studentList)
+                                    {
+                                        <li>
+                                            <div class="user_img">
+                                                <img id="StdImage"  alt="" src='..\Images\Profile\@r.Photo' />
+                                            </div>
+                                            <div class="user_name">
+                                                <a onclick="javascript:openUnApprovesMsgs(this,'@r.uname')" style="cursor: pointer">@r.FirstName @r.LastName</a>
+                                                <span id="lblNoOfUnApprovedMsgStd" class="user_count_mg img-polaroid">@r.cnt</span>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            <div id="noMsgAlert" class="left_right_space" style="display: none">
+                                No More Record Found
+                            </div>
+                            <div id="waitDiv" class="left_right_space" style="display: none">
+                                please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="span9">
+            <div>
+                <div id="PnlMessage">
+                    <ul class="list_8" id="ulUniANDStudList">
+                        @*<div id="dlMessageList">
+                        @if (Model.messageList != null)
+                        {
+                            if (Model.messageList.Count == 0)
+                            { 
+                            <div style="color: black; font-size: larger">No Record Found</div>
+                            }
+                            foreach (var m in Model.messageList)
+                            {
+                                //check for student data.
+                                Student std = studentBll.GetByUserName(m.FromUserName);
+                                if (std != null)
+                                {
+                                    if (std.Photo != null)
+                                    {
+                                        imgurl = "/Images/Profile/" + std.Photo;
+                                    }
+                                    else
+                                    {
+                                        imgurl = "/Images/no_image.jpg";
+                                    }
+
+                                    lblStudentname = std.FirstName.ToString() + " " + std.LastName.ToString();
+
+                                }
+                                else
+                                {
+                                    //check for university data
+                                    University uni = universityBLL.GetByUserName(m.FromUserName);
+                                    if (uni != null)
+                                    {
+                                        if (uni.Image != null)
+                                        {
+                                            imgurl = "/Images/Profile/" + uni.Image;
+                                        }
+                                        else
+                                        {
+                                            imgurl = "/Images/no_image.jpg";
+                                        }
+                                        lblStudentname = uni.UniversityName;
+
+                                    }
+                                }
+                            <li>
+                                <div class="user_img">
+                                    <img id="ImgBtnPhoto1" class="img-polaroid" src="@imgurl" />
+                                </div>
+                                <div class="user_name">
+                                    <div class="width100per">
+                                        <h4>
+                                            <span id="lblStudentname" class="fleft">@lblStudentname</span></h4>
+                                        <h5 class="fright">
+                                            <span>@m.CreatedDate</span><br />
+                                            <span>@m.Title</span></h5>
+                                    </div>
+                                    <div class="width100per">
+                                        <span>@m.Description</span>
+                                    </div>
+                                </div>
+                                <div class="user_msg">
+                                </div>
+                                <div class="width100per">
+                                    <div class="fleft">
+                                        <a id='@("msgApproved" + m.MessageId)' href="javascript:MsgApproving('@m.MessageId')" class="button">Approved</a>
+                                    </div>
+                                    <div class="fright">
+                                        <a id='@("msgRejectwithmsg" + m.MessageId)' href="javascript:MsgDialogOpen('@lblStudentname','@m.MessageId')" class="button">Reject With Message</a>
+                                        <a id='@("msgReject" + m.MessageId)' href="javascript:MsgDelete('@m.MessageId')" class="button">Reject</a>
+                                    </div>
+                                </div>
+                            </li>
+                            }
+                        }
+                        </div>*@
+                    </ul>
+                    <div id="noMsgAlertList" class="left_right_space" style="display: none">
+                        No More Record Found
+                    </div>
+                    <div id="waitDivList" class="left_right_space" style="display: none">
+                        please wait...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="LoadingImage" style="display: none" class="modal_loder">
+</div>
+@*<%--For Message PopUp--%>*@
+@Html.Partial("_MessageBox")
+
+<div id="dialog-confirm" title="Delete" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+</div>
+<div id="Dialog-Alert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Message Text</p>
+</div>
+
+<script type="text/javascript">
+
+    function getLastRows() {
+        var childCount = document.getElementById('dlUniversitylist').childElementCount;
+        var lastChild = document.getElementById('dlUniversitylist').children.item(childCount - 1);
+        return ($(lastChild).html());
+    }
+
+    // for scrolling University and Student list
+    var nScrollHight = 0; // rolling distance Total length (note not the length of the scroll bar)
+    var nScrollTop = 0; // Scroll to the current position
+    var nDivHight = $("#studentList").height();
+
+    var flag = true;
+    $("#studentList").scroll(function () {
+        nScrollHight = $(this)[0].scrollHeight;
+        nScrollTop = $(this)[0].scrollTop;
+        if (nScrollTop + nDivHight >= nScrollHight) {
+            if (flag) {
+                $("#waitdiv").show();
+                flag = false
+                var value = $("#@Html.IdFor(m => m.userType)").val();
+
+                if (value == "University") {
+
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#waitdiv").show(); },
+                        complete: function () { $("#waitdiv").hide(); },
+                        url: "/AdminSec/_appendToUniversityListMessageCenter",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data == "no")
+                                $("#noMsgAlert").show();
+                            else {
+                                $("#noMsgAlert").hide();
+                                flag = true;
+                                $("#dlUniversitylist").append(data);
+                                activeOnBind();
+                            }
+                            $("#waitdiv").hide();
+                        },
+                        fail: function (e1, e2, e3, e4) { alert("error"); }
+
+                    });
+                }
+                else if (value == "Students") {
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#waitdiv").show(); },
+                        complete: function () { $("#waitdiv").hide(); },
+                        url: "/AdminSec/_appendToStudentListMessageCenter",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data == "no")
+                                $("#noMsgAlert").show();
+                            else {
+                                $("#noMsgAlert").hide();
+                                flag = true;
+                                $("#dlStudentList").append(data);
+                                activeOnBind();
+                            }
+                            $("#waitdiv").hide();
+                        },
+                        fail: function (e1, e2, e3, e4) { alert("error"); }
+
+                    });
+                }
+            }
+            else {
+                $("#waitdiv").show();
+            }
+        }
+
+    });
+
+
+    function activeOnBind() {
+    }
+
+    //For open Unapproved Messagelist(Ajax call)
+    var tempNoOfMsgSpan;
+    function openUnApprovesMsgs(con, username) {
+
+        tempNoOfMsgSpan = $(con).siblings('span');
+
+        var user = {
+            username: username,
+        };
+        $("#ulUniANDStudList").html("Please wait...");
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(user),
+            url: "/AdminSec/_displayUnapprovedMessage",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data == "")
+                    $("#ulUniANDStudList").html("No Messages Found");
+                else {
+                    flag = true;
+                    $("#ulUniANDStudList").html(data);
+                }
+            },
+            fail: function (e1, e2, e3, e4) { alert("error"); }
+
+        });
+    }
+
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkMessage").addClass("navi_active");
+    });
+
+    //For Save Approved message(Ajax call)
+    function MsgApproving(messageId) {
+
+        var tmp = parseInt(tempNoOfMsgSpan.html());
+        var Message = {
+            MessageId: messageId,
+        };
+
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_SaveApproving",
+            data: JSON.stringify(Message),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                $("#msgApproved" + messageId).parent().parent().parent().remove();
+
+                tmp = tmp - 1;
+                tempNoOfMsgSpan.html(tmp);
+
+                $("#LoadingImage").hide();
+                $("#messagebox").dialog("close");
+            }
+        });
+    }
+
+    function MsgDialogOpen(sendToUserName, messageId) {
+        $("#hndSendMsgId").val(messageId);
+        $("#txtSendToUserName").val(sendToUserName);
+        $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, closeOnEscape: true, closeText: "" });
+    }
+
+    //For Send Message (Ajax call)
+    $("#btnMsgSend").click(function () {
+        var tmp = parseInt(tempNoOfMsgSpan.html());
+        var Message = {
+            Title: $("#txtSubject").val(),
+            Description: $("#txtMessage").val(),
+            ParentId: "0",
+            MessageId: $("#hndSendMsgId").val(),
+        };
+        if ($("#txtMessage").val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_SendMessageRejected",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    $("#hndSendMsgId").val("");
+                    $("#LoadingImage").hide();
+                    $("#messagebox").dialog("close");
+                    $("#msgRejectwithmsg" + Message.MessageId).parent().parent().parent().remove();
+                    tmp = tmp - 1;
+                    tempNoOfMsgSpan.html(tmp);
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    //For Delete Message (Ajax call)
+    function MsgDelete(messageId) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    // if (Page_IsValid) {
+                    var tmp = parseInt(tempNoOfMsgSpan.html());
+                    var msg = {
+                        MessageId: messageId
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_MsgDeleteCenter",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#LoadingImage").hide();
+                            //if (msg.d) {
+                            $("#msgReject" + messageId).parent().parent().parent().remove();
+                            tmp = tmp - 1;
+                            tempNoOfMsgSpan.html(tmp);
+                            //}
+                        }
+                    });
+                    //  }
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    // for Cancel Message
+    $("#btnMsgCancel").click(function () {
+        $("#txtSubject").val("");
+        $("#txtMessage").val("");
+        $("#hndSendMsgId").val("");
+        $("#messagebox").dialog("close");
+    });
+
+    // for Message Scrolling
+    var flag = true;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            if (flag) {
+                $("#waitDivList").show();
+                flag = false
+                $.ajax({
+                    type: "POST",
+                    url: "/AdminSec/_appendToMessageList",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data == "no") {
+
+                            $("#noMsgAlertList").show();
+                        }
+                        else {
+                            $("#noMsgAlertList").hide();
+                            flag = true;
+                            $("#ulUniANDStudList").append(data);
+                        }
+                        $("#waitDivList").hide();
+                    }
+                });
+            }
+            else {
+
+            }
+        }
+    });
+
+</script>

@@ -1,0 +1,28 @@
+﻿ @{
+    ViewBag.Title = "Admin DashBoard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row-fluid">
+        <div class="span12">
+            <div class="pattern_box box_space">
+                <div class="span12">
+                    <div class="width100per">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <h2>Welcome Admin..!</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#nav li").each(function () {
+                $(this).removeClass('navi_active');
+            });
+            $("#lnkHome").addClass("navi_active");
+        });
+    </script>

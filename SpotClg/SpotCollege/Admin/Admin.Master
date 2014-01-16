@@ -1,0 +1,161 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SpotCollege.Admin.Admin" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head id="Head1" runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - Spot College</title>
+    <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <%--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>--%>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+
+
+    <link href="../Style/style.css" rel="stylesheet" />
+    <link href="../Style/bootstrap.css" rel="stylesheet" />
+    <link href="../Style/bootstrap-responsive.css" rel="stylesheet" />
+
+    <!--[if IE]>
+        <link rel="stylesheet" href="../Style/ie.css" type="text/css" media="screen" />
+    <![endif]-->
+
+    <script src="Scripts/js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript">
+        try{
+            jQuery(document).ready(function ($) {
+
+                /* prepend menu icon */
+                $('#nav-wrap').prepend('<div id="menu-icon">Menu</div>');
+
+                /* toggle nav */
+                $("#menu-icon").on("click", function () {
+                    $("#nav").slideToggle();
+                    $(this).toggleClass("active");
+                });
+
+            });
+        } catch (ex) { }
+    </script>
+    <webopt:BundleReference ID="BundleReference1" runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    <script src="../Scripts/js/jquery.min.js"></script>
+
+    <script src="../Scripts/js/jquery-ui.js"></script>
+    <script src="../Scripts/js/jquery.reveal.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('input[type=file]').wrap('<div class="fileTypeHack" />');
+            $('input[type=file]').parent().addClass('withButton');
+            $('.fileTypeHack').bind('mousemove', function (e) {
+                var offset = $(this).offset();
+                $(this).find('input').css(
+                    {
+                        'top': e.pageY - offset.top - ($('.fileTypeHack input').innerHeight() / 2), //centers verticaly
+                        'left': e.pageX - offset.left - ($('.fileTypeHack input').innerWidth() * 0.95) // moves the right part under the cursor
+                    });
+            })
+
+            $('html').on("change", 'input[type=file]', function () {
+                var input = this.outerHTML; // we save html of the current input
+                var file = this.value.split("\\"); // we split the string by "\" character
+                var imageName = file[file.length - 1]; //we get the name of the file
+
+                /* and if it's too long (depends on the width of your input) 
+                we will truncate it and prepend "..." before the string*/
+
+                var fileNameLength = file[file.length - 1].length;
+                if (fileNameLength > 14) {
+                    var truncatedName = "..." + imageName.substring((fileNameLength - 14)); // zobrazi 14 poslednich znaku stringu       
+                }
+                else {
+                    var truncatedName = imageName
+                };
+                //then we recreate the content of the wrapper
+                $(this).parent().find('span').remove();
+                $('<span>' + truncatedName + '</span>').insertBefore(this); // posledni prvvek ze splitu, tj. jmeno souboru + prida input
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div class="bottombg">
+            <div class="bottomgreenbg">
+        <form id="Form1" runat="server">
+            <div class="header">
+                <div class="container">
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <a href="DashBoard.aspx" class="logo">
+                                <img src="../Images/d_logo.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="span8">
+                            <nav id="nav-wrap">
+                                <ul class="navigation" id="nav">
+                                  <%--  <li id="lnkHome"><a href="DashBoard.aspx" class="home">Home</a></li>--%>
+                                    <li id="lnkStudent" class="navi_active"><a id="studentLink" runat="server" href="StudentInfo.aspx">Student</a></li>
+                                    <li id="lnkCollege"><a id="registerLink" runat="server" href="UniversityInformation.aspx">University</a></li>
+                                    <li id="lnkMessage"><a id="messageLink" runat="server" href="MessageCentre.aspx">Message Centre</a></li>
+                                    <li id="lnkintrestUniversity"><a id="intrestlink" runat="server" href="UniversityIntrested.aspx">Intrested University</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="span1 pull-right">
+                            <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
+                                <AnonymousTemplate>
+                                    <ul class="login_logoutbtn">
+                                        <%--<a id="lnkProfile" runat="server" href="#">Profile</a>--%>
+                                        <li><a id="loginLink" runat="server" href="~/Account/Logout.aspx">Logout</a></li>
+                                    </ul>
+                                </AnonymousTemplate>
+                                <LoggedInTemplate>
+                                    <p>
+                                        Hello, <a id="A2" runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
+                                            <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
+                                        </a>!
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                                    </p>
+                                </LoggedInTemplate>
+                            </asp:LoginView>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container">
+                    <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+                    <section class="content-wrapper main-content clear-fix">
+                        <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                    </section>
+                </div>
+            </div>
+            <div class="d_footer">
+                <div class="container">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <ul class="d_footer_toplink">
+                                <li><a href="../Account/Login.aspx">Home</a></li>
+                                <li><a href="../AboutUs.aspx">About Us</a></li>
+                                <li><a href="../PrivacyAndPolicy.aspx">Privacy Policy</a></li>
+                                <li><a href="../TermToUse.aspx">Terms of Use</a></li>
+                                <li><a href="../Careers.aspx">Careers</a></li>
+                            </ul>
+                        </div>
+                        <div class="span3"><span class="d_footer_righttext">© 2013, Spot College.com, LLC</span></div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+                </div>
+    </div>
+</body>
+</html>
+

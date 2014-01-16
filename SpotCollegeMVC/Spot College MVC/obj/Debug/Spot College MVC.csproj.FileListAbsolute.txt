@@ -1,0 +1,401 @@
+G:\Spot College MVC\Spot College MVC\bin\Spot College MVC.dll
+G:\Spot College MVC\Spot College MVC\bin\Spot College MVC.pdb
+G:\Spot College MVC\Spot College MVC\bin\Antlr3.Runtime.dll
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+G:\Spot College MVC\Spot College MVC\bin\EntityFramework.dll
+G:\Spot College MVC\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+G:\Spot College MVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+G:\Spot College MVC\Spot College MVC\bin\Newtonsoft.Json.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Net.Http.Formatting.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Helpers.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Http.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Http.WebHost.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Mvc.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Optimization.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Razor.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.dll
+G:\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+G:\Spot College MVC\Spot College MVC\bin\WebGrease.dll
+G:\Spot College MVC\Spot College MVC\bin\WebMatrix.Data.dll
+G:\Spot College MVC\Spot College MVC\bin\WebMatrix.WebData.dll
+G:\Spot College MVC\Spot College MVC\bin\EntityFramework.xml
+G:\Spot College MVC\Spot College MVC\bin\Newtonsoft.Json.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Net.Http.Formatting.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Helpers.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Http.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Http.WebHost.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Mvc.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.Razor.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+G:\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+G:\Spot College MVC\Spot College MVC\bin\WebMatrix.Data.xml
+G:\Spot College MVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+G:\Spot College MVC\Spot College MVC\bin\WebMatrix.WebData.xml
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+G:\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+G:\Spot College MVC\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+G:\Spot College MVC\Spot College MVC\obj\Debug\Spot College MVC.dll
+G:\Spot College MVC\Spot College MVC\obj\Debug\Spot College MVC.pdb
+G:\Spot College MVC\Spot College MVC\bin\SpotCollege.BLL.dll
+G:\Spot College MVC\Spot College MVC\bin\SpotCollege.DAL.dll
+G:\Spot College MVC\Spot College MVC\bin\SpotCollege.BLL.pdb
+G:\Spot College MVC\Spot College MVC\bin\SpotCollege.DAL.pdb
+G:\Spot College MVC\Spot College MVC\bin\SpotCollege.Common.dll
+G:\Spot College MVC\Spot College MVC\bin\SpotCollege.Common.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Spot College MVC.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Spot College MVC.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Antlr3.Runtime.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\EntityFramework.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Newtonsoft.Json.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\SpotCollege.BLL.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\SpotCollege.Common.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\SpotCollege.DAL.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Net.Http.Formatting.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Helpers.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Http.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Http.WebHost.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Mvc.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Optimization.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Razor.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\WebGrease.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\WebMatrix.Data.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\WebMatrix.WebData.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\SpotCollege.BLL.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\SpotCollege.Common.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\SpotCollege.DAL.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\EntityFramework.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Newtonsoft.Json.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Net.Http.Formatting.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Helpers.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Http.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Http.WebHost.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Mvc.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.Razor.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\WebMatrix.Data.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\WebMatrix.WebData.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\obj\Debug\Spot College MVC.dll
+G:\6th Development\Spot College MVC\Spot College MVC\Spot College MVC\obj\Debug\Spot College MVC.pdb
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.pdb
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Antlr3.Runtime.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\McjDevelopment.Mvc3ValidationGroups.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Optimization.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\WebGrease.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.pdb
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.pdb
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.pdb
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.dll
+G:\6th Development\svn1\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Antlr3.Runtime.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Optimization.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\WebGrease.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.pdb
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Spot College MVC.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Spot College MVC.pdb
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Antlr3.Runtime.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\AutoMapper.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\EntityFramework.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Newtonsoft.Json.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\SpotCollege.BLL.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\SpotCollege.Common.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\SpotCollege.DAL.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Net.Http.Formatting.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Helpers.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Http.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Http.WebHost.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Mvc.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Optimization.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Razor.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.WebPages.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\WebGrease.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\WebMatrix.Data.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\WebMatrix.WebData.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\SpotCollege.BLL.pdb
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\SpotCollege.Common.pdb
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\SpotCollege.DAL.pdb
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\AutoMapper.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\EntityFramework.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Newtonsoft.Json.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Net.Http.Formatting.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Helpers.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Http.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Http.WebHost.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Mvc.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.Razor.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.WebPages.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\WebMatrix.Data.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\WebMatrix.WebData.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\Sagar\SVN\Spotcollege\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+E:\Sagar\SVN\Spotcollege\Spot College MVC\obj\Debug\Spot College MVC.dll
+E:\Sagar\SVN\Spotcollege\Spot College MVC\obj\Debug\Spot College MVC.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Antlr3.Runtime.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Optimization.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\WebGrease.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Facebook.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\Spot College MVC\bin\Facebook.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Spot College MVC.pdb
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Antlr3.Runtime.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Facebook.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\McjDevelopment.Mvc3ValidationGroups.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.Infrastructure.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Optimization.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\WebGrease.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.BLL.pdb
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.Common.pdb
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\SpotCollege.DAL.pdb
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\AutoMapper.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Facebook.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\EntityFramework.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Newtonsoft.Json.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Net.Http.Formatting.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Helpers.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Http.WebHost.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Mvc.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.Razor.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Deployment.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\System.Web.WebPages.Razor.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.Data.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\Microsoft.Web.WebPages.OAuth.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\WebMatrix.WebData.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.AspNet.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.Core.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OAuth.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.csprojResolveAssemblyReference.cache
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\Spot College MVC\obj\Debug\Spot College MVC.pdb

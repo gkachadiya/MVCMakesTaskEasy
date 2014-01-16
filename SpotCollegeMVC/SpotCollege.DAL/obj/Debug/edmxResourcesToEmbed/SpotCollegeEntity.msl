@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SpotCollegeModelStoreContainer" CdmEntityContainer="SpotCollegeEntities">
+    <EntitySetMapping Name="LoginTypes">
+      <EntityTypeMapping TypeName="SpotCollegeModel.LoginType">
+        <MappingFragment StoreEntitySet="LoginType">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="LoginTypeId" ColumnName="LoginTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="SpotCollegeModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="OtherStudy" ColumnName="OtherStudy" />
+          <ScalarProperty Name="DesiredFieldofStudy" ColumnName="DesiredFieldofStudy" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="OtherActivities" ColumnName="OtherActivities" />
+          <ScalarProperty Name="LeadershipActivies" ColumnName="LeadershipActivies" />
+          <ScalarProperty Name="SportActivities" ColumnName="SportActivities" />
+          <ScalarProperty Name="Payout" ColumnName="Payout" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="LookingForCountry" ColumnName="LookingForCountry" />
+          <ScalarProperty Name="LookingFor" ColumnName="LookingFor" />
+          <ScalarProperty Name="StudyingIn" ColumnName="StudyingIn" />
+          <ScalarProperty Name="Citizenship" ColumnName="Citizenship" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+          <ScalarProperty Name="SecondaryType" ColumnName="SecondaryType" />
+          <ScalarProperty Name="SecondaryNumber" ColumnName="SecondaryNumber" />
+          <ScalarProperty Name="PrimaryType" ColumnName="PrimaryType" />
+          <ScalarProperty Name="PrimaryNumber" ColumnName="PrimaryNumber" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentAcademics">
+      <EntityTypeMapping TypeName="SpotCollegeModel.StudentAcademic">
+        <MappingFragment StoreEntitySet="StudentAcademics">
+          <ScalarProperty Name="FieldofStudy" ColumnName="FieldofStudy" />
+          <ScalarProperty Name="ExpectedYearofGraduation" ColumnName="ExpectedYearofGraduation" />
+          <ScalarProperty Name="DegreebeingPursued" ColumnName="DegreebeingPursued" />
+          <ScalarProperty Name="CertificatePath" ColumnName="CertificatePath" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="GraduationLevel" ColumnName="GraduationLevel" />
+          <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+          <ScalarProperty Name="Graduate" ColumnName="Graduate" />
+          <ScalarProperty Name="SchoolCountry" ColumnName="SchoolCountry" />
+          <ScalarProperty Name="SchoolCity" ColumnName="SchoolCity" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="StudentAcademicsId" ColumnName="StudentAcademicsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentWorkHistories">
+      <EntityTypeMapping TypeName="SpotCollegeModel.StudentWorkHistory">
+        <MappingFragment StoreEntitySet="StudentWorkHistory">
+          <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="StudentWorkHistoryId" ColumnName="StudentWorkHistoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="SpotCollegeModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LoginTypeId" ColumnName="LoginTypeId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentInterests">
+      <EntityTypeMapping TypeName="SpotCollegeModel.StudentInterest">
+        <MappingFragment StoreEntitySet="StudentInterest">
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="StudentUserName" ColumnName="StudentUserName" />
+          <ScalarProperty Name="UniversityUserName" ColumnName="UniversityUserName" />
+          <ScalarProperty Name="StudentInterestId" ColumnName="StudentInterestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Alerts">
+      <EntityTypeMapping TypeName="SpotCollegeModel.Alert">
+        <MappingFragment StoreEntitySet="Alert">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="AlertId" ColumnName="AlertId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="SpotCollegeModel.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="ToUserName" ColumnName="ToUserName" />
+          <ScalarProperty Name="FromUserName" ColumnName="FromUserName" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentTests">
+      <EntityTypeMapping TypeName="SpotCollegeModel.StudentTest">
+        <MappingFragment StoreEntitySet="StudentTest">
+          <ScalarProperty Name="Physics" ColumnName="Physics" />
+          <ScalarProperty Name="Biology" ColumnName="Biology" />
+          <ScalarProperty Name="Speaking" ColumnName="Speaking" />
+          <ScalarProperty Name="Listening" ColumnName="Listening" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Verbal" ColumnName="Verbal" />
+          <ScalarProperty Name="AnalyticalWriting" ColumnName="AnalyticalWriting" />
+          <ScalarProperty Name="QuantitativeReasoning" ColumnName="QuantitativeReasoning" />
+          <ScalarProperty Name="VerbalReasoning" ColumnName="VerbalReasoning" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Writing" ColumnName="Writing" />
+          <ScalarProperty Name="Science" ColumnName="Science" />
+          <ScalarProperty Name="Reading" ColumnName="Reading" />
+          <ScalarProperty Name="Math" ColumnName="Math" />
+          <ScalarProperty Name="English" ColumnName="English" />
+          <ScalarProperty Name="Composite" ColumnName="Composite" />
+          <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+          <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="SectorId" ColumnName="SectorId" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="StudentTestId" ColumnName="StudentTestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Universities">
+      <EntityTypeMapping TypeName="SpotCollegeModel.University">
+        <MappingFragment StoreEntitySet="University">
+          <ScalarProperty Name="ApplicationFee" ColumnName="ApplicationFee" />
+          <ScalarProperty Name="PersuingAssociateDegree" ColumnName="PersuingAssociateDegree" />
+          <ScalarProperty Name="EnroledPerYearEurope" ColumnName="EnroledPerYearEurope" />
+          <ScalarProperty Name="EnroledPerYearSouthAmerica" ColumnName="EnroledPerYearSouthAmerica" />
+          <ScalarProperty Name="EnroledPerYearMidEast" ColumnName="EnroledPerYearMidEast" />
+          <ScalarProperty Name="EnroledPerYearAfrica" ColumnName="EnroledPerYearAfrica" />
+          <ScalarProperty Name="EnroledPerYearIndianSub" ColumnName="EnroledPerYearIndianSub" />
+          <ScalarProperty Name="EnroledPerYearChina" ColumnName="EnroledPerYearChina" />
+          <ScalarProperty Name="Faqs" ColumnName="Faqs" />
+          <ScalarProperty Name="UniversityImage" ColumnName="UniversityImage" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="InternationalGraduate" ColumnName="InternationalGraduate" />
+          <ScalarProperty Name="UnderGraduates" ColumnName="UnderGraduates" />
+          <ScalarProperty Name="Graduates" ColumnName="Graduates" />
+          <ScalarProperty Name="BoardFee" ColumnName="BoardFee" />
+          <ScalarProperty Name="BookFee" ColumnName="BookFee" />
+          <ScalarProperty Name="GraduateFee" ColumnName="GraduateFee" />
+          <ScalarProperty Name="UnderGraduateFee" ColumnName="UnderGraduateFee" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EstablishedYear" ColumnName="EstablishedYear" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Courses" ColumnName="Courses" />
+          <ScalarProperty Name="Degree" ColumnName="Degree" />
+          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UniversityId" ColumnName="UniversityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_StudentUnApprovedMsg" FunctionName="SpotCollegeModel.Store.sp_StudentUnApprovedMsg">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SpotCollegeModel.sp_StudentUnApprovedMsg_Result">
+          <ScalarProperty Name="cnt" ColumnName="cnt" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="uname" ColumnName="uname" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_NoOFunApprovedMsg" FunctionName="SpotCollegeModel.Store.sp_NoOFunApprovedMsg">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SpotCollegeModel.sp_NoOFunApprovedMsg_Result">
+          <ScalarProperty Name="cnt" ColumnName="cnt" />
+          <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="uname" ColumnName="uname" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ViewProfile">
+      <EntityTypeMapping TypeName="SpotCollegeModel.ViewProfile">
+        <MappingFragment StoreEntitySet="ViewProfile">
+          <ScalarProperty Name="StudentUsername" ColumnName="StudentUsername" />
+          <ScalarProperty Name="UniversityUsername" ColumnName="UniversityUsername" />
+          <ScalarProperty Name="ViewId" ColumnName="ViewId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ResourceCategory">
+      <EntityTypeMapping TypeName="SpotCollegeModel.ResourceCategory">
+        <MappingFragment StoreEntitySet="ResourceCategory">
+          <ScalarProperty Name="SortingIndex" ColumnName="SortingIndex" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="SpotCollegeModel.Settings">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="PromotionalEmail" ColumnName="PromotionalEmail" />
+          <ScalarProperty Name="UniversityEmail" ColumnName="UniversityEmail" />
+          <ScalarProperty Name="StudentsEmail" ColumnName="StudentsEmail" />
+          <ScalarProperty Name="DailyEmail" ColumnName="DailyEmail" />
+          <ScalarProperty Name="University" ColumnName="University" />
+          <ScalarProperty Name="Students" ColumnName="Students" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="SettingId" ColumnName="SettingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permission">
+      <EntityTypeMapping TypeName="SpotCollegeModel.Permission">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Review" ColumnName="Review" />
+          <ScalarProperty Name="Article" ColumnName="Article" />
+          <ScalarProperty Name="CollegeMessage" ColumnName="CollegeMessage" />
+          <ScalarProperty Name="CollegeProfile" ColumnName="CollegeProfile" />
+          <ScalarProperty Name="StudentMessage" ColumnName="StudentMessage" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedBackAnswer">
+      <EntityTypeMapping TypeName="SpotCollegeModel.FeedBackAnswer">
+        <MappingFragment StoreEntitySet="FeedBackAnswer">
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SurveyDetail">
+      <EntityTypeMapping TypeName="SpotCollegeModel.SurveyDetail">
+        <MappingFragment StoreEntitySet="SurveyDetail">
+          <ScalarProperty Name="PruchaseHealthInsu" ColumnName="PruchaseHealthInsu" />
+          <ScalarProperty Name="HealthInsuranceUni" ColumnName="HealthInsuranceUni" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="ForwardQuestions" ColumnName="ForwardQuestions" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="SuggestionstoStudent" ColumnName="SuggestionstoStudent" />
+          <ScalarProperty Name="SuggestionstoUniversity" ColumnName="SuggestionstoUniversity" />
+          <ScalarProperty Name="JobsorInternships" ColumnName="JobsorInternships" />
+          <ScalarProperty Name="GetAllUniversity" ColumnName="GetAllUniversity" />
+          <ScalarProperty Name="ApplyOtherUniversity" ColumnName="ApplyOtherUniversity" />
+          <ScalarProperty Name="TestScore" ColumnName="TestScore" />
+          <ScalarProperty Name="SufficientMarkets" ColumnName="SufficientMarkets" />
+          <ScalarProperty Name="SufficientEating" ColumnName="SufficientEating" />
+          <ScalarProperty Name="ScholarshipSuggestion" ColumnName="ScholarshipSuggestion" />
+          <ScalarProperty Name="AfterJoining" ColumnName="AfterJoining" />
+          <ScalarProperty Name="OneAfterwards" ColumnName="OneAfterwards" />
+          <ScalarProperty Name="Scholarship" ColumnName="Scholarship" />
+          <ScalarProperty Name="RetriveItBack" ColumnName="RetriveItBack" />
+          <ScalarProperty Name="StolenThingDescription" ColumnName="StolenThingDescription" />
+          <ScalarProperty Name="StolenThings" ColumnName="StolenThings" />
+          <ScalarProperty Name="CampusPolice" ColumnName="CampusPolice" />
+          <ScalarProperty Name="HappenCampus" ColumnName="HappenCampus" />
+          <ScalarProperty Name="SafeonOutside" ColumnName="SafeonOutside" />
+          <ScalarProperty Name="SafeOnCampus" ColumnName="SafeOnCampus" />
+          <ScalarProperty Name="JobSuggestion" ColumnName="JobSuggestion" />
+          <ScalarProperty Name="HourlyPay" ColumnName="HourlyPay" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="GetOne" ColumnName="GetOne" />
+          <ScalarProperty Name="FindJob" ColumnName="FindJob" />
+          <ScalarProperty Name="LookForJob" ColumnName="LookForJob" />
+          <ScalarProperty Name="HousingSuggestion" ColumnName="HousingSuggestion" />
+          <ScalarProperty Name="ReturnDeposite" ColumnName="ReturnDeposite" />
+          <ScalarProperty Name="LandlordFeedback" ColumnName="LandlordFeedback" />
+          <ScalarProperty Name="RateYourBuilding" ColumnName="RateYourBuilding" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="WhereLive" ColumnName="WhereLive" />
+          <ScalarProperty Name="MonthlyRent" ColumnName="MonthlyRent" />
+          <ScalarProperty Name="RoomShared" ColumnName="RoomShared" />
+          <ScalarProperty Name="LookingForHousing" ColumnName="LookingForHousing" />
+          <ScalarProperty Name="FirstLive" ColumnName="FirstLive" />
+          <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+          <ScalarProperty Name="LocalAgentCharge" ColumnName="LocalAgentCharge" />
+          <ScalarProperty Name="ApplyOwnOrAgent" ColumnName="ApplyOwnOrAgent" />
+          <ScalarProperty Name="Degree" ColumnName="Degree" />
+          <ScalarProperty Name="Course" ColumnName="Course" />
+          <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+          <ScalarProperty Name="University" ColumnName="University" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resource">
+      <EntityTypeMapping TypeName="SpotCollegeModel.Resource">
+        <MappingFragment StoreEntitySet="Resource">
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,12 @@
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\SpotCollege.DAL.dll.config
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\SpotCollege.DAL.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\SpotCollege.DAL.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\EntityFramework.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\System.Web.Mvc.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\EntityFramework.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\bin\Debug\System.Web.Mvc.xml
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\obj\Debug\SpotCollege.DAL.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\obj\Debug\SpotCollege.DAL.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.DAL\obj\Debug\SpotCollege.DAL.pdb

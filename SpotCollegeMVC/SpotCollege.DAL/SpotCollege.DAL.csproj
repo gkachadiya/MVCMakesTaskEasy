@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{344A4C32-BFA5-4124-8277-D05A7AC76D47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpotCollege.DAL</RootNamespace>
+    <AssemblyName>SpotCollege.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="McjDevelopment.Mvc3ValidationGroups">
+      <HintPath>..\packages\Mvc3ValidationGroups.1.0.12082.0\lib\net40\McjDevelopment.Mvc3ValidationGroups.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\CodeSharp.Package.AspNetMvc3.3.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlertDAL.cs" />
+    <Compile Include="AnswerDAL.cs" />
+    <Compile Include="BaseDAL.cs" />
+    <Compile Include="DALConfigHelper.cs" />
+    <Compile Include="DALConfigKey.cs" />
+    <Compile Include="DataModels\AdminModel.cs" />
+    <Compile Include="DataModels\MessageModel.cs" />
+    <Compile Include="DataModels\StudentModel.cs" />
+    <Compile Include="DataModels\UniversityModel.cs" />
+    <Compile Include="LoginTypeDAL.cs" />
+    <Compile Include="MessageDAL.cs" />
+    <Compile Include="PermissionDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceCategoryDAL.cs" />
+    <Compile Include="ResourceDAL.cs" />
+    <Compile Include="SettingDAL.cs" />
+    <Compile Include="SpotCollegeEntity1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpotCollegeEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SpotCollegeEntityModel.cs" />
+    <Compile Include="StudentAcademicsDAL.cs" />
+    <Compile Include="StudentDAL.cs" />
+    <Compile Include="StudentInterestDAL.cs" />
+    <Compile Include="StudentTestDAL.cs" />
+    <Compile Include="StudentWorkHistoryDAL.cs" />
+    <Compile Include="SurveyDAL.cs" />
+    <Compile Include="UniversityDAL.cs" />
+    <Compile Include="UserDAL.cs" />
+    <Compile Include="ViewProfileDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="SpotCollegeEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SpotCollegeEntity1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="SpotCollegeEntity.edmx.diagram">
+      <DependentUpon>SpotCollegeEntity.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpotCollege.Common\SpotCollege.Common.csproj">
+      <Project>{685176b9-8328-44f4-a7eb-d9492ec1b6c0}</Project>
+      <Name>SpotCollege.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.5.2.js" />
+    <Content Include="Scripts\jquery-1.5.2.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.validationgroups.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

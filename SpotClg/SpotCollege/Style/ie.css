@@ -1,0 +1,9 @@
+.d_transperntbox, .shadowbox{ border:1px solid #D2CBCB; border-radius:5px; box-shadow:none;}
+.d_content h1{ font-size:12px; font-weight:bold;}
+.bannertextone{ font-size:50px;}
+.footer li{ margin-right:10px;}
+.paddingbox{ padding:0 0 0 2%; width:100%;}
+.list_1{ list-style:none; margin:15px 0;}
+.list_1 li { padding:10px 0 12px 10px; margin:0 0 10px; float:left; width:100%;}
+.list_1 li a{ font-size:16px;}
+.h2_heading h2{ font-size:17px!important;}

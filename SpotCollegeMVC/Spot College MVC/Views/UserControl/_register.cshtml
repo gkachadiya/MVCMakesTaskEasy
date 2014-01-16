@@ -1,0 +1,37 @@
+﻿@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    <div class="d_register_block">
+        <h1>Students: Sign up here</h1>
+        <ul class="login_list">
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                <div>
+                    @Html.TextBoxFor(m => m.UserName)
+                </div>
+            </li>
+            <li>
+                <label>Enter Password</label>
+                <div>
+                    <span class="login_sep"></span><span class="login_password"></span>
+                    <input id="txtRegPassword" type="password" placeholder="Enter Password" />
+                    <span id="reqPassword" style="display: none; color: red">The Password field is required.</span>
+                </div>
+            </li>
+            <li>
+                <label>Confirm Password</label>
+                <div>
+                    <span class="login_sep"></span><span class="login_password"></span>
+                    <input id="txtConfirmPassword" type="password" placeholder="Confirm Password" />
+                    <span id="reqConfirmPassword" style="display: none; color: red">The Confirm Password field is required.</span>
+                    <span id="isValidConfirmPassword" style="display: none; color: red">The password and confirmation password do not match.</span>
+                </div>
+            </li>
+            <li>
+                <input id="chkPolicy" type="checkbox" /><span>I agree to <a href="../PrivacyAndPolicy.aspx">Privacy Policy</a> and <a href="../TermToUse.aspx">T&C</a></span>
+            </li>
+            <li>
+                <input id="btnSubmit" type="submit" value="Register" class="button" />
+            </li>
+        </ul>
+    </div>
+}

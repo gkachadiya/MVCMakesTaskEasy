@@ -1,0 +1,1493 @@
+﻿@using SpotCollege.Common
+@using Newtonsoft.Json
+@using SpotCollege.DAL.DataModels
+
+@{
+    ViewBag.Title = "UniversityList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string con = "";
+}
+
+@model StudentProfileModel
+
+<div class="row">
+    <div class="span3">
+        <form action="/Student/UniversityList" method="post">
+            <div class="searh_box">
+                <div class="pattern_box box_space">
+                    <div class="h2_heading">
+                        <h2>University Search</h2>
+                    </div>
+                    <ul>
+                        <li>
+                            @Html.DropDownList("ddlCountryList", DropDownHelper.getCountry(Model.student.LookingForCountry))
+                        </li>
+                        <li>
+                            @Html.DropDownList("ddlLookingFor", DropDownHelper.getPrograms(Model.student.LookingFor))
+                        </li>
+                        <li>
+                            @Html.DropDownList("ddlCourses", DropDownHelper.getCourses(Model.student.DesiredFieldofStudy))
+                        </li>
+                        <li>
+                            <input type="submit" name="btnSearch" id="btnSearch" value="Search" class="button" onclick="btnSearch_Click" />
+                        </li>
+                    </ul>
+                    <div style="color: black; font-size: larger" class="record_found">
+                        <span id="lblUniPageLd">@ViewBag.lblUniPageLd </span>
+                        @*</div>*@
+                        <div style="color: black; font-size: larger" class="record_found">
+                            <span id="lblTotalUni">@ViewBag.lblTotalUni </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="span9">
+        <div id="LoadingImage" style="display: none" class="modal_loder"></div>
+        <div class="alluniversitybox">
+            <div class="pattern_box box_space">
+                @if (@Model.universityList.Count == 0)
+                { 
+                    <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                }
+                <ul id="dluniversitylist">
+                    @foreach (var r in @Model.universityList)
+                    {
+                        <li>
+
+                            <div class="img_padding">
+                                <img id="Imgunversity" src="/Images/Profile/@r.UniversityImage" />
+                            </div>
+
+                            <div class="university_detail">
+                                <div class="name">@r.UniversityName
+                                </div>
+                                <div class="establishment">In @r.City, @r.Country. &nbsp;&nbsp; Year of establishment @r.EstablishedYear </div>
+                                <ul class="small_university_box">
+                                    <li>
+                                        <div class="h2_heading">
+                                            <h2>Cost for International students:</h2>
+                                        </div>
+                                    </li>
+                                    @{
+                        string[] tmp;
+                        string lblundergraduatestudFee;
+                        string lblgraduatestudFee;
+                        string lblbookstudFee;
+                        string lblboardstudFee;
+                        string lblapplicationFee;
+                                    }
+                                    @if (r.UnderGraduateFee != null)
+                                    {
+                                        tmp = r.UnderGraduateFee.ToString().Split('/');
+                                        lblundergraduatestudFee = tmp[0] + ' ' + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + ' ' + tmp[2];
+                                    }
+                                    else
+                                    {
+                                        lblundergraduatestudFee = "Not Available";
+                                    }
+                                    @if (r.GraduateFee != null)
+                                    {
+                                        tmp = r.GraduateFee.ToString().Split('/');
+                                        lblgraduatestudFee = tmp[0] + ' ' + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + ' ' + tmp[2];
+                                    }
+                                    else
+                                    {
+                                        lblgraduatestudFee = "Not Available";
+                                    }
+
+                                    @if (r.BookFee != null)
+                                    {
+                                        tmp = r.BookFee.ToString().Split('/');
+                                        lblbookstudFee = tmp[0] + ' ' + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + ' ' + tmp[2];
+                                    }
+                                    else
+                                    {
+                                        lblbookstudFee = "Not Available";
+                                    }
+
+                                    @if (r.BoardFee != null)
+                                    {
+                                        tmp = r.BoardFee.ToString().Split('/');
+                                        lblboardstudFee = tmp[0] + ' ' + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + " Per Month";
+                                    }
+                                    else
+                                    {
+                                        lblboardstudFee = "Not Available";
+                                    }
+                                    @if (r.ApplicationFee != null)
+                                    {
+                                        tmp = r.ApplicationFee.ToString().Split('/');
+                                        lblapplicationFee = tmp[0] + ' ' + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')');
+                                    }
+                                    else
+                                    {
+                                        lblapplicationFee = "Not Available";
+                                    }
+
+                                    <li>&raquo; Bachelor's Program : @lblundergraduatestudFee</li>
+                                    <li>&raquo; Master's Program :@lblgraduatestudFee</li>
+                                    <li>&raquo; Books and supplies :@lblbookstudFee</li>
+                                    <li>&raquo; Off-campus room and Board :@lblboardstudFee</li>
+                                    <li>&raquo; Application Fee :@lblapplicationFee</li>
+
+                                </ul>
+                                <div class="width100per"></div>
+                                <ul class="small_university_box">
+                                    <li>
+                                        <div class="h2_heading">
+                                            <h2>Enrollment Numbers</h2>
+                                        </div>
+                                    </li>
+                                    <li>Avg. number of international students pursuing 
+Various programs:</li>
+                                    @if (r.PersuingAssociateDegree != null)
+                                    {
+                                        <li>&raquo;Associate's : @r.PersuingAssociateDegree</li>
+                                    }
+                                    else
+                                    { <li>&raquo;Associate's : Not Available</li>
+                                    }
+                                    @if (r.Graduates != null)
+                                    {
+                                        <li>&raquo;Bachelor's : @r.Graduates</li>
+                                    }
+                                    else
+                                    { <li>&raquo;Bachelor's : Not Available</li>
+                                    }
+                                    @if (r.UnderGraduates != null)
+                                    {
+                                        <li>&raquo;Master's  : @r.UnderGraduates</li>
+                                    }
+                                    else
+                                    { <li>&raquo;Master's  : Not Available</li>
+                                    }
+                                    @if (r.InternationalGraduate != null)
+                                    {
+                                        <li>&raquo;Phd : @r.InternationalGraduate</li>
+                                    }
+                                    else
+                                    { <li>&raquo;Phd : Not Available</li>
+                                    }
+                                </ul>
+                                <div class="width100per"></div>
+
+                                <div class="moreinformation">
+                                    <a href="javascript:void(0);" onclick="javascript:OpenFAQsPopup('@r.UserName')" class="button">FAQ for Student</a>
+                                    @*<a href="javascript:void(0);" onclick="javascript:OpenSurveyPopup('@r.UniversityName')" class="button">Reviews</a>*@
+                                    <a href="javascript:void(0);" onclick="javascript:OpenReviewList('@r.UniversityName')" class="button">Reviews</a>
+                                    <a id='@r.UserName' class="anUniversityDetail button fright">More Information</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div id="noUniversityMsg" class="left_right_space" style="display: none">
+                    No More Universities
+                </div>
+                <div id="waitdiv" class="left_right_space" style="display: none">
+                    please wait...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<%--University Full Detail Popup --%>*@
+@Html.Partial("~/Views/UserControl/_UniversityInfoPopup.cshtml");
+    <div id="Dialog-ApplicationSend" title="Interest Sent" style="display: none;">
+        <p>
+            <b>
+                <label id="lbluniname"></label>
+            </b>admission's office has been notified that you are interested in learning more
+about their institution. If your profile is a match, their representative will get in touch with you soon.
+        </p>
+    </div>
+<div id="Dialog-AlertIntTest" title="Alert" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Atleast One International Test Record inorder to show Interest in University.</p>
+</div>
+<div id="Dialog-NoReviews" title="Alert" style="height: 53px; display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>There is No any Review For This Unioversity</p>
+</div>
+
+<div id="myFAQsModal" title="FAQs" style="display: none;">
+    <div class="simple_block">
+        <p>
+            <span id="lblFAQs"></span>
+        </p>
+    </div>
+</div>
+<div id="AllReviewList" title="Reviews" style="display: none;">
+    <div class="simple_block">
+        @Html.DropDownList("ddlReviewCountry", DropDownHelper.getCountryAll("0"))
+        <ul class="list_4 list_li3" id="rewList">
+            @* @if (Model.reviewList.Count != 0)
+            {
+                foreach (var r in @Model.reviewList)
+                {
+                <li>
+                    <a href="javascript:void(0);" onclick="javascript:OpenSurveyPopup('@r.SurveyId')">@r.University</a>
+                </li>
+                }
+            }
+            else
+            {
+                <li>No Record Found
+                </li>
+            }*@
+        </ul>
+    </div>
+</div>
+
+<div id="ReviewModel" class="student_msg " title="Leave Feedback" style="display: none">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="message_right feedbackform">
+
+                <div class="progressbar">
+                    <span class="progress_heading">Your Progress</span>
+                    <ul id="nav">
+                        <li id="progFirstScreen"><span>1</span></li>
+                        <li id="progSecondScreen"><span>2</span></li>
+                        <li id="progThirdScreen"><span>3</span></li>
+                        <li id="progFourthScreen"><span>4</span></li>
+                        <li id="progFifthScreen"><span>5</span></li>
+                        <li id="progSixthScreen"><span>6</span></li>
+                        <li id="progSeventhScreen"><span>7</span></li>
+                        <li id="progEightScreen"><span>8</span></li>
+                        <li id="progNineScreen"><span>9</span></li>
+                        <li id="progTenScreen"><span>10</span></li>
+                        <li id="progElevenScreen"><span>11</span></li>
+                    </ul>
+                </div>
+
+                <input type="hidden" id="hndSurveyId" />
+                <div id="divFirstScreen">
+                    <form id="formFirstScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)1)</h1>
+                        <h4>About Yourself</h4>
+                        <ul class="profile_form" id="FirstScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which country are you from:</label>
+                                </div>
+                                <div class="span6">
+                                    <div class="ddlDiasbled_wrapper">
+                                        @Html.DropDownList("ans_2", DropDownHelper.getCountry("0"), new { @class = "ddlDiasbled", disabled = "" })
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which city:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_3"></span>
+                                </div>
+                            </li>
+                            <h4>About the Foreign University you attended</h4>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Name of the university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_4"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Year of gradution:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_5"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Course:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_6"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Degree you Pursued:</label>
+                                </div>
+                                <div class="span6">
+                                    <div class="ddlDiasbled_wrapper">@Html.DropDownList("ans_7", DropDownHelper.getDegreeProgram(0), new { @class = "ddlDiasbled", disabled = "" })</div>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" id="btnFirstScreen" data-hide="divFirstScreen" data-show="divSecondScreen" value="Next" class="button fright goNext" />
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div id="divSecondScreen" style="display: none">
+                    <form id="formSecondScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)2)</h1>
+                        <input type="hidden" id="hndSecondSectionId" value="2" />
+                        <ul class="profile_form" id="SecondScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you apply on your own or use a agent: </label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_8"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>If you used a local agent, What fees did the agent charge:</label>
+                                </div>
+                                <div class="span6">
+                                    <span class="to_smallddl" id="ans_9"></span>
+                                    <div class="ddlDiasbled_wrapper">
+                                        @Html.DropDownList("ddlCurrency", DropDownHelper.getCurrency("0"), new { @class = "ddlDiasbled", disabled = "" })
+                                    </div>
+                                </div>
+                            </li>
+                            @if (CookieHelper.UserType != ((int)LoginTypes.Student).ToString())
+                            {
+                                <li class="row-fluid">
+                                    <div class="span4">
+                                        <label>Name of agent (this will not be displayed to students):</label>
+                                    </div>
+                                    <div class="span6">
+                                        <input id="ans_10" type="text" />
+                                        @*<label id="errorans_10" class="error" style="color: red; display: none">*Required</label>*@
+                                    </div>
+                                </li>
+                            }
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divFirstScreen" data-hide="divSecondScreen" value="Back" />
+
+                                    <input type="button" id="btnSecondScreen" data-hide="divSecondScreen" data-show="divThirdScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divThirdScreen" style="display: none">
+                    <form id="formThirdScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)3)</h1>
+                        <input type="hidden" id="hndThirdSectionId" value="3" />
+                        <ul class="profile_form" id="ThirdScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>where did you first live when you landed at your university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_11"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Does the unviersity provide assistance in looking for housing:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_12"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you have your own room or you shared it with others:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_13"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Monthly rent:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_14"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Where did you live:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_15"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Address:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_16"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How would you rate your building:</label>
+                                </div>
+                                <div class="span6">
+                                    <div class="span6">
+                                        <span id="ans_17"></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any feedback on the landlord:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_18"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did your landlord return your deposit:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_19"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any Suggestions about housing for future students:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_20"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divSecondScreen" data-hide="divThirdScreen" value="Back" />
+
+                                    <input type="button" id="btnThirdScreen" data-hide="divThirdScreen" data-show="divFourthScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div id="divFourthScreen" style="display: none">
+                    <form id="formFourthScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)4)</h1>
+                        <input type="hidden" id="hndFourthSectionId" value="4" />
+                        <ul class="profile_form" id="FourthScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you look for on-campus jobs:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_21"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Were you able to find an on-campus job:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_22"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How soon did you get one:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_23"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which department:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_24"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Hourly pay:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_25"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any Suggestions for future students:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_26"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divThirdScreen" data-hide="divFourthScreen" value="Back" />
+
+                                    <input type="button" id="btnFourthScreen" data-hide="divFourthScreen" data-show="divFifthScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divFifthScreen" style="display: none">
+                    <form id="formFifthScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)5)</h1>
+                        <input type="hidden" id="hndFifthSectionId" value="5" />
+                        <ul class="profile_form" id="FifthScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you feel safe on-campus:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_27"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you feel safe just outside the university area:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_28"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Are there a lot of thefts/violent incidents happening (in/around) the campus:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_29"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How visible are the campus police on campus: </label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_30"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Were any of your things stolen:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_31"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>what was it:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_32"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Were you able to retrieve it back:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_33"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divFourthScreen" data-hide="divFifthScreen" value="Back" />
+
+                                    <input type="button" id="btnFifthScreen" data-hide="divFifthScreen" data-show="divSixthScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div id="divSixthScreen" style="display: none">
+                    <form id="formSixthScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)6)</h1>
+                        <input type="hidden" id="hndSixthSectionId" value="6" />
+                        <ul class="profile_form" id="SixthScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you get a scholarship before you joined:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_34"></span>
+                                </div>
+
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you get one afterwards:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_35"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How easy is it to get one after joining the university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_36"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any Suggestions for future students:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_37"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divFifthScreen" data-hide="divSixthScreen" value="Back" />
+
+                                    <input type="button" id="btnSixthScreen" data-hide="divSixthScreen" data-show="divSeventhScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divSeventhScreen" style="display: none">
+                    <form id="formSeventhScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)7)</h1>
+                        <input type="hidden" id="hndSeventhSectionId" value="7" />
+                        <ul class="profile_form" id="SeventhScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Are there sufficient eating options on/around the campus:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_38"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Are there sufficient markets in/around the campus:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_39"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divSixthScreen" data-hide="divSeventhScreen" value="Back" />
+
+                                    <input type="button" id="btnSeventhScreen" data-hide="divSeventhScreen" data-show="divEightScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divEightScreen" style="display: none">
+                    <form id="formEightScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)8)</h1>
+                        <input type="hidden" id="hndEightSectionId" value="8" />
+                        <ul class="profile_form" id="EightScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Please share with us your test scores:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_40"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>What other universities did you apply to:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_41"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which all universities did you get into:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_42"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divSeventhScreen" data-hide="divEightScreen" value="Back" />
+
+                                    <input type="button" id="btnEightScreen" data-hide="divEightScreen" data-show="divNineScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divNineScreen" style="display: none">
+                    <form id="formNineScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)9)</h1>
+                        <input type="hidden" id="hndNineSectionId" value="9" />
+                        <ul class="profile_form" id="NineScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How helpful is the career center in helping students find jobs or internships:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_43"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you have health insurance at the university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_48"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Where did you purchase the health insurance from:  </label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_49"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divEightScreen" data-hide="divNineScreen" value="Back" />
+
+                                    <input type="button" id="btnNineScreen" data-hide="divNineScreen" data-show="divTenScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divTenScreen" style="display: none">
+                    <form id="formTenScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)10)</h1>
+                        <input type="hidden" id="hndTenSectionId" value="10" />
+                        <ul class="profile_form" id="TenScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Do you want to give any suggestions to the university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_44"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any suggestions for future students:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_45"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divNineScreen" data-hide="divTenScreen" value="Back" />
+                                    <input type="button" id="btnTenScreen" data-hide="divTenScreen" data-show="divElevenScreen" value="Next" class="button fright goNext" />
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divElevenScreen" style="display: none">
+                    <form id="formElevenScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)11)</h1>
+                        <input type="hidden" id="hndElevenSectionId" value="11" />
+                        <ul class="profile_form" id="ElevenScreen">
+
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Have any questions for this surveyor ? Write your message here</label>
+                                </div>
+                                <div class="span6">
+                                    <input type="hidden" id="hndStudentUsername" />
+                                    <textarea id="txtMessage" required></textarea>
+                                    <label class="error" style="color: red; display: none">*Please Write Some Message</label>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divTenScreen" data-hide="divElevenScreen" value="Back" />
+                                    @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                                    {
+                                        <input type="button" id="btnElevenScreen" data-hide="divElevenScreen" data-show="divElevenScreen" value="Send" class="button fright" />
+                                    }
+                                    else
+                                    {
+                                        <input type="button" id="btnSaveElevenScreen" data-hide="divElevenScreen" data-show="divElevenScreen" value="Save and continue" class="button fright" />
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog-Confirm" title="FeedBack" style="height: 60px; display: none;">
+    <p>Your Feedback is submitted successfully.</p>
+</div>
+<script type="text/ecmascript">
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('progress_active');
+        });
+        $("#progFirstScreen").addClass('progress_active');
+    });
+    $("#nav li").each(function () {
+        $(this).removeClass('navi_active');
+    });
+
+    $("#lnkUniversity").addClass('navi_active');
+
+    //For Open University Information PopUp
+    $(".anUniversityDetail").click(function () {
+        Openpopup(this.id);
+    });
+
+
+
+    function OpenReviewList(university) {
+        $("#ddlReviewCountry").val("0");
+        var University = university;
+        $.ajax({
+            type: "GET",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/filteredCountry",
+            data: { University: university },
+            success: function (msg) {
+                $("#rewList").html(msg);
+                $("#AllReviewList").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 500, closeOnEscape: true, closeText: "" });
+            }
+        });
+    }
+
+    function OpenSurveyPopup(surveyId) {
+
+        $("#nav li").each(function () {
+            $(this).removeClass('progress_active');
+        });
+        $("#progFirstScreen").addClass('progress_active');
+
+        $("#divFirstScreen").show();
+        $("#divSecondScreen").hide();
+        $("#divThirdScreen").hide();
+        $("#divFourthScreen").hide();
+        $("#divFifthScreen").hide();
+        $("#divSixthScreen").hide();
+        $("#divSeventhScreen").hide();
+        $("#divEightScreen").hide();
+        $("#divNineScreen").hide();
+        $("#divTenScreen").hide();
+        $("#divElevenScreen").hide();
+
+        var survey = {
+            SurveyId: surveyId,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_getSurveyDetail/",
+            data: JSON.stringify(survey),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg != null) {
+                    $("#hndSurveyId").val(msg.SurveyId);
+                    if (msg.Name != null)
+                        $("#ans_1").text(msg.Name);
+                    else
+                        $("#ans_1").text("");
+
+                    $("#ans_2").val(msg.Country);
+
+                    if (msg.City != null)
+                        $("#ans_3").text(msg.City);
+                    else
+                        $("#ans_3").text("");
+                    if (msg.University != null)
+                        $("#ans_4").text(msg.University);
+                    else
+                        $("#ans_4").text("");
+                    if (msg.GraduationYear != null)
+                        $("#ans_5").text(msg.GraduationYear);
+                    else
+                        $("#ans_5").text("");
+                    if (msg.Course != null)
+                        $("#ans_6").text(msg.Course);
+                    else
+                        $("#ans_6").text("");
+
+                    $("#ans_7").val(msg.Degree);
+
+                    if (msg.ApplyOwnOrAgent != null)
+                        $("#ans_8").text(msg.ApplyOwnOrAgent);
+                    else
+                        $("#ans_8").text("");
+                    if (msg.LocalAgentCharge != null) {
+                        $("#ddlCurrency").show();
+                        $("#ans_9").text(msg.LocalAgentCharge.split("//")[0]);
+                        $("#ddlCurrency").val(msg.LocalAgentCharge.split("//")[1]);
+                    }
+                    else {
+                        $("#ans_9").text("");
+                        $("#ddlCurrency").hide();
+                    }
+                    if (msg.AgentName != null)
+                        $("#ans_10").text(msg.AgentName);
+                    else
+                        $("#ans_10").text("");
+                    if (msg.FirstLive != null)
+                        $("#ans_11").text(msg.FirstLive);
+                    else
+                        $("#ans_11").text("");
+                    if (msg.LookingForHousing != null)
+                        $("#ans_12").text(msg.LookingForHousing);
+                    else
+                        $("#ans_12").text("");
+                    if (msg.RoomShared != null)
+                        $("#ans_13").text(msg.RoomShared);
+                    else
+                        $("#ans_13").text("");
+                    if (msg.MonthlyRent != null)
+                        $("#ans_14").text(msg.MonthlyRent);
+                    else
+                        $("#ans_14").text("");
+                    if (msg.WhereLive != null)
+                        $("#ans_15").text(msg.WhereLive);
+                    else
+                        $("#ans_15").text("");
+                    if (msg.Address != null)
+                        $("#ans_16").text(msg.Address);
+                    else
+                        $("#ans_16").text("");
+                    if (msg.RateYourBuilding != null)
+                        $("#ans_17").text(msg.RateYourBuilding);
+                    else
+                        $("#ans_17").text("");
+                    if (msg.LandlordFeedback != null)
+                        $("#ans_18").text(msg.LandlordFeedback);
+                    else
+                        $("#ans_").text("");
+                    if (msg.ReturnDeposite != null)
+                        $("#ans_19").text(msg.ReturnDeposite);
+                    else
+                        $("#ans_19").text("");
+                    if (msg.HousingSuggestion != null)
+                        $("#ans_20").text(msg.HousingSuggestion);
+                    else
+                        $("#ans_20").text("");
+                    if (msg.LookForJob != null)
+                        $("#ans_21").text(msg.LookForJob);
+                    else
+                        $("#ans_21").text("");
+                    if (msg.FindJob != null)
+                        $("#ans_22").text(msg.FindJob);
+                    else
+                        $("#ans_22").text("");
+                    if (msg.GetOne != null)
+                        $("#ans_23").text(msg.GetOne);
+                    else
+                        $("#ans_23").text("");
+                    if (msg.Department != null)
+                        $("#ans_24").text(msg.Department);
+                    else
+                        $("#ans_24").text("");
+                    if (msg.HourlyPay != null)
+                        $("#ans_25").text(msg.HourlyPay);
+                    else
+                        $("#ans_25").text("");
+                    if (msg.JobSuggestion != null)
+                        $("#ans_26").text(msg.JobSuggestion);
+                    else
+                        $("#ans_26").text("");
+                    if (msg.SafeOnCampus != null)
+                        $("#ans_27").text(msg.SafeOnCampus);
+                    else
+                        $("#ans_27").text("");
+                    if (msg.SafeonOutside != null)
+                        $("#ans_28").text(msg.SafeonOutside);
+                    else
+                        $("#ans_28").text("");
+                    if (msg.HappenCampus != null)
+                        $("#ans_29").text(msg.HappenCampus);
+                    else
+                        $("#ans_29").text("");
+                    if (msg.CampusPolice != null)
+                        $("#ans_30").text(msg.CampusPolice);
+                    else
+                        $("#ans_30").text("");
+                    if (msg.StolenThings != null)
+                        $("#ans_31").text(msg.StolenThings);
+                    else
+                        $("#ans_31").text("");
+                    if (msg.StolenThingDescription != null)
+                        $("#ans_32").text(msg.StolenThingDescription);
+                    else
+                        $("#ans_32").text("");
+                    if (msg.RetriveItBack != null)
+                        $("#ans_33").text(msg.RetriveItBack);
+                    else
+                        $("#ans_33").text("");
+                    if (msg.Scholarship != null)
+                        $("#ans_34").text(msg.Scholarship);
+                    else
+                        $("#ans_34").text("");
+                    if (msg.OneAfterwards != null)
+                        $("#ans_35").text(msg.OneAfterwards);
+                    else
+                        $("#ans_35").text("");
+                    if (msg.AfterJoining != null)
+                        $("#ans_36").text(msg.AfterJoining);
+                    else
+                        $("#ans_36").text("");
+                    if (msg.ScholarshipSuggestion != null)
+                        $("#ans_37").text(msg.ScholarshipSuggestion);
+                    else
+                        $("#ans_37").text("");
+                    if (msg.SufficientEating != null)
+                        $("#ans_38").text(msg.SufficientEating);
+                    else
+                        $("#ans_38").text("");
+                    if (msg.SufficientMarkets != null)
+                        $("#ans_39").text(msg.SufficientMarkets);
+                    else
+                        $("#ans_39").text("");
+                    if (msg.TestScore != null)
+                        $("#ans_40").text(msg.TestScore);
+                    else
+                        $("#ans_40").text("");
+                    if (msg.ApplyOtherUniversity != null)
+                        $("#ans_41").text(msg.ApplyOtherUniversity);
+                    else
+                        $("#ans_41").text("");
+                    if (msg.GetAllUniversity != null)
+                        $("#ans_42").text(msg.GetAllUniversity);
+                    else
+                        $("#ans_42").text("");
+                    if (msg.JobsorInternships != null)
+                        $("#ans_43").text(msg.JobsorInternships);
+                    else
+                        $("#ans_43").text("");
+                    if (msg.SuggestionstoUniversity != null)
+                        $("#ans_44").text(msg.SuggestionstoUniversity);
+                    else
+                        $("#ans_44").text("");
+                    if (msg.SuggestionstoStudent != null)
+                        $("#ans_45").text(msg.SuggestionstoStudent);
+                    else
+                        $("#ans_45").text("");
+                    if (msg.HealthInsuranceUni != null)
+                        $("#ans_48").text(msg.HealthInsuranceUni);
+                    else
+                        $("#ans_48").text("");
+                    if (msg.PruchaseHealthInsu != null)
+                        $("#ans_49").text(msg.PruchaseHealthInsu);
+                    else
+                        $("#ans_49").text("");
+                    $("#hndStudentUsername").val(msg.EmailId);
+                    $("#ReviewModel").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 500, closeOnEscape: true, closeText: "" });
+                }
+                else {
+                    $("#Dialog-NoReviews").dialog({
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                        resizable: false,
+                        height: 270,
+                        modal: true, closeOnEscape: true,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                    });
+                }
+
+            }
+        });
+
+    }
+
+    $("#ddlReviewCountry").change(function () {
+        var Country = $("#ddlReviewCountry").val();
+        $.ajax({
+            type: "GET",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/filteredCountry",
+            data: { Country: Country },
+            success: function (msg) {
+                $("#rewList").html(msg);
+            }
+        });
+    });
+
+    //$("#ddlReviewCountry").change(function () {
+    //    var Country = $("#ddlReviewCountry").val()
+
+    //    $('#ddlReviewCountry').load('/Student/filteredCountry/' + Country);
+
+    //});
+
+
+    //University Information PopUp
+    function Openpopup(universityName) {
+        $("#studInterestBlock").show();
+        $("#EnroledPerYearChina").show();
+        $("#EnroledPerYearIndianSub").show();
+        $("#EnroledPerYearAfrica").show();
+        $("#EnroledPerYearMidEast").show();
+        $("#EnroledPerYearSouthAmerica").show();
+        $("#EnroledPerYearEurope").show();
+        var University = {
+            UniversityName: universityName,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_GetUnivercityData",
+            data: JSON.stringify(University),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                document.getElementById("lbladdress").innerHTML = data[0] + " " + data[1] + " " + data[2];
+                if (data[3] != null)
+                    document.getElementById("lblgradustudent").innerHTML = data[3];
+                else
+                    document.getElementById("lblgradustudent").innerHTML = "Not Available";
+                if (data[4] != null)
+                    document.getElementById("lblundergradute").innerHTML = data[4];
+                else
+                    document.getElementById("lblundergradute").innerHTML = "Not Available";
+                if (data[5] != null) {
+                    document.getElementById("lblinternational").innerHTML = data[5];
+                }
+                else
+                    document.getElementById("lblinternational").innerHTML = "Not Available";
+
+                if (data[6] == null)
+                    document.getElementById("imgprofile").src = "/Images/no_image.jpg";
+                else {
+                    document.getElementById("imgprofile").src = "/Images/Profile/" + data[6];
+                    document.getElementById("hoverimg").href = "/Images/Profile/" + data[6];
+                }
+
+                document.getElementById("lblDescription").innerHTML = data[7];
+
+                if (data[8] != null)
+                    document.getElementById("lblundergradutefee").innerHTML = data[8];
+                else
+                    document.getElementById("lblundergradutefee").innerHTML = "Not Available";
+
+                if (data[9] != null)
+                    document.getElementById("lblgraduatefee").innerHTML = data[9];
+                else
+                    document.getElementById("lblgraduatefee").innerHTML = "Not Available";
+
+                if (data[10] != null)
+                    document.getElementById("lblbookfee").innerHTML = data[10];
+                else
+                    document.getElementById("lblbookfee").innerHTML = "Not Available";
+
+                if (data[11] != null)
+                    document.getElementById("lblroom").innerHTML = data[11];
+                else
+                    document.getElementById("lblroom").innerHTML = "Not Available";
+
+                if (data[12] != "" && data[12] != null)
+                    document.getElementById("lbldegreelvloffred").innerHTML = data[12];
+                else
+                    document.getElementById("lbldegreelvloffred").innerHTML = "Not Available";
+
+                if (data[13] != "" && data[13] != null)
+                    document.getElementById("lblcourceoffered").innerHTML = data[13];
+                else
+                    document.getElementById("lblcourceoffered").innerHTML = "Not Available";
+
+                if (data[14] != null)
+                    document.getElementById("lblAssociateDegree").innerHTML = data[14];
+                else
+                    document.getElementById("lblAssociateDegree").innerHTML = "Not Available";
+
+                if (data[15] != null && data[15] != 0) {
+                    document.getElementById("lblEnroledPerYearChina").innerHTML = data[15];
+                }
+                else {
+                    $("#EnroledPerYearChina").hide();
+                }
+
+                if (data[16] != null && data[16] != 0)
+                    document.getElementById("lblEnroledPerYearIndianSub").innerHTML = data[16];
+                else
+                    $("#EnroledPerYearIndianSub").hide();
+
+                if (data[17] != null && data[17] != 0)
+                    document.getElementById("lblEnroledPerYearAfrica").innerHTML = data[17];
+                else
+                    $("#EnroledPerYearAfrica").hide();
+
+                if (data[18] != null && data[18] != 0)
+                    document.getElementById("lblEnroledPerYearMidEast").innerHTML = data[18];
+                else
+                    $("#EnroledPerYearMidEast").hide();
+
+                if (data[19] != null && data[19] != 0)
+                    document.getElementById("lblEnroledPerYearSouthAmerica").innerHTML = data[19];
+                else
+                    $("#EnroledPerYearSouthAmerica").hide();
+
+                if (data[20] != null && data[20] != 0)
+                    document.getElementById("lblEnroledPerYearEurope").innerHTML = data[20];
+                else
+                    $("#EnroledPerYearEurope").hide();
+
+                document.getElementById("lblusername").innerHTML = data[21];
+
+                if (data[24] != null)
+                    document.getElementById("lblContact").innerHTML = data[24];
+
+                if (data[22] == "hideint")
+                    $("#studInterestBlock").hide();
+
+                $("#myModal").dialog({ modal: true, minWidth: 700, resizable: false, minHeight: 300, closeOnEscape: true, closeText: "" });
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('request failed' + JSON.stringify(xhr) + " " + JSON.stringify(textStatus) + " " + JSON.stringify(errorThrown));
+            }
+        });
+    }
+
+    //for save interest of student
+    $("#btnintrest").click(function () {
+        var universityName = document.getElementById("lblusername").innerHTML;
+        var University = {
+            UniversityName: universityName,
+        };
+        $("#lbluniname").html(universityName);
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_SaveStudentIntrest",
+            data: JSON.stringify(University),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg == "true") {
+                    $("#Dialog-ApplicationSend").dialog({
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                        resizable: false,
+                        height: 270,
+                        modal: true, closeOnEscape: true,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                    });
+                }
+                else {
+                    $("#Dialog-AlertIntTest").dialog({
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                        resizable: false,
+                        height: 200,
+                        modal: true, closeOnEscape: true,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+
+                        },
+                    });
+                }
+                $("#myModal").dialog('close');
+            }
+
+        });
+    });
+
+    $("#btnnointrest").click(function () {
+        $("#myModal").dialog('close');
+    });
+
+    //for FAQs information
+    function OpenFAQsPopup(uniUsername) {
+        var user = {
+            Username: uniUsername,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_GetFAQs",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg != null && msg != "") {
+                    document.getElementById("lblFAQs").innerHTML = msg;
+                }
+                else {
+                    document.getElementById("lblFAQs").innerHTML = "Not Available";
+                }
+
+                $("#myFAQsModal").dialog({ modal: true, minWidth: 700, resizable: false, minHeight: 300, closeOnEscape: true, closeText: "" });
+            },
+            // error: function (e1, e2, e3, e4) { alert(JSON.stringify(e2)); }
+        });
+    }
+
+    //for scrolling
+    var flag = true;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            if (flag) {
+                $("#waitdiv").show();
+                flag = false
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () { $("#waitdiv").show(); },
+                    complete: function () { $("#waitdiv").hide(); },
+                    url: "/Student/_AppendAndDisplayUniversity",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data == "no")
+                            $("#noUniversityMsg").show();
+                        else {
+                            $("#noUniversityMsg").hide();
+                            flag = true;
+                            $("#dluniversitylist").append(data);
+                        }
+                        $("#waitdiv").hide();
+                    }
+                });
+            }
+            else {
+
+            }
+        }
+    });
+
+    $("#btnElevenScreen").click(function () {
+        if ($("#txtMessage").val() != "") {
+            var show = $(this).data('show');
+            var hide = $(this).data('hide');
+
+            var answer = {
+                EmailId: $("#hndStudentUsername").val(),
+                Message: $("#txtMessage").val(),
+            };
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Home/_SendMessageEmailToStudent",
+                data: JSON.stringify(answer),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#dialog-Confirm").dialog({
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                        resizable: false,
+                        height: 170,
+                        modal: true,
+                        closeOnEscape: true,
+                        buttons: {
+                            "OK": function () {
+                                $("#txtMessage").val("");
+                                $(this).dialog("close");
+                                //window.location.href = "/Student/UniversityList";
+                            }
+                        },
+                    });
+
+                }
+            });
+            //showHide(show, hide);
+        }
+        else {
+            $(".error").show();
+        }
+    });
+
+    //this is used for feedback(Review) navigation
+    $('.goback').click(function () {
+
+        var show = $(this).data('show');
+        var hide = $(this).data('hide');
+        showHide(show, hide);
+
+    });
+
+    $('.goNext').click(function () {
+
+        var show = $(this).data('show');
+        var hide = $(this).data('hide');
+        showHide(show, hide);
+
+    });
+
+    function showHide(show, hide) {
+        $('#' + hide).css('display', 'none');
+        $('#' + show).css('display', 'block');
+
+        show = show.split("div")[1];
+        $("#nav li").each(function () {
+            $(this).removeClass('progress_active');
+        });
+        $("#prog" + show).addClass('progress_active');
+    }
+
+</script>
+

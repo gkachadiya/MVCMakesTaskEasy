@@ -1,0 +1,8 @@
+﻿.paddingbox{ width:98%!important;}
+.list_1 { list-style:decimal inside none;}
+.list_1 li{ padding:10px 3%; width:94%;}
+
+
+.feeddixbtn{ background:url("../images/bannerbtnlarge.gif") repeat-x scroll left top /100% 100% transparent;}
+.feeddixbtn:hover{ background:url("../images/bannerbtnlarge_hover.gif") repeat-x scroll left top /100% 100% transparent;}
+

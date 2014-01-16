@@ -1,0 +1,270 @@
+﻿@using SpotCollege.DAL.DataModels;
+@using SpotCollege.Common;
+@model UniversityDashboardModel
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pattern_box">
+    <div class="row-fluid">
+        <div class="msg_replay_hide">
+            <div class="span12">
+                <div id="LoadingImage" style="display: none" class="modal_loder">
+                    @*<img src="~/Images/ajaxloader.gif" />*@
+                </div>
+                <div id="Dialog-Send" title="Message Send" style="display: none;">
+                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Message Send Successfully</p>
+                </div>
+                <div class="span8 first">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="shadowbox">
+                                <div class="h2_heading">
+                                    <h2>Student Who Have Shown<br />
+                                        Interest</h2>
+                                    <a href="/Student/Portal/Applied" class="more fright">View All</a>
+                                </div>
+                                @if (Model.studentInterestList.Count == 0)
+                                {
+                                    <span>No Record Found </span>
+                                }
+                                else
+                                {
+                                    <ul class="list_2">
+                                        @foreach (var r in @Model.studentInterestList)
+                                        {
+                                            <li>
+                                                <div class="list_2_img">
+                                                    @if (@r.Photo != null)
+                                                    {
+                                                        <img id="ImgStudent" src="..\Images\Profile\@r.Photo" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="..\Images\no_image.jpg" />
+                                                    }
+                                                </div>
+                                                <div class="list_2_detail">
+                                                    <p>
+                                                        <b>
+                                                            @r.FirstName @r.LastName
+                                                        </b>
+                                                        <br />
+
+                                                        Applying from
+                                                             @r.City, @r.Country for @EnumHelper.GetDescriptionFromEnumValue((ProgramLookingFor)r.LookingFor) in @r.DesiredFieldofStudy to  @r.LookingForCountry . 
+                                                        <br />
+
+                                                        Desired date of joining @EnumHelper.GetDescriptionFromEnumValue((expectedStart)r.StartDate) .
+                                                    </p>
+                                                    <a href="/University/StudentProfile/@r.StudentId" class="button fright">Profile</a>
+                                                    @*<a href="javascript:void(0)" onclick="javascript:ShowStudentProfile('@r.UserName');" class="button fright">Profile</a>*@
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="span6">
+                            <div class="shadowbox">
+                                <div class="h2_heading">
+                                    <h2>Recently Joined Student </h2>
+
+                                    @*<a href="/Student/Portal/Approved" class="more fright">View All</a>*@
+                                    <a href="/Student/Portal" class="more fright">View All</a>
+                                </div>
+                                @if (Model.studentRecentJoinList.Count == 0)
+                                {
+                                    <span>No Record Found </span>
+                                }
+                                else
+                                {
+                                    <ul class="list_2">
+                                        @foreach (var r in @Model.studentRecentJoinList)
+                                        {
+                                            <li>
+                                                <div class="list_2_img">
+                                                    @if (@r.Photo != null)
+                                                    {
+                                                        <img  src="..\Images\Profile\@r.Photo" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="..\Images\no_image.jpg" />
+                                                    }
+                                                </div>
+                                                <div class="list_2_detail">
+                                                    <p>
+                                                        <b>
+                                                            @r.FirstName @r.LastName
+                                                        </b>
+                                                        <br />
+                                                        Applying from
+                                                             @r.City, @r.Country for @EnumHelper.GetDescriptionFromEnumValue((ProgramLookingFor)r.LookingFor) in @r.DesiredFieldofStudy to  @r.LookingForCountry . 
+                                                        <br />
+
+                                                        Desired date of joining @EnumHelper.GetDescriptionFromEnumValue((expectedStart)r.StartDate) .
+                                                    </p>
+                                                    @*<a href="/University/StudentProfile/@r.StudentId" class="button fright">Profile</a>*@
+                                                    <a href="/Student/Profile/@r.StudentId" class="button fright">Profile</a>
+                                                    @*<a href="javascript:void(0)" onclick="javascript:ShowStudentProfile('@r.UserName');" class="button fright">Profile</a>*@
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="shadowbox">
+                        <div class="h2_heading">
+                            <h2>Total Student Profile Viewed</h2>
+                            @*<%--<a href="#" class="more fright">More</a>--%>*@
+                        </div>
+                        <ul class="list_3 count_block">
+                            <li>@*<%--
+                                <div class="list_3_date">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                --%>*@
+                                <div class="list_3_date">Count : </div>
+                                <div class="list_3_detail">
+                                    <p>@Model.viewPropfileList.Count</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*For Message PopUp*@
+@Html.Partial("_MessageBox")
+
+@Html.Partial("_ViewProfile")
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+
+        $("#Home").addClass('navi_active');
+    });
+
+    //this is use to show studentProfile
+    function ShowStudentProfile(userName) {
+        var student = {
+            UserName: userName,
+        };
+        //alert(userName);
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_GetStudentData",
+            data: JSON.stringify(student),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                document.getElementById("lblFirstName").innerHTML = data[0];
+                document.getElementById("lblMiddleName").innerHTML = data[1];
+                document.getElementById("lblLastName").innerHTML = data[2];
+                document.getElementById("lblCountryOfCitizenship").innerHTML = data[3];
+                document.getElementById("lblAddress1").innerHTML = data[4];
+                if (data[5] == null)
+                    document.getElementById("imgStudent").src = "/Images/no_image.jpg";
+                else
+                    document.getElementById("imgStudent").src = "/Images/Profile/" + data[5];
+                if (data[6] != null && data[6] != "")
+                    document.getElementById("lblAddress2").innerHTML = data[6];
+                else
+                    document.getElementById("lblAddress2").innerHTML = "Not Available";
+                document.getElementById("lblzipcode").innerHTML = data[7];
+                document.getElementById("lblPrimaryNumber").innerHTML = data[8];
+                document.getElementById("lblBirthDate").innerHTML = data[9];
+                document.getElementById("lblCity").innerHTML = data[10];
+                document.getElementById("lblCountry").innerHTML = data[11];
+                document.getElementById("lblPrimaryEmail").innerHTML = data[12];
+                if (data[13] != null && data[13] != 0)
+                    document.getElementById("lblCurrentlyIn").innerHTML = data[13];
+                else
+                    document.getElementById("lblCurrentlyIn").innerHTML = "Not Available";
+                if (data[14] != null && data[14] != 0)
+                    document.getElementById("lblLookingFor").innerHTML = data[14];
+                else
+                    document.getElementById("lblLookingFor").innerHTML = "Not Available";
+                if (data[15] != null && data[15] != "")
+                    document.getElementById("lblPreferStudyIn").innerHTML = data[15];
+                else
+                    document.getElementById("lblPreferStudyIn").innerHTML = "Not Available";
+                if (data[16] != null && data[16] != 0)
+                    document.getElementById("lblExpectedStartDate").innerHTML = data[16];
+                else
+                    document.getElementById("lblExpectedStartDate").innerHTML = "Not Available";
+                if (data[17] != null && data[17] != "")
+                    document.getElementById("lblPayout").innerHTML = data[17];
+                else
+                    document.getElementById("lblPayout").innerHTML = "Not Available";
+                if (data[18] != null && data[18] != "")
+                    document.getElementById("lbldesiredfieldstudy").innerHTML = data[18];
+                else
+                    document.getElementById("lbldesiredfieldstudy").innerHTML = "Not Available";
+
+                if (data[19] != null && data[19] != "")
+                    document.getElementById("tblCurrentAcademics").innerHTML = data[19];
+                else
+                    document.getElementById("tblCurrentAcademics").innerHTML = "Not Available";
+
+                if (data[20] != null && data[20] != "")
+                    document.getElementById("tblInternationalTest").innerHTML = data[20];
+                else
+                    document.getElementById("tblInternationalTest").innerHTML = "Not Available";
+
+                if (data[21] != null && data[21] != "")
+                    document.getElementById("tblWorkHistory").innerHTML = data[21];
+                else
+                    document.getElementById("tblWorkHistory").innerHTML = "Not Available";
+
+                if (data[22] != null && data[22] != "")
+                    document.getElementById("lblSports").innerHTML = data[22];
+                else
+                    document.getElementById("lblSports").innerHTML = "Not Available";
+
+                if (data[23] != null && data[23] != "")
+                    document.getElementById("lblLeadership").innerHTML = data[23];
+                else
+                    document.getElementById("lblLeadership").innerHTML = "Not Available";
+
+                if (data[24] != null && data[24] != "")
+                    document.getElementById("lblActivity").innerHTML = data[24];
+                else
+                    document.getElementById("lblActivity").innerHTML = "Not Available";
+
+                document.getElementById("lnkBtnApprove").innerHTML = data[25];
+
+                //$(".msg_replay_hide").hide();
+                //$(".ViewStudentProfile").show();
+                $("#divStudentProfile").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 700, closeOnEscape: true, closeText: "" });
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.statusText);
+            }
+        });
+    }
+
+    $("#Backbtn").click(function () {
+        $("#divStudentProfile").dialog('close');
+    });
+</script>
+
+

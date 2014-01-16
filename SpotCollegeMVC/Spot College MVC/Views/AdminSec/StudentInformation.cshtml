@@ -1,0 +1,1159 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@{
+    ViewBag.Title = "StudentInformation";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model StudentSearchModel
+
+@using (Html.BeginForm("StudentInformation", "AdminSec", FormMethod.Post))
+{
+    <div class="pattern_box">
+        <div class="row-fluid">
+            <div class="msg_replay_hide">
+                <div class="span3 first">
+                    <div class="searh_box">
+                        <div class="shadowbox box_space">
+                            <div class="h2_heading">
+                                <h2>Student Search</h2>
+                            </div>
+                            <ul>
+                                <li><span>Student From : </span>
+                                    @Html.DropDownListFor(m => m.StudentFrom, DropDownHelper.getCountry("0"))
+                                </li>
+                            </ul>
+                            <ul>
+                                <li class="month_date">
+                                    <span>From Date :</span>
+                                    @Html.TextBoxFor(m => m.FromDateMonth, new { @class = "span3" })
+                                    @Html.ValidationMessageFor(m => m.FromDateMonth)
+                                    @Html.TextBoxFor(m => m.FromDateYear, new { @class = "span3" })
+                                    @Html.ValidationMessageFor(m => m.FromDateYear)
+                                </li>
+                                <li class="month_date">
+                                    <span>To Date :</span>
+                                    @Html.TextBoxFor(m => m.ToDateMonth, new { @class = "span3" })
+                                    @Html.ValidationMessageFor(m => m.ToDateMonth)
+                                    @Html.TextBoxFor(m => m.ToDateYear, new { @class = "span3" })
+                                    @Html.ValidationMessageFor(m => m.ToDateYear)
+                                </li>
+                                <li>
+                                    <span id="msgErr" style="color: red">@ViewBag.msgErr</span>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <span>Desired Country : </span>
+                                    @Html.DropDownListFor(m => m.DesiredCountry, DropDownHelper.getCountry("0"))
+                                </li>
+                                <li>
+                                    <span>Desired Term of Starting : </span>
+                                    @Html.DropDownListFor(m => m.DesiredTermStart, DropDownHelper.getExpectedDates(0))
+                                </li>
+                                <li>
+                                    <span>Desired Level : </span>
+                                    @Html.DropDownListFor(m => m.DesiredLevel, DropDownHelper.getPrograms(0))
+                                </li>
+                                <li>
+                                    <span>Desired Program : </span>
+                                    @Html.DropDownListFor(m => m.DesiredProgram, DropDownHelper.getCourses("0"))
+                                </li>
+                            </ul>
+                            <ul class="checkbox_list">
+                                <li>
+                                    @Html.CheckBoxFor(m => m.IsActive)
+                                    @Html.LabelFor(m => m.IsActive)
+                                </li>
+                                <li>
+                                    @Html.CheckBoxFor(m => m.NotEnteredEduInfo)
+                                    @Html.LabelFor(m => m.NotEnteredEduInfo)
+                                </li>
+                                <li>
+                                    @Html.CheckBoxFor(m => m.NotUploadCertificate)
+                                    @Html.LabelFor(m => m.NotUploadCertificate)
+                                </li>
+                                <li>
+                                    @Html.CheckBoxFor(m => m.NotUploadSelfImg)
+                                    @Html.LabelFor(m => m.NotUploadSelfImg)
+                                </li>
+                                <li>
+                                    @Html.CheckBoxFor(m => m.NotComplEduPreferences)
+                                    @Html.LabelFor(m => m.NotComplEduPreferences)
+                                </li>
+                                <li>
+                                    @Html.CheckBoxFor(m => m.NotEnteredIntScore)
+                                    @Html.LabelFor(m => m.NotEnteredIntScore)
+                                </li>
+                                <li>
+                                    @Html.CheckBoxFor(m => m.IsNotActive)
+                                    @Html.LabelFor(m => m.IsNotActive)
+                                </li>
+                                <li>
+                                    <input type="submit" name="btnSearch" id="btnSearch" value="Search" class="button" />
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="span9">
+                    <div class="shadowbox box_space">
+                        <div id="studentInfo" class="width100per">
+                            <div class="h2_heading">
+                                <h2>Students Information</h2>
+                                @Html.ActionLink("Add New Student", "AddStudent", "AdminSec", new { @class = "edit fright" })
+                            </div>
+                            <span id="lblTotalResult" class="left_right_space">@ViewBag.lblTotalResult Results Found</span>
+                            <input type="hidden" id="hdnAllRecipients" value="@ViewBag.hdnAllRecipients" />
+                            @if (@Model.studentList.Count == 0)
+                            {
+                                <div style="color: black; font-size: larger" id="errorMsgDiv" class="left_right_space">No Student Detail Found</div>
+                            }
+                            <table id="GrvBasicStudentInfo" class="table pagination">
+                                @if (@Model.studentList.Count != 0)
+                                {
+                                    <tr>
+                                        <th style="width: 4%;" scope="col"></th>
+                                        <th style="width: 12%;" scope="col">UserName</th>
+                                        <th style="width: 10%; cursor: pointer" scope="col">
+                                            <input type="submit" name="btnSort" value="StudentName" style="font-weight: bold; font-size: 1.2em" /></th>
+                                        <th style="width: 10%;" scope="col">Edit</th>
+                                        <th style="width: 7%;" scope="col">Is Active</th>
+                                        <th style="width: 10%;" scope="col">Message</th>
+                                        <th style="width: 5%;" scope="col">Delete</th>
+                                    </tr>
+                                }
+                                @foreach (var r in @Model.studentList)
+                                {
+                                    <tr>
+                                        <td style="width: 4%">
+                                            <input type="checkbox" id="chkSelect" class="chkSelectClass" value="@r.UserName" />
+                                        </td>
+                                        <td style="width: 12%"><a id="@r.UserName" href="javascript:OpenFullInfoPopup('@r.UserName')">@r.UserName</a>
+                                        </td>
+                                        <td style="width: 10%">
+                                            @r.FirstName @r.LastName
+                                        </td>
+                                        <td style="width: 10%">
+                                            <a href="/AdminSec/AddStudent?id=@r.UserName">Edit</a>
+                                        </td>
+                                        <td style="width: 7%">
+                                            <input type="checkbox" id="chkStatus" value="@r.UserName" checked="@r.User.IsActive" name="chkStatus" class="chkStatusClass"/>
+                                        </td>
+                                        <td style="width: 10%">
+                                            @*<a href="javascript:void(0);" onclick="javascript:OpenMsgPopup('@r.FirstName @r.LastName','@r.UserName')">Message</a>*@
+                                            <a href="/AdminSec/MessageDetail/@r.StudentId">Message</a>
+                                        </td>
+                                        <td style="width: 5%">
+                                            <a id='@("lnkBtnDelete" + r.StudentId)' href="javascript:StudentDelete('@r.StudentId')">Delete</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </table>
+                            <div id="noUniversityMsg" class="left_right_space" style="display: none">
+                                No More Student
+                            </div>
+                            <div id="waitdiv" class="left_right_space" style="display: none">
+                                please wait...
+                            </div>
+
+                            <div class="left_right_space">
+                                &nbsp;
+                                <input type="checkbox" id="chkAll" value="&nbsp;&nbsp;Check All Search Result" />
+                                &nbsp;&nbsp;
+                            <input type="button" id="btnSend" value="Send Message" class="large_button" />
+                                <input type="button" value="Delete" class="large_button" id="btnchkDelete" />
+                                <input type="button" value="View More" class="button fright" id="btnViewMore" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="msg_replay_show messagereplayfrom">
+                <div class="span8">
+                    <div id="messageList" class="student_msg message_right shadowbox">
+                    </div>
+                </div>
+                <div class="span4">
+                    <ul class="student_right_block" id="ulMessageBetween">
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+<div id="dialog-confirm" title="Delete" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+</div>
+
+@*<%--For Full information of Student--%>*@
+<div id="FullInfo" style="display: none" title="Student Information">
+    <div class="row-fluid">
+        <div class="span6">
+            <div id="BasicOverview">
+                <div class="shadowbox">
+                    <div class="h2_heading">
+                        <div class="accordion-header">
+                            <h2>Basics Information</h2>
+                        </div>
+                    </div>
+
+                    <div class="accordion-content">
+                        <ul class="list_4">
+                            <li>
+                                <label>
+                                    First Name :</label>
+                                <span id="lblFirstName"></span>
+
+                            </li>
+                            <li>
+                                <label>
+                                    Middle Name :</label>
+                                <span id="lblMiddleName"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Last Name :</label>
+                                <span id="lblLastName"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Country of Citizenship :</label>
+                                <span id="lblCountryOfCitizenship"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Address 1 :</label>
+                                <span id="lblAddress1"></span>
+
+                            </li>
+                            <li>
+                                <label>
+                                    Address 2 :</label>
+                                <span id="lblAddress2"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Zip Code :</label>
+                                <span id="lblzipcode"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Primary Phone :</label>
+                                <span id="lblPrimaryNumber"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Secondary Phone :</label>
+                                <span id="lblSecondaryNumber"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Birth Date :</label>
+                                <span id="lblBirthDate"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    City :</label>
+                                <span id="lblCity"></span>
+
+                            </li>
+                            <li>
+                                <label>
+                                    Country :</label>
+                                <span id="lblCountry"></span>
+
+                            </li>
+                            <li>
+                                <label>
+                                    Primary Email :</label>
+                                <span id="lblPrimaryEmail"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="EducationPreferences">
+                <div class="shadowbox">
+                    <div class="h2_heading">
+                        <div class="accordion-header">
+                            <h2>Education Preferences</h2>
+                        </div>
+                    </div>
+
+                    <div class="accordion-content">
+                        <ul class="list_4">
+                            <li>
+                                <label>
+                                    I am currently in :</label>
+                                <span id="lblCurrentlyIn"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    program looking for :</label>
+                                <span id="lblLookingFor"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    I prefer to study in :</label>
+
+                                <span id="lblPreferStudyIn"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Expected Start Date :</label>
+                                <span id="lblExpectedStartDate"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    I can afford to pay :</label>
+                                <span id="lblPayout"></span>
+                            </li>
+                            <li>
+                                <label>
+                                    Desired Field of Study:</label>
+                                <span id="lbldesiredfieldstudy"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="shadowbox right_space">
+                <div class="h2_heading">
+                    <div class="accordion-header">
+                        <h2>Photo :</h2>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list_4">
+
+                        <li>
+                            <label>
+                                profile Image :</label>
+                            <span> <a id="hoverimg" class="preview" target="_blank">
+                                <img id="imgStudent" class="large_images" src="" /></a></span> </li>
+
+                    </ul>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <div class="span6">
+            <div id="Div2">
+                <div class="shadowbox right_space">
+                    <div class="h2_heading">
+                        <div class="accordion-header">
+                            <h2>Current Academics</h2>
+                        </div>
+                    </div>
+                    <div class="accordion-content" id="tblCurrentAcademics">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="internationalTest">
+                <div class="shadowbox right_space">
+                    <div class="h2_heading">
+                        <div class="accordion-header">
+                            <h2>International Test</h2>
+                        </div>
+                    </div>
+                    <div class="accordion-content" id="tblInternationalTest">
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div id="Div3">
+                <div class="shadowbox right_space">
+                    <div class="h2_heading">
+                        <div class="accordion-header">
+                            <h2>Work history</h2>
+                        </div>
+                    </div>
+                    <div class="accordion-content" id="tblWorkHistory">
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div id="CurricularActivities">
+                <div class="shadowbox right_space">
+                    <div class="h2_heading">
+                        <div class="accordion-header">
+                            <h2>Extra Curricular Activies</h2>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <ul class="list_4">
+                            <li>
+                                <label>Sports :</label>
+                                <span id="lblSports"></span>
+                            </li>
+                            <li>
+                                <label>Leadership :</label>
+                                <span id="lblLeadership"></span>
+                            </li>
+                            <li>
+                                <label>Activites :</label>
+                                <span id="lblActivity"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@*For Message PopUp*@
+@Html.Partial("_MessageBox")
+
+@*Group Message Box*@
+<div id="groupMsgBox" class="student_msg" style="display: none; margin: 0" title="Group Message Box">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="message_right">
+                <ul class="profile_form">
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Send to :</label>
+                        </div>
+                        <div class="span5">
+                            <input type="text" id="txtGrpSendTo" disabled="disabled" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Subject :</label>
+                        </div>
+                        <div class="span5">
+                            <input type="text" id="txtGrpSubject" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Message :</label>
+                        </div>
+                        <div class="span6">
+                            <textarea id="txtGrpDesc"></textarea>
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4"></div>
+                        <div class="span6">
+                            <input type="button" id="btnSendGroupMessage" value="Send" class="large_button" />
+                            <input type="button" id="btnGrpCancel" class="large_button" value="Cancel" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Dialog-Alert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Message Text</p>
+</div>
+
+<div id="Dialog-SelectAlert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Select Student</p>
+</div>
+<div id="LoadingImage" style="display: none" class="modal_loder">
+    @*<img src="/Images/ajaxloader.gif" />*@
+</div>
+<script>
+    $(function () {
+        $(".msg_replay_show").hide();
+        $("#btnViewMore").show();
+    });
+
+    //For activate to student
+    $(".chkStatusClass").change(function () {
+
+        var u = this.value;
+        if (this.checked) {
+            var username = {
+                UserName: u
+            };
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_StatusActive",
+                data: JSON.stringify(username),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                }
+            });
+        }
+        else {
+            var username = {
+                UserName: u
+            };
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_StatusInActive",
+                data: JSON.stringify(username),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                }
+            });
+        }
+    });
+
+    //For Send Group Message to Selected Student
+    $("#btnSendGroupMessage").click(function () {
+
+        var str = $("#txtGrpSendTo").val();
+
+        $("#liLoader").show();
+
+        var user = {
+            users: str,
+            Title: $("#txtGrpSubject").val(),
+            Description: $("#txtGrpDesc").val()
+        };
+        if ($("#txtGrpSubject").val() != "" && $("#txtGrpDesc").val() != "") {
+            $("#btnSendGroupMessage").hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_sendGroupMessage",
+                data: JSON.stringify(user),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var data = msg;
+                    $("#txtGrpSubject").val("");
+                    $("#txtGrpSendTo").val("");
+                    $("#txtGrpDesc").val("");
+                    $("#btnSendGroupMessage").show();
+                    $("#groupMsgBox").dialog("close");
+                },
+                error: function (xhr, status, error) {
+                    $("#LoadingImage").hide();
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    alert(xhr.statusText);
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                closeOnEscape: true,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+
+        }
+
+    });
+
+    //For Open Massegebox
+    function OpenMsgPopup(sendToUserName, username) {
+        var user = {
+            ToUserName: username,
+        };
+        $("#btnMsgSend").show();
+        $("#hndMsgToUserName").val(username);
+        $("#messageList").hide();
+        $("#ulMessageBetween").html("");
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            //complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_Getstatus",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                if (data != "") {
+                    retriveConversation(data);
+                }
+                else {
+                    $("#txtSendToUserName").val(sendToUserName);
+                    $("#messageList").hide();
+                    $("#LoadingImage").hide();
+                    $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+                }
+            },
+            fail: function (ex) { alert("Error : " + ex); }
+        });
+
+
+    }
+
+    //For Retriving Message Conversion
+    function retriveConversation(parentId) {
+        var msgId = {
+            messageId: parentId
+        };
+        $.ajax({
+            type: "POST",
+            url: "_GetAllConversation",
+            data: JSON.stringify(msgId),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                $("#messageList").html(data[0]);
+                $("#ulMessageBetween").html(data[1]);
+                $("#messageList").show();
+                $(".msg_replay_hide").hide();
+                $(".msg_replay_show").show();
+                $("#LoadingImage").hide();
+                bindToDisplayRemainMessage();
+            }
+        });
+
+    }
+
+    //For Send Message
+    $("#btnMsgSend").click(function () {
+        var Message = {
+            Title: $("#txtSubject").val(),
+            Description: $("#txtMessage").val(),
+            sendToUserName: $("#hndMsgToUserName").val(),
+            ParentId: "0",
+        };
+        if ($("#txtSubject").val() != "" && $("#txtMessage").val() != "") {
+            $(this).hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_SendMessage",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    $("#messagebox").dialog("close");
+                    $(this).show();
+                    $("#hndMsgToUserName").val("");
+                    // retriveConversation(msg);
+                    $(".msg_replay_hide").show();
+                    $(".msg_replay_show").hide();
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // for Cancel Message
+    $("#btnMsgCancel").click(function () {
+        $("#txtSubject").val("");
+        $("#txtMessage").val("");
+        $("#messagebox").dialog().dialog("close");
+        $(".msg_replay_hide").show();
+        $(".msg_replay_show").hide();
+    });
+
+    //For sending reply message
+    function SaveMessageReply(parentMsgId, title, fromuser, touser) {
+        var msgdata = {
+            parentMsgId: parentMsgId,
+            msgDesc: $('#txtReplyDesc').val(),
+            msgTitle: title,
+            fromusername: fromuser,
+            tousername: touser
+        };
+        if ($('#txtReplyDesc').val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SaveMessageReply",
+                data: JSON.stringify(msgdata),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtReplyDesc").val("");
+                    $("#ulMessage").html(msg + $("#ulMessage").html());
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    }
+
+    function bindToDisplayRemainMessage() {
+        var str = $("#openAll").text();
+        var status = true;
+        $("#openAll").click(function () {
+            $(".remainMsg").toggle(1000);
+
+            if (status) {
+                $(this).text("hide Messages");
+                status = false;
+            }
+            else {
+                $(this).text(str);
+                status = true;
+            }
+        });
+    }
+
+    // For Delete Student record
+    function StudentDelete(studentid) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    var Std = {
+                        StudentId: studentid
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_StudentDelete",
+                        data: JSON.stringify(Std),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#lnkBtnDelete" + studentid).parent().parent().remove();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    // For Delete Selected Student record
+    $("#btnchkDelete").click(function () {
+        var user = '';
+
+        if ($("#chkAll").attr('checked'))
+            user = $("#hdnAllRecipients").val();
+        else
+            user = getAllCheckedItem();
+
+        if (user != '') {
+            $("#dialog-confirm").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                closeOnEscape: true,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        var Std = {
+                            users: user
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "/AdminSec/_SelectedStudentDelete",
+                            data: JSON.stringify(Std),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                if ($("#chkAll").attr('checked'))
+                                    $("#GrvBasicStudentInfo").remove();
+                                else {
+                                    var chk = $(".chkSelectClass");
+                                    for (i = 0; i < chk.length; i++) {
+                                        if (chk[i].checked) {
+                                            $(chk[i]).parent().parent().remove();
+                                            // $(chk[i]).val().parent.parent.remove();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+        else {
+            $("#Dialog-SelectAlert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                closeOnEscape: true,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // For Delete Message
+    function MsgDelete(messageid) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    var msg = {
+                        Messageid: messageid
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_MsgDelete",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#msgdel" + messageid).parent().parent().parent().remove();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    // For Delete All Message
+    function MsgDeleteAll(parentMsg) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    var msg = {
+                        parentid: parentMsg
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_DeleteAllConversation",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            flag_showpopup = false;
+                            $(".msg_replay_show").hide();
+                            $(".msg_replay_hide").show();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+
+    // For get all Selected Row from table
+    function getAllCheckedItem() {
+        var username = Array();
+
+        var chk = $("input[id^=chkSelect]");
+
+        for (i = 0; i < chk.length; i++) {
+            if (chk[i].checked) {
+                username.push($(chk[i]).val());
+            }
+        }
+        return username.join(',');
+    }
+
+    //For Sending Group Message
+    $("#btnSend").click(function () {
+        var user = '';
+
+        if ($("#chkAll").attr('checked'))
+            user = $("#hdnAllRecipients").val();
+        else
+            user = getAllCheckedItem();
+
+        if (user != '') {
+            $("#btnSendGroupMessage").show();
+            $("#groupMsgBox").dialog({ modal: true, minWidth: 650, resizable: false, closeOnEscape: true, closeText: "" });
+
+            $("#txtGrpSendTo").val(user);
+            $("#btnSendGroupMessage").show();
+            $("#btnMsgSend").hide();
+            $("#liLoader").hide();
+        }
+        else {
+            $("#Dialog-SelectAlert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    //For Check All the checkbox
+    $("#chkAll").change(function () {
+        if (this.checked) {
+            var arr = $("input[id^=chkSelect]");
+            for (i = 0; i < arr.length; i++) {
+                arr[i].checked = true;
+            }
+        }
+        else {
+            var arr = $("input[id^=chkSelect]");
+            for (i = 0; i < arr.length; i++) {
+                arr[i].checked = false;
+            }
+        }
+    });
+
+    // for Cancel Message
+    $("#btnGrpCancel").click(function () {
+        $("#txtGrpSubject").val("");
+        $("#txtGrpDesc").val("");
+        $("#groupMsgBox").dialog("close");
+    });
+
+    //for Full information of Student
+    function OpenFullInfoPopup(userName) {
+        var student = {
+            UserName: userName,
+        };
+        //alert(userName);
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_GetStudentData",
+            data: JSON.stringify(student),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                document.getElementById("lblFirstName").innerHTML = data[0];
+                document.getElementById("lblMiddleName").innerHTML = data[1];
+                document.getElementById("lblLastName").innerHTML = data[2];
+                document.getElementById("lblCountryOfCitizenship").innerHTML = data[3];
+                document.getElementById("lblAddress1").innerHTML = data[4];
+                if (data[5] == null)
+                    document.getElementById("imgStudent").src = "/Images/no_image.jpg";
+
+                else {
+                    document.getElementById("imgStudent").src = "/Images/Profile/" + data[5];
+                    document.getElementById("hoverimg").href = "/Images/Profile/" + data[5];
+                }
+                document.getElementById("lblAddress2").innerHTML = data[6];
+                document.getElementById("lblzipcode").innerHTML = data[7];
+                document.getElementById("lblPrimaryNumber").innerHTML = data[8];
+                document.getElementById("lblBirthDate").innerHTML = data[9];
+                document.getElementById("lblCity").innerHTML = data[10];
+                document.getElementById("lblCountry").innerHTML = data[11];
+                document.getElementById("lblPrimaryEmail").innerHTML = data[12];
+                if (data[13] != null && data[13] != 0)
+                    document.getElementById("lblCurrentlyIn").innerHTML = data[13];
+                else
+                    document.getElementById("lblCurrentlyIn").innerHTML = "Not Available";
+                if (data[14] != null && data[14] != 0)
+                    document.getElementById("lblLookingFor").innerHTML = data[14];
+                else
+                    document.getElementById("lblLookingFor").innerHTML = "Not Available";
+                if (data[15] != null && data[15] != "")
+                    document.getElementById("lblPreferStudyIn").innerHTML = data[15];
+                else
+                    document.getElementById("lblPreferStudyIn").innerHTML = "Not Available";
+                if (data[16] != null && data[16] != 0)
+                    document.getElementById("lblExpectedStartDate").innerHTML = data[16];
+                else
+                    document.getElementById("lblExpectedStartDate").innerHTML = "Not Available";
+                if (data[17] != null && data[17] != "")
+                    document.getElementById("lblPayout").innerHTML = data[17];
+                else
+                    document.getElementById("lblPayout").innerHTML = "Not Available";
+                if (data[18] != null && data[18] != "")
+                    document.getElementById("lbldesiredfieldstudy").innerHTML = data[18];
+                else
+                    document.getElementById("lbldesiredfieldstudy").innerHTML = "Not Available";
+
+                if (data[19] != null && data[19] != "")
+                    document.getElementById("tblCurrentAcademics").innerHTML = data[19];
+                else
+                    document.getElementById("tblCurrentAcademics").innerHTML = "Not Available";
+
+                if (data[20] != null && data[20] != "")
+                    document.getElementById("tblInternationalTest").innerHTML = data[20];
+                else
+                    document.getElementById("tblInternationalTest").innerHTML = "Not Available";
+
+                if (data[21] != null && data[21] != "")
+                    document.getElementById("tblWorkHistory").innerHTML = data[21];
+                else
+                    document.getElementById("tblWorkHistory").innerHTML = "Not Available";
+
+                if (data[22] != null && data[22] != "")
+                    document.getElementById("lblSports").innerHTML = data[22];
+                else
+                    document.getElementById("lblSports").innerHTML = "Not Available";
+
+                if (data[23] != null && data[23] != "")
+                    document.getElementById("lblLeadership").innerHTML = data[23];
+                else
+                    document.getElementById("lblLeadership").innerHTML = "Not Available";
+
+                if (data[24] != null && data[24] != "")
+                    document.getElementById("lblActivity").innerHTML = data[24];
+                else
+                    document.getElementById("lblActivity").innerHTML = "Not Available";
+
+
+                $("#FullInfo").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 700, closeOnEscape: true, closeText: "" });
+
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.statusText);
+            }
+        });
+
+    }
+
+    //For Scrolling
+    $("#btnViewMore").click(function () {
+        $("#waitdiv").show();
+        $("#btnViewMore").hide();
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#waitdiv").show(); },
+            complete: function () { $("#waitdiv").hide(); },
+            url: "/AdminSec/_AppendAndDisplayStudentList",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data == "no") {
+                    $("#noUniversityMsg").show();
+                    $("#btnViewMore").hide();
+                }
+                else {
+                    $("#noUniversityMsg").hide
+                    $("#btnViewMore").show();
+                    $("#GrvBasicStudentInfo").append(data);
+                }
+                // $("#btnViewMore").show();
+                $("#waitdiv").hide();
+            }
+        });
+    });
+
+    //var flag = true;
+    //$(window).scroll(function () {
+    //    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+    //        if (flag) {
+    //            $("#waitdiv").show();
+    //            flag = false
+    //            $.ajax({
+    //                type: "POST",
+    //                beforeSend: function () { $("#waitdiv").show(); },
+    //                complete: function () { $("#waitdiv").hide(); },
+    //                url: "/AdminSec/_AppendAndDisplayStudentList",
+    //                contentType: "application/json; charset=utf-8",
+    //                success: function (data) {
+    //                    if (data == "no")
+    //                        $("#noUniversityMsg").show();
+    //                    else {
+    //                        $("#noUniversityMsg").hide();
+    //                        flag = true;
+    //                        $("#GrvBasicStudentInfo").append(data);
+    //                    }
+    //                    $("#waitdiv").hide();
+    //                }
+    //            });
+    //        }
+    //        else {
+
+    //        }
+    //    }
+    //});
+
+    
+</script>

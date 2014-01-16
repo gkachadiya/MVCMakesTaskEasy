@@ -1,0 +1,178 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@using SpotCollege.BLL
+@model AdminResourceModel
+@{
+    ViewBag.Title = "Resource";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+
+        <div class="pattern_box box_space">
+            <div class="row-fluid">
+                <div id="LoadingImage" style="display: none" class="modal_loder">
+                </div>
+
+                <div class="span3 first">
+                    <div class="shadowbox">
+                        <div class="h2_heading">
+                            <h2>Category</h2>
+                        </div>
+                        <div class="paddingbox">
+                            <div id="pnlHeaderLinks">
+                                <ul class="list_1" id="tabNavigation">
+                                    @if (Model.categoryList.Count != 0)
+                                    {
+                                        foreach (var r in Model.categoryList)
+                                        {
+                                        <li id="Cat_@r.CategoryId">
+                                            @*<a href="/Student/Resource/@r.CategoryId">@r.Name</a>*@
+                                            @Html.ActionLink(r.Name, "Resource/" + r.CategoryId, "Student")
+                                        </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @{
+                    //this code snippet is used to manage tab
+
+                    if (ViewContext.RouteData.Values["id"] != null)
+                    {
+                        ViewBag.Current = "Cat_" + ViewContext.RouteData.Values["id"];
+                    }
+                    else
+                    {
+                        ResourceCategoryBLL resourceCategoryBLL = new ResourceCategoryBLL();
+                        int catId = resourceCategoryBLL.GetAll().FirstOrDefault().CategoryId;
+                        ViewBag.Current = "Cat_" + catId;
+                    }
+                    
+                      
+                }
+                <div class="span9">
+                    <form method="post">
+                        <div id="pnlresourcesCategoryDetail">
+                            @*<a href="/AdminSec/Resources/Cat/">Add New Category</a>*@
+                            @if (Model.resourceList.Count != 0)
+                            {
+                                <ul class="list_8">
+                                    @foreach (var r in Model.resourceList)
+                                    {
+                                        <li>
+                                            <div class='user_img'>
+                                                @if (r.ImagePath != null)
+                                                {
+                                                    <img class="image" src="/Images/Profile/@r.ImagePath" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="image" src="/Images/no_image.jpg" />
+                                                }
+                                            </div>
+                                            <div class='user_name'>
+                                                <div class='width100per'>
+                                                    <h4>@r.Title</h4>
+                                                    <h5 class='fright'>
+                                                        <span>@r.CreatedDate.Value.Date.ToString("dd/MM/yyyy")</span><br />
+                                                    </h5>
+                                                </div>
+                                                <div class='width100per'>
+                                                    @*      @{
+                                        string des = Convert.ToString(Html.Raw(HttpUtility.HtmlDecode(r.Description)));
+                                        //des = Html.Raw(des).ToHtmlString();
+                                        des = Server.HtmlDecode(des);
+                                        if (des.Length >= 200)
+                                        {
+                                            des = des.Substring(200);
+                                        }
+                                                    }*@
+                                                    @*   @if (r.Description.Length >= 200)
+                                                    {
+                                                        @Html.Raw(r.Description.Substring(0, 200))
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw(r.Description)
+                                                    }*@
+                                                    To read description click on Read More
+                                                </div>
+                                            </div>
+                                            <div class='user_msg'></div>
+                                            <div class='width100per'>
+                                                <div class='fright'>
+                                                    <a href="javascript:void(0);" onclick="javascript:OpenResourceDescriptionPopup('@r.ResourceId')" class='button'>Read More</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myArticalsModal" title="Articals" style="display: none;">
+    <div class="simple_block">
+        <p>
+            <span id="lblDescriptions"></span>
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#tabNavigation li").each(function () {
+        $(this).removeClass('list1_active');
+    });
+    $("#@ViewBag.Current").addClass('list_active');
+
+
+    $(function () {
+
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkResources").addClass('navi_active');
+    });
+
+    //for FAQs information
+    function OpenResourceDescriptionPopup(resourceId) {
+        var res = {
+            ResourceId: resourceId,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_GetResourceDescription",
+            data: JSON.stringify(res),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg != null && msg != "") {
+                    document.getElementById("lblDescriptions").innerHTML = msg[1];
+                }
+                else {
+                    document.getElementById("lblDescriptions").innerHTML = "Not Available";
+                }
+
+                $("#myArticalsModal").dialog({ modal: true, title: msg[0], minWidth: 700, resizable: false, minHeight: 300, closeOnEscape: true, closeText: "" });
+            },
+            // error: function (e1, e2, e3, e4) { alert(JSON.stringify(e2)); }
+        });
+    }
+</script>

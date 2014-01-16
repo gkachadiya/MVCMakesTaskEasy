@@ -1,0 +1,508 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@using SpotCollege.BLL
+@using SpotCollege.DAL
+@model AdminResourceModel
+@{
+    ViewBag.Title = "Resources";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+
+    IList<SelectListItem> ddlCategoryList = Model.categoryList.Select(x => new SelectListItem { Text = x.Name, Value = x.CategoryId.ToString() }).ToList();
+    ResourceBLL resourceBLL = new ResourceBLL();
+    Resource res = new Resource();
+}
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div id="dialog-confirm" title="Delete" style="display: none;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+        </div>
+        <div id="dialog-reply" title="Alert" style="display: none;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Sorry..!! You dont have Permission to Delete this Artical.</p>
+        </div>
+
+        <div class="pattern_box box_space">
+            <div class="row-fluid">
+                <div id="LoadingImage" style="display: none" class="modal_loder">
+                    @*<img id="Image1" src="~/Images/ajaxloader.gif" />*@
+                </div>
+
+                <div class="span3 first">
+                    <div class="shadowbox">
+                        <div class="h2_heading">
+                            <h2>Resources</h2>
+                        </div>
+                        <div class="paddingbox">
+                            <div id="pnlHeaderLinks">
+                                <ul class="list_1" id="tabNavigation">
+                                    <li id="Cat">
+                                        @Html.ActionLink("Resource Category", "Resources/Cat", "AdminSec")
+                                    </li>
+                                    <li id="Res">
+                                        @Html.ActionLink("Resource", "Resources/Res", "AdminSec")
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @{
+                    //this code snippet is used to manage tab
+                    if (ViewBag.Current == null)
+                    {
+                        if (ViewContext.RouteData.Values["id"] != null)
+                        {
+                            ViewBag.Current = ViewContext.RouteData.Values["id"];
+                        }
+                        else
+                        {
+                            ViewBag.Current = "Cat";
+                        }
+                    }
+
+                   
+                }
+                <div class="span9">
+                    @if (ViewBag.Current == "Cat" || ViewBag.Current == "CatAdd")
+                    {
+                        <form method="post">
+                            @if (ViewBag.Current == "CatAdd")
+                            {
+                                <div id="pnlResourceCategory">
+                                    @Html.HiddenFor(m => m.resourceCategory.CategoryId)
+                                    <div id="pnlResourceCategoryInfo">
+                                        <ul class="profile_form">
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                    <label>
+                                                        Category Name :</label>
+                                                </div>
+                                                <div class="span3">
+                                                    @Html.TextBoxFor(m => m.resourceCategory.Name)
+                                                    @Html.ValidationMessageFor(m => m.resourceCategory.Name)
+                                                </div>
+                                            </li>
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                    <label>
+                                                        Sorting Index :</label>
+                                                </div>
+                                                <div class="span3">
+                                                    @Html.TextBoxFor(m => m.resourceCategory.SortingIndex)
+                                                    @Html.ValidationMessageFor(m => m.resourceCategory.SortingIndex)
+                                                </div>
+                                            </li>
+
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                </div>
+                                                <div class="span6">
+                                                    <div class="width100per pull-left">
+                                                        <input id="btnSaveResourcesCategory" name="btnSaveResourcesCategory" value="Save" class="large_button pull-left" type="submit" />
+                                                        <span class="small_space"></span>
+                                                        <a href="/AdminSec/Resources/Cat" class="button pull-left">Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="pnlresourcesCategoryDetail">
+                                    <a href="/AdminSec/Resources/CatAdd/" class="button fright">Add New Category</a>
+                                    @if (Model.categoryList.Count != 0)
+                                    {
+                                        <table cellspacing="0" border="1" style="border-collapse: collapse;" id="MainContent_grvresourcesCategory" rules="all" class="simple_table box">
+                                            <tr>
+                                                <th style="width: 10%;" scope="col">Name</th>
+                                                <th style="width: 10%;" scope="col">Sorting Index</th>
+                                                <th style="width: 5%;" scope="col">Delete</th>
+                                            </tr>
+
+                                            @foreach (var r in Model.categoryList)
+                                            {
+                                                <tr>
+
+                                                    <td style="width: 10%;">
+                                                        <a href="/AdminSec/Resources/CatAdd/@r.CategoryId">@r.Name</a>
+                                                    </td>
+                                                    <td style="width: 10%;">@r.SortingIndex</td>
+                                                    <td style="width: 5%;">
+                                                        <a id="deleteResourceCategory" href="javascript:void(0)" id="" onclick="ResourceCategoryDelete('@r.CategoryId',this,'@r.Name');">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <div style="color: black; font-size: larger">No Record Found</div>
+                                    }
+                                </div>
+                            }
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" enctype="multipart/form-data">
+                            @if (ViewBag.Current == "ResAdd")
+                            {
+                                <div id="pnlResource">
+                                    @Html.HiddenFor(m => m.resource.ResourceId)
+                                    <div id="pnlResourceInfo">
+                                        <ul class="profile_form">
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                    <label>
+                                                        Category :</label>
+                                                </div>
+                                                <div class="span3">
+                                                    @Html.DropDownListFor(m => m.resource.CategoryId, ddlCategoryList, "Select Category")
+
+                                                    @Html.ValidationMessageFor(m => m.resource.CategoryId)
+                                                </div>
+                                                <div class="span5">
+                                                    @if (ddlCategoryList.Count == 0)
+                                                    {
+                                                        <p style="color: red">Please Insert Category in Resource Category <a href="/AdminSec/Resources/Cat/">Click Here</a></p>
+                                                    }
+                                                </div>
+
+                                            </li>
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                    <label>
+                                                        Title :</label>
+                                                </div>
+                                                <div class="span3">
+                                                    @Html.TextBoxFor(m => m.resource.Title)
+                                                    @Html.ValidationMessageFor(m => m.resource.Title)
+                                                </div>
+                                            </li>
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                    <label>
+                                                        Description :</label>
+                                                </div>
+                                                <div class="span3">
+                                                    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+                                                    <script type="text/javascript">
+                                                        //<![CDATA[
+                                                        bkLib.onDomLoaded(function () {
+                                                            nicEditors.editors.push(
+                                                            new nicEditor().panelInstance(
+                                                                document.getElementById('@Html.IdFor(m => m.resource.Description)')
+                                                        )
+                                                    );
+                                                        });
+                                                        //]]>
+                                                    </script>
+                                                    @Html.TextAreaFor(m => m.resource.Description, new { @class = "address", @style = "width:600px;height:200px; resize :none;" })
+                                                </div>
+                                            </li>
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                    <label>Image :</label>
+                                                </div>
+                                                <div class="span4">
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.resource != null)
+                                                        {
+                                                        @Html.TextBoxFor(m => m.resource.ImageResource, new { type = "file" })
+                                                        }
+                                                    }
+                                                </div>
+                                                <div class="span3">
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.resource != null)
+                                                        {
+                                                        <img id="imgUniversityLogo" src="@(Model.resource.ImagePath != null ? "/Images/Profile/" + Model.resource.ImagePath : "/Images/no_image.jpg")" width="100" />
+                                                        }
+                                                    }
+
+                                                </div>
+                                            </li>
+                                            <li class="row-fluid">
+                                                <div class="span3">
+                                                </div>
+                                                <div class="span6">
+                                                    <div class="width100per pull-left">
+                                                        @if (ddlCategoryList.Count > 0)
+                                                        {
+                                                        
+                                                        
+                                                            <input id="btnSaveResources" name="btnSaveResources" value="Save" class="large_button pull-left" type="submit" />
+                                                            <span class="small_space"></span>
+                                                            <a href="/AdminSec/Resources/Res" class="button  pull-left">Cancel</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <input value="Save" class="large_button  pull-left" type="button" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="pnlResourcesDetail">
+                                    <a id="addResource" href="/AdminSec/Resources/ResAdd/" class="button fright">Add New Resource</a>
+                                    @if (Model.resourceList.Count != 0)
+                                    {
+                                        <table cellspacing="0" border="1" style="border-collapse: collapse;" id="MainContent_grvWorkHistory" rules="all" class="simple_table box">
+                                            <tr>
+
+                                                <th style="width: 10%;" scope="col">Title</th>
+                                                @*<th style="width: 10%;" scope="col">Description</th>*@
+                                                <th style="width: 10%;" scope="col">Category</th>
+                                                <th style="width: 5%;" scope="col">Created Date</th>
+                                                <th style="width: 10%;" scope="col">Created By</th>
+                                                <th style="width: 5%;" scope="col">Delete</th>
+
+                                            </tr>
+                                            @{
+                                        string des = "";}
+                                            @foreach (var r in Model.resourceList)
+                                            {
+                                                //if (r.Description.Length >= 20)
+                                                //{
+                                                //    des = Convert.ToString(Html.Raw(HttpUtility.HtmlDecode(r.Description)));
+                                                //    des = des.Substring(0, 20);
+                                                //}
+                                                //else
+                                                //{
+                                                //    des = Convert.ToString(Html.Raw(HttpUtility.HtmlDecode(r.Description)));
+                                                //}
+                                                if (CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                                                {
+                                                    res = resourceBLL.Get(r.ResourceId);
+                                                }
+                                                <tr>
+                                                    <td style="width: 10%;">
+                                                        @if (CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                                                        {
+                                                            if (res != null)
+                                                            {
+                                                                if (res.CreatedBy != null)
+                                                                {
+                                                                    if (res.CreatedBy == CookieHelper.Username)
+                                                                    {
+                                                            <a href="/AdminSec/Resources/ResAdd/@r.ResourceId">@r.Title</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                            <a href="javascript:OpenDescriptionPopup('@r.ResourceId')">@r.Title</a>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                            <a href="javascript:OpenDescriptionPopup('@r.ResourceId')">@r.Title</a>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/AdminSec/Resources/ResAdd/@r.ResourceId">@r.Title</a>
+                                                        }
+                                                    </td>
+                                                    @*<td style="width: 10%;">@Html.Raw(des)</td>*@
+                                                    <td style="width: 10%;">@r.ResourceCategory.Name</td>
+                                                    <td style="width: 5%;">@r.CreatedDate.Value.Date.ToString("dd/MM/yyyy")</td>
+                                                    <td style="width: 10%;">@r.CreatedBy</td>
+
+                                                    <td style="width: 5%;">
+                                                        @if (CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                                                        {
+                                                            if (res != null)
+                                                            {
+                                                                if (res.CreatedBy != null)
+                                                                {
+                                                                    if (res.CreatedBy == CookieHelper.Username)
+                                                                    {
+                                                            <a id="deletework" href="javascript:void(0)" onclick="ResourceDelete('@r.ResourceId',this,'@r.Title');">Delete</a>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a id="deletework" href="javascript:void(0)" onclick="ResourceDelete('@r.ResourceId',this,'@r.Title');">Delete</a>
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                                    }
+                                </div>
+                            }
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ResourceDescriptionModel" title="Artical Description" style="display: none;">
+    <div class="simple_block">
+        <p>
+            <span id="lblDescription"></span>
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#tabNavigation li").each(function () {
+        $(this).removeClass('list1_active');
+    });
+
+    var loc = window.location.pathname;
+    var s = loc.split("/");
+    if (s[3] == "ResAdd" || s[3] == "Res") {
+        $("#Res").addClass('list_active');
+    }
+    else
+        $("#Cat").addClass('list_active');
+
+
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkResources").addClass('navi_active');
+    });
+
+    function ResourceCategoryDelete(stduentWork, element, compname) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            closeOnEscape: true,
+            height: 140,
+            title: "Delete [" + compname + "]",
+            modal: true,
+            buttons: {
+                "Yes": function () {
+                    if (Page_IsValid) {
+                        var sat2 = {
+                            CategoryId: parseInt(stduentWork),
+                        };
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "/AdminSec/_ResourceCategoryDelete/",
+                            data: JSON.stringify(sat2),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                $(element).parent().parent().remove();
+
+                                if (msg) {
+                                    //location.reload();
+                                }
+                            }
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    function ResourceDelete(stduentWork, element, compname) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            closeOnEscape: true,
+            height: 140,
+            title: "Delete [" + compname + "]",
+            modal: true,
+            buttons: {
+                "Yes": function () {
+                    if (Page_IsValid) {
+                        var sat2 = {
+                            ResourceId: parseInt(stduentWork),
+                        };
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "/AdminSec/_ResourceDelete/",
+                            data: JSON.stringify(sat2),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                if (msg == "no") {
+                                    $("#dialog-reply").dialog({
+                                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                                        resizable: false,
+                                        height: 200,
+                                        closeOnEscape: true,
+                                        modal: true,
+                                        buttons: {
+                                            "OK": function () {
+                                                $(this).dialog("close");
+                                            }
+                                        },
+                                    });
+                                }
+                                else {
+                                    $(element).parent().parent().remove();
+                                }
+                            }
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    function OpenDescriptionPopup(resourceId) {
+        var user = {
+            ResourceId: resourceId,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_GetResourceDescription",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg != null && msg != "") {
+                    document.getElementById("lblDescription").innerHTML = msg;
+                }
+                else {
+                    document.getElementById("lblDescription").innerHTML = "Not Available";
+                }
+
+                $("#ResourceDescriptionModel").dialog({ modal: true, minWidth: 700, resizable: false, minHeight: 300, closeOnEscape: true, closeText: "" });
+            },
+            // error: function (e1, e2, e3, e4) { alert(JSON.stringify(e2)); }
+        });
+    }
+</script>
+
+

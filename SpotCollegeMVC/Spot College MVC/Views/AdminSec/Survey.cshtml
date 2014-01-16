@@ -1,0 +1,188 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@{
+    ViewBag.Title = "Survey";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
+@model SurveyModel
+<div class="row-fluid">
+    <div class="span12">
+        <div id="dialog-confirm" title="Delete" style="display: none;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+        </div>
+        <div class="pattern_box box_space">
+            <div class="row-fluid">
+                <div id="LoadingImage" style="display: none" class="modal_loder">
+                </div>
+                <div class="span9">
+                    <div id="pnlSubuserManagementDetail">
+                        @if (Model.surveyList.Count != 0)
+                        {
+                            <table cellspacing="0" border="1" style="border-collapse: collapse;" rules="all" class="simple_table box">
+                                <tr>
+                                    <th style="width: 10%;" scope="col">Name</th>
+                                    <th style="width: 10%;" scope="col">Country</th>
+                                    <th style="width: 10%;" scope="col">University</th>
+                                    <th style="width: 5%;" scope="col">Delete</th>
+                                </tr>
+
+                                @foreach (var r in Model.surveyList)
+                                {
+                                    <tr>
+
+                                        <td style="width: 10%;">
+                                            <a href="javascript:void(0)" onclick="OpenFeedbackPopup('@r.SurveyId');">@r.Name</a>
+                                        </td>
+                                        <td style="width: 10%;">@EnumHelper.GetDescriptionFromEnumValue((CountryList)Convert.ToInt16(r.Country)).ToString()</td>
+                                        <td style="width: 10%;">@r.University</td>
+                                        <td style="width: 5%;">
+                                            <a id="deleteSubUserDetail" href="javascript:void(0)" onclick="SurveyDelete('@r.SurveyId',this);">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                        else
+                        {
+                            <div>There is No Survey</div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*For FeedBack PopUp*@
+@Html.Partial("_LeaveFeedBack")
+<script type="text/javascript">
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkSurvey").addClass('navi_active');
+    });
+
+    function OpenFeedbackPopup(surveyId) {
+        var subUser = {
+            SurveyId: parseInt(surveyId),
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_getSurveyDetail/",
+            data: JSON.stringify(subUser),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                $("#hndSurveyId").val(msg.SurveyId);
+                $("#ans_1").val(msg.Name);
+                $("#ans_2").val(msg.Country);
+                $("#ans_3").val(msg.City);
+                $("#ans_4").val(msg.University);
+                $("#ans_universityname").text(msg.University);
+                $("#ans_5").val(msg.GraduationYear);
+                $("#ans_6").val(msg.Course);
+                $("#ans_7").val(msg.Degree);
+                $("#ans_8").val(msg.ApplyOwnOrAgent);
+                //$("#ans_9").val(msg.LocalAgentCharge);
+                if (msg.LocalAgentCharge != null) {
+                    $("#ans_9").val(msg.LocalAgentCharge.split("//")[0]);
+                    $("#ddlCurrency").val(msg.LocalAgentCharge.split("//")[1]);
+                }
+                else
+                    $("#ans_9").val(msg.LocalAgentCharge);
+                $("#ans_10").val(msg.AgentName);
+                $("#ans_11").val(msg.FirstLive);
+                $("#ans_12").val(msg.LookingForHousing);
+                $("#ans_13").val(msg.RoomShared);
+                $("#ans_14").val(msg.MonthlyRent);
+                $("#ans_15").val(msg.WhereLive);
+                $("#ans_16").val(msg.Address);
+                $("#ans_17").val(msg.RateYourBuilding);
+                $("#ans_18").val(msg.LandlordFeedback);
+                $("#ans_19").val(msg.ReturnDeposite);
+                $("#ans_20").val(msg.HousingSuggestion);
+                $("#ans_21").val(msg.LookForJob);
+                $("#ans_22").val(msg.FindJob);
+                $("#ans_23").val(msg.GetOne);
+                $("#ans_24").val(msg.Department);
+                $("#ans_25").val(msg.HourlyPay);
+                $("#ans_26").val(msg.JobSuggestion);
+                $("#ans_27").val(msg.SafeOnCampus);
+                $("#ans_28").val(msg.SafeonOutside);
+                $("#ans_29").val(msg.HappenCampus);
+                $("#ans_30").val(msg.CampusPolice);
+                $("#ans_31").val(msg.StolenThings);
+                $("#ans_32").val(msg.StolenThingDescription);
+                $("#ans_33").val(msg.RetriveItBack);
+                $("#ans_34").val(msg.Scholarship);
+                $("#ans_35").val(msg.OneAfterwards);
+                $("#ans_36").val(msg.AfterJoining);
+                $("#ans_37").val(msg.ScholarshipSuggestion);
+                $("#ans_38").val(msg.SufficientEating);
+                $("#ans_39").val(msg.SufficientMarkets);
+                $("#ans_40").val(msg.TestScore);
+                $("#ans_41").val(msg.ApplyOtherUniversity);
+                $("#ans_42").val(msg.GetAllUniversity);
+                $("#ans_43").val(msg.JobsorInternships);
+                $("#ans_44").val(msg.SuggestionstoUniversity);
+                $("#ans_45").val(msg.SuggestionstoStudent);
+                $("#ans_46").val(msg.EmailId);
+                if (msg.ForwardQuestions == true)
+                    $('#ans_47').attr('checked', 'checked');
+                else
+                    $('#ans_47').attr('checked');
+
+                if (msg.IsApproved == true) {
+                    $('#chkIsApproved').attr('checked', 'checked');
+                }
+                else
+                    $('#chkIsApproved').attr('checked');
+
+                $("#ans_48").val(msg.HealthInsuranceUni);
+                $("#ans_49").val(msg.PruchaseHealthInsu);
+            }
+        });
+        $("#FeedbackModal").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 500, closeOnEscape: true, closeText: "" });
+    }
+
+    function SurveyDelete(surveyId, element) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    if (Page_IsValid) {
+                        var subUser = {
+                            SurveyId: parseInt(surveyId),
+                        };
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "/AdminSec/_SurveyDetailDelete/",
+                            data: JSON.stringify(subUser),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                $(element).parent().parent().remove();
+                            }
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+</script>

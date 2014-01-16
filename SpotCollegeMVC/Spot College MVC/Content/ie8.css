@@ -1,0 +1,12 @@
+.container{ width:1170px;}
+select{ border-color:#CACACA!important; background:url("../images/profile_inputbg.gif") repeat-x scroll left top #F2F2F2!important;}
+.navigation li a, .button, .large_button, .shadowbox, .pattern_box, .list_5 li, .alluniversitybox li .name{ border-radius:0px!important; behavior:inherit!important;}
+
+.list_5 li{ border:1px solid #839AAB;}
+.list_5 li li{ border:1px dashed #B8C8D5; background:transparent; border-width:0 0 1px 0;}
+.pattern_box{ border:1px solid #C4CED6;}
+
+.navigation li a.home{ font-size:16px; color:#FFF; overflow:hidden; background-image:none!important; border-radius:0px!important; behavior:inherit!important; width:auto!important; height:auto!important; padding:7px 5px 10px;}
+.navigation li a.home:hover, .navigation li.navi_active a.home{ color:#754E36; background-image:none!important; border-radius:0px!important; behavior:inherit!important;}
+
+

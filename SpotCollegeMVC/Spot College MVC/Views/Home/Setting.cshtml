@@ -1,0 +1,196 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@model SettingsModel
+@{
+    ViewBag.Title = "Setting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div id="dialog-confirm" title="Delete Profile" style="display: none;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+        </div>
+        <div id="LoadingImage" style="display: none" class="modal_loder">
+        </div>
+        <div class="pattern_box box_space">
+            <div class="row-fluid">
+                <div class="span3 first">
+                    <div class="shadowbox">
+                        <div class="h2_heading">
+                            <h2>Settings</h2>
+                        </div>
+                        <div class="paddingbox">
+                            <div id="pnlHeaderLinks">
+                                <ul class="list_1" id="tabNavigation">
+                                    <li id="Pri">
+                                        @Html.ActionLink("Privacy", "Setting/Pri", "Home")
+                                    </li>
+                                    <li id="Com">
+                                        @Html.ActionLink("Communication", "Setting/Com", "Home")
+                                    </li>
+                                    <li id="Del">
+                                        @Html.ActionLink("Delete", "Setting/Del", "Home")
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @{
+                    //this code snippet is used to manage tab
+                    if (ViewBag.Current == null)
+                    {
+                        if (ViewContext.RouteData.Values["id"] != null)
+                        {
+                            ViewBag.Current = ViewContext.RouteData.Values["id"];
+                        }
+                        else
+                        {
+                            ViewBag.Current = "Pri";
+                        }
+                    }
+                      
+                      
+                }
+                <div class="span9">
+                    @if (ViewBag.Current == "Com")
+                    {
+                        <form method="post">
+                            <div id="pnlCommunication">
+                                @Html.HiddenFor(m => m.commnicationSetting.SettingId)
+                                <div id="pnlResourceCategoryInfo">
+                                    <h1>Communication Settings</h1>
+                                    <ul class="checkbox_list">
+                                        <li>
+                                            @Html.CheckBoxFor(m => m.commnicationSetting.DailyEmail)
+                                            @Html.LabelFor(m => m.commnicationSetting.DailyEmail)
+                                        </li>
+                                        <li>
+                                            @Html.CheckBoxFor(m => m.commnicationSetting.StudentsEmail)
+                                            @Html.LabelFor(m => m.commnicationSetting.StudentsEmail)
+                                        </li>
+                                        <li>
+                                            @Html.CheckBoxFor(m => m.commnicationSetting.UniversityEmail)
+                                            @Html.LabelFor(m => m.commnicationSetting.UniversityEmail)
+
+                                        </li>
+                                        <li>
+                                            @Html.CheckBoxFor(m => m.commnicationSetting.PromotionalEmail)
+                                            @Html.LabelFor(m => m.commnicationSetting.PromotionalEmail)
+
+                                        </li>
+                                        <li class="row-fluid">
+                                            <div class="span3">
+                                            </div>
+                                            <div class="span6">
+                                                <input id="btnSaveComminicationSettings" name="btnSaveComminicationSettings" value="Save" class="large_button" type="submit" />
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                    else if (ViewBag.Current == "Del")
+                    {
+                        <div id="pnlDelete">
+                            <div id="divDelete">
+                                <h1>Delete Profile</h1>
+                                <ul class="profile_form">
+                                    <li style="font-size: 18px">Click <a id="deleteUserProfile" href="javascript:void(0)" onclick="UserProfileDelete('@CookieHelper.Username');">here </a>to delete your profile
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <div id="pnlResource">
+                                @Html.HiddenFor(m => m.privacySetting.SettingId)
+                                <div id="pnlResourceInfo">
+                                    <h1>Privacy Settings</h1>
+                                    <p class="content-text">
+                                        Manage privacy settings for your client profile on SpotCollege.<br />
+                                        See how other students see your profile
+                                        <br />
+                                        See how universities see your profile
+                                    </p>
+                                    <ul class="checkbox_list">
+                                        <li>
+                                            @Html.CheckBoxFor(m => m.privacySetting.Students)
+                                            @Html.LabelFor(m => m.privacySetting.Students)
+                                        </li>
+                                        <li>
+                                            @Html.CheckBoxFor(m => m.privacySetting.University)
+                                            @Html.LabelFor(m => m.privacySetting.University)
+                                        </li>
+                                        <li>
+                                            <div class="span3">
+                                            </div>
+                                            <div class="span6">
+                                                <input id="btnSavePrivacySettings" name="btnSavePrivacySettings" value="Save" class="large_button" type="submit" />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#tabNavigation li").each(function () {
+        $(this).removeClass('list1_active');
+    });
+    $("#@ViewBag.Current").addClass('list_active');
+
+
+    $(function () {
+
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkProfile").addClass('navi_active');
+    });
+
+    function UserProfileDelete(username) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    if (Page_IsValid) {
+                        var user = {
+                            usernamedel: username,
+                        };
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "/Home/_StudentDelete/",
+                            data: JSON.stringify(user),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                location.href = "/";
+                            }
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+</script>

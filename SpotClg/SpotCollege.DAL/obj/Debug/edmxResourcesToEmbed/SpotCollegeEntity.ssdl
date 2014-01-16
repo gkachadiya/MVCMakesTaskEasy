@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SpotCollegeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SpotCollegeModelStoreContainer">
+    <EntitySet Name="Alert" EntityType="SpotCollegeModel.Store.Alert" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LoginType" EntityType="SpotCollegeModel.Store.LoginType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Message" EntityType="SpotCollegeModel.Store.Message" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Student" EntityType="SpotCollegeModel.Store.Student" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentAcademics" EntityType="SpotCollegeModel.Store.StudentAcademics" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentInterest" EntityType="SpotCollegeModel.Store.StudentInterest" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentTest" EntityType="SpotCollegeModel.Store.StudentTest" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentWorkHistory" EntityType="SpotCollegeModel.Store.StudentWorkHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="SpotCollegeModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="University" EntityType="SpotCollegeModel.Store.University" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="SpotCollegeModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Alert_User1" Association="SpotCollegeModel.Store.FK_Alert_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Alert" EntitySet="Alert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_User" Association="SpotCollegeModel.Store.FK_Message_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_User1" Association="SpotCollegeModel.Store.FK_Message_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_User" Association="SpotCollegeModel.Store.FK_Student_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentAcademics_Student" Association="SpotCollegeModel.Store.FK_StudentAcademics_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentAcademics" EntitySet="StudentAcademics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentInterest_User" Association="SpotCollegeModel.Store.FK_StudentInterest_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="StudentInterest" EntitySet="StudentInterest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentInterest_User1" Association="SpotCollegeModel.Store.FK_StudentInterest_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="StudentInterest" EntitySet="StudentInterest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentTest_Student" Association="SpotCollegeModel.Store.FK_StudentTest_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentTest" EntitySet="StudentTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentWorkHistory_Student" Association="SpotCollegeModel.Store.FK_StudentWorkHistory_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentWorkHistory" EntitySet="StudentWorkHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_University_User" Association="SpotCollegeModel.Store.FK_University_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="University" EntitySet="University" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_LoginType" Association="SpotCollegeModel.Store.FK_User_LoginType">
+      <End Role="LoginType" EntitySet="LoginType" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Alert">
+    <Key>
+      <PropertyRef Name="AlertId" />
+    </Key>
+    <Property Name="AlertId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LoginType">
+    <Key>
+      <PropertyRef Name="LoginTypeId" />
+    </Key>
+    <Property Name="LoginTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParentId" Type="int" Nullable="false" />
+    <Property Name="FromUserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ToUserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsRead" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime2" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="MiddleName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="PrimaryNumber" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="PrimaryType" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SecondaryNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="SecondaryType" Type="nvarchar" MaxLength="50" />
+    <Property Name="PrimaryEmail" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BirthDate" Type="datetime" />
+    <Property Name="Citizenship" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="StudyingIn" Type="int" Nullable="false" />
+    <Property Name="LookingFor" Type="int" Nullable="false" />
+    <Property Name="LookingForCountry" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="StartDate" Type="int" Nullable="false" />
+    <Property Name="Payout" Type="int" Nullable="false" />
+    <Property Name="SportActivities" Type="nvarchar(max)" />
+    <Property Name="LeadershipActivies" Type="nvarchar(max)" />
+    <Property Name="OtherActivities" Type="nvarchar(max)" />
+    <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="DesiredFieldofStudy" Type="nvarchar" MaxLength="50" />
+    <Property Name="OtherStudy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="StudentAcademics">
+    <Key>
+      <PropertyRef Name="StudentAcademicsId" />
+    </Key>
+    <Property Name="StudentAcademicsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="SchoolName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SchoolCity" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SchoolCountry" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Graduate" Type="int" Nullable="false" />
+    <Property Name="GraduationYear" Type="int" />
+    <Property Name="GraduationLevel" Type="int" />
+    <Property Name="Rank" Type="decimal" Scale="2" />
+    <Property Name="CertificatePath" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DegreebeingPursued" Type="int" />
+    <Property Name="ExpectedYearofGraduation" Type="int" />
+    <Property Name="FieldofStudy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="StudentInterest">
+    <Key>
+      <PropertyRef Name="StudentInterestId" />
+    </Key>
+    <Property Name="StudentInterestId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UniversityUserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="StudentUserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Approved" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudentTest">
+    <Key>
+      <PropertyRef Name="StudentTestId" />
+    </Key>
+    <Property Name="StudentTestId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="TestId" Type="int" Nullable="false" />
+    <Property Name="SectorId" Type="int" />
+    <Property Name="SchoolName" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartYear" Type="int" />
+    <Property Name="EndYear" Type="int" />
+    <Property Name="Composite" Type="nvarchar" MaxLength="50" />
+    <Property Name="English" Type="nvarchar" MaxLength="50" />
+    <Property Name="Math" Type="nvarchar" MaxLength="50" />
+    <Property Name="Reading" Type="nvarchar" MaxLength="50" />
+    <Property Name="Science" Type="nvarchar" MaxLength="50" />
+    <Property Name="Writing" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="50" />
+    <Property Name="Score" Type="nvarchar" MaxLength="50" />
+    <Property Name="VerbalReasoning" Type="nvarchar" MaxLength="50" />
+    <Property Name="QuantitativeReasoning" Type="nvarchar" MaxLength="50" />
+    <Property Name="AnalyticalWriting" Type="nvarchar" MaxLength="50" />
+    <Property Name="Verbal" Type="nvarchar" MaxLength="50" />
+    <Property Name="Total" Type="nvarchar" MaxLength="50" />
+    <Property Name="Listening" Type="nvarchar" MaxLength="50" />
+    <Property Name="Speaking" Type="nvarchar" MaxLength="50" />
+    <Property Name="Biology" Type="nvarchar" MaxLength="50" />
+    <Property Name="Physics" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="StudentWorkHistory">
+    <Key>
+      <PropertyRef Name="StudentWorkHistoryId" />
+    </Key>
+    <Property Name="StudentWorkHistoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Position" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="Responsibilities" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="University">
+    <Key>
+      <PropertyRef Name="UniversityId" />
+    </Key>
+    <Property Name="UniversityId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="UniversityName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AdminName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Degree" Type="nvarchar" MaxLength="50" />
+    <Property Name="Courses" Type="nvarchar(max)" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="50" />
+    <Property Name="EstablishedYear" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="UnderGraduateFee" Type="nvarchar" MaxLength="50" />
+    <Property Name="GraduateFee" Type="nvarchar" MaxLength="50" />
+    <Property Name="BookFee" Type="nvarchar" MaxLength="50" />
+    <Property Name="BoardFee" Type="nvarchar" MaxLength="50" />
+    <Property Name="Graduates" Type="int" />
+    <Property Name="UnderGraduates" Type="int" />
+    <Property Name="InternationalGraduate" Type="int" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="CountryCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="UniversityImage" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LoginTypeId" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Alert_User1">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="Alert" Type="SpotCollegeModel.Store.Alert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Alert">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_User">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="Message" Type="SpotCollegeModel.Store.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="FromUserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_User1">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="Message" Type="SpotCollegeModel.Store.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="ToUserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_User">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="Student" Type="SpotCollegeModel.Store.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentAcademics_Student">
+    <End Role="Student" Type="SpotCollegeModel.Store.Student" Multiplicity="1" />
+    <End Role="StudentAcademics" Type="SpotCollegeModel.Store.StudentAcademics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="StudentAcademics">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentInterest_User">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="StudentInterest" Type="SpotCollegeModel.Store.StudentInterest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="StudentInterest">
+        <PropertyRef Name="StudentUserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentInterest_User1">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="StudentInterest" Type="SpotCollegeModel.Store.StudentInterest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="StudentInterest">
+        <PropertyRef Name="UniversityUserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentTest_Student">
+    <End Role="Student" Type="SpotCollegeModel.Store.Student" Multiplicity="1" />
+    <End Role="StudentTest" Type="SpotCollegeModel.Store.StudentTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="StudentTest">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentWorkHistory_Student">
+    <End Role="Student" Type="SpotCollegeModel.Store.Student" Multiplicity="1" />
+    <End Role="StudentWorkHistory" Type="SpotCollegeModel.Store.StudentWorkHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="StudentWorkHistory">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_University_User">
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="1" />
+    <End Role="University" Type="SpotCollegeModel.Store.University" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="University">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_LoginType">
+    <End Role="LoginType" Type="SpotCollegeModel.Store.LoginType" Multiplicity="1" />
+    <End Role="User" Type="SpotCollegeModel.Store.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoginType">
+        <PropertyRef Name="LoginTypeId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="LoginTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getAllSearchStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="whereclause" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_NoOFunApprovedMsg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_StudentUnApprovedMsg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+</Schema>

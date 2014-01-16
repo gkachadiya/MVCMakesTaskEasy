@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" >
+    <title>Careers</title>
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+
+    <!--[if IE]>
+        <link rel="stylesheet" href="../Content/ie.css" type="text/css" media="screen" />
+    <![endif]-->
+
+    <!--[if gte IE 8]>
+        <link rel="stylesheet" href="~/Content/ie8.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="~/Scripts/js/IE8.js" type="text/css" media="screen" />
+    <![endif]-->
+
+    <script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        //Right Click Disable
+        $(document).ready(function () {
+            $(document).bind("contextmenu", function (e) {
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="form1">
+        <div class="bottombg">
+            <div class="bottomgreenbg">
+                <div class="header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span3">
+                                <a href="/" class="logo">
+                                    <img src="/Images/d_logo.png" alt="" /></a>
+                            </div>
+                            <div class="span8">
+                                <nav id="nav-wrap">
+                                    <ul class="navigation" id="nav">
+                                        <li class="navi_active"><a href="#">AboutUs</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="span1">
+                                <ul class="login_logoutbtn">
+                                    <li><a href="/">Login</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12">
+                                <div class="simplepage_design">
+                                    <div class="pattern_box box_space">
+                                        <h1>SpotCollege.com About Us</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="d_footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span9">
+                                <ul class="d_footer_toplink">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/Home/Aboutus">About Us</a></li>
+                                    <li><a href="/Home/PrivacyAndPolicy">Privacy Policy</a></li>
+                                    <li><a href="/Home/TermToUse">Terms of Use</a></li>
+                                    <li><a href="/Home/Careers">Careers</a></li>
+                                </ul>
+                            </div>
+                            <div class="span3"><span class="d_footer_righttext">© 2013, Spot College.com, LLC</span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+

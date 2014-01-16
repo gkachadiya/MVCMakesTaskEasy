@@ -1,0 +1,392 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@using SpotCollege.BLL
+@using SpotCollege.DAL
+@{
+    ViewBag.Title = "MessageDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model List<SpotCollege.DAL.DataModels.MessageModel>
+<div class="pattern_box allmessage">
+    <div class="row-fluid">
+        <div class="msg_replay_hide">
+            <div class="msg_searchbar" style="margin: 0">
+                <span class="search_btn"></span>
+                <input type="text" id="txtSearch" placeholder="Search Message By Title" />
+                <a href="javascript:void(0);" onclick="javascript:OpenMsgPopup('@ViewBag.Name','@ViewBag.ToUserName')" class="button">New Message</a>
+            </div>
+            <br />
+            <br />
+            <div class="message_right">
+                @if (@Model.Count == 0)
+                { 
+                    <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                }
+                <ul class="user_msg_box" id="dlMsgUserList">
+                    @foreach (var r in Model)
+                    {
+                        <li id="parentdiv_@r.MessageId" style="background-color:@r.NameColor;">
+
+                            @*<div class="user_name">
+                                <label>
+                                    <i>@r.CreatedDate.ToShortDateString()</i>
+                                    (@r.NoofChildMessage)
+                                </label>
+                            </div>*@
+                              <div class="user_img">
+                                    <img id="imgMsgStd" src="@ViewBag.ImagePath" />
+                                </div>
+                                <div class="user_name">
+                                    <label> 
+                                        @ViewBag.Name (@r.NoofChildMessage)
+                                    </label>
+                                    <br />
+                                    <i>@r.CreatedDate.ToShortDateString()</i>
+                                </div>
+                            <div class="user_msg">
+                                <label>@r.Title</label>
+                                <p>@r.Description
+                                    <a href="#" class="msg_replay_open_click button" style="float: right" id='@r.MessageId'>View message and Respond</a>
+                                </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div id="noMsgAlert" class="left_right_space" style="display: none">
+                    No More Messages Found
+                </div>
+                <div id="waitDiv" class="left_right_space" style="display: none">
+                    please wait...
+                </div>
+            </div>
+        </div>
+
+        <div class="msg_replay_show messagereplayfrom">
+            <div class="span8">
+                <div id="messageList" class="student_msg message_right shadowbox">
+                </div>
+            </div>
+            <div class="span4">
+                <ul class="student_right_block" id="ulMessageBetween">
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*For Message PopUp*@
+@Html.Partial("_MessageBox")
+
+<div id="LoadingImage" style="display: none" class="modal_loder">
+    @*<img src="/Images/ajaxloader.gif" />*@
+</div>
+<div id="Dialog-Alert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Message Text</p>
+</div>
+<div id="dialog-confirm" title="Delete" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+
+<script type="text/javascript">
+    var availableTags = [];
+    $(function () {
+
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+
+        $("#lnkMessage").addClass('navi_active');
+
+        $.ajax({
+            type: "POST",
+            url: "/AdminSec/_GetMessageTitle",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                if (data != null) {
+                    availableTags = data;
+
+                    $("#txtSearch").autocomplete({
+                        source: availableTags
+                    });
+                }
+            }
+        });
+    });
+
+
+    $("#txtSearch").change(function () {
+        var title = {
+            Title: $("#txtSearch").val(),
+        };
+        if ($("#txtSearch").val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#waitDiv").show(); },
+                complete: function () { $("#waitDiv").hide(); },
+                url: "/AdminSec/_SearchMessageByTitle",
+                data: JSON.stringify(title),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg != 'no') {
+                        $("#noMsgAlert").hide();
+                        $("#dlMsgUserList").html(msg);
+                    }
+                    else {
+
+                    }
+                }
+            });
+        }
+    });
+
+
+    $(".msg_replay_open_click").click(function () {
+        $("#LoadingImage").show();
+        $(this).parent().parent().parent().css('background-color', 'transparent');
+        retriveConversation(this.id);
+    });
+
+    //this function is use to open the message responed when scrolling data is enable
+    function OpenMsg(ele) {
+        $("#LoadingImage").show();
+        retriveConversation(ele.id);
+    }
+
+    //For Retriving Message Conversion
+    function retriveConversation(parentId) {
+        var msgId = {
+            messageId: parentId
+        };
+        $.ajax({
+            type: "POST",
+            url: "/AdminSec/_GetAllConversation",
+            data: JSON.stringify(msgId),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                $("#messageList").html(data[0]);
+                $("#ulMessageBetween").html(data[1]);
+                $("#messageList").show();
+                $(".msg_replay_hide").hide();
+                $(".msg_replay_show").show();
+                $("#LoadingImage").hide();
+                bindToDisplayRemainMessage();
+            }
+        });
+
+    }
+
+    function bindToDisplayRemainMessage() {
+        var str = $("#openAll").text();
+        var status = true;
+        $("#openAll").click(function () {
+            $(".remainMsg").toggle(1000);
+
+            if (status) {
+                $(this).text("hide Messages");
+                status = false;
+            }
+            else {
+                $(this).text(str);
+                status = true;
+            }
+        });
+    }
+
+    //For Open Massegebox
+    function OpenMsgPopup(sendToUserName, username) {
+        var user = {
+            ToUserName: username,
+        };
+        $("#btnMsgSend").show();
+        $("#hndMsgToUserName").val(username);
+        $("#messageList").hide();
+        $("#ulMessageBetween").html("");
+
+        $("#txtSendToUserName").val(sendToUserName);
+        $("#messageList").hide();
+        $("#LoadingImage").hide();
+        $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+
+    }
+
+
+    //For Send Message
+    $("#btnMsgSend").click(function () {
+        var Message = {
+            Title: $("#txtSubject").val(),
+            Description: $("#txtMessage").val(),
+            sendToUserName: $("#hndMsgToUserName").val(),
+            ParentId: "0",
+        };
+        if ($("#txtSubject").val() != "" && $("#txtMessage").val() != "") {
+            $(this).hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_SendMessage",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    $("#messagebox").dialog("close");
+                    $(this).show();
+                    $("#hndMsgToUserName").val("");
+                    // retriveConversation(msg);
+                    $(".msg_replay_hide").show();
+                    $(".msg_replay_show").hide();
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                closeOnEscape: true,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // for Cancel Message
+    $("#btnMsgCancel").click(function () {
+        $("#txtSubject").val("");
+        $("#txtMessage").val("");
+        $("#messagebox").dialog().dialog("close");
+        $(".msg_replay_hide").show();
+        $(".msg_replay_show").hide();
+    });
+
+    //For sending reply message
+    function SaveMessageReply(parentMsgId, title, fromuser, touser) {
+        var msgdata = {
+            parentMsgId: parentMsgId,
+            msgDesc: $('#txtReplyDesc').val(),
+            msgTitle: title,
+            fromusername: fromuser,
+            tousername: touser
+        };
+        if ($('#txtReplyDesc').val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SaveMessageReply",
+                data: JSON.stringify(msgdata),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtReplyDesc").val("");
+                    $("#ulMessage").html(msg + $("#ulMessage").html());
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true,
+                closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    }
+
+    // For Delete Message
+    function MsgDelete(messageid) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            closeOnEscape: true,
+            modal: true,
+            buttons: {
+                "Yes": function () {
+                    var msg = {
+                        Messageid: messageid
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_MsgDelete",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#msgdel" + messageid).parent().parent().parent().remove();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    // For Delete All Message
+    function MsgDeleteAll(parentMsg) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            closeOnEscape: true,
+            modal: true,
+            buttons: {
+                "Yes": function () {
+                    var msg = {
+                        parentid: parentMsg
+                    };
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_DeleteAllConversation",
+                        data: JSON.stringify(msg),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#parentdiv_" + parentMsg).remove();
+                            $(".msg_replay_show").hide();
+                            $(".msg_replay_hide").show();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+</script>
+
+
+

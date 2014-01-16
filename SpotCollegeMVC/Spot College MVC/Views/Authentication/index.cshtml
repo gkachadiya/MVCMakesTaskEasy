@@ -1,0 +1,456 @@
+﻿@using Spot_College_MVC.Models
+@model HomaPageModel
+@{
+    Layout = null;
+    ViewBag.Title = "Welcome to Spot College :: Login";
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+
+    <!--[if IE]>
+        <link rel="stylesheet" href="../Content/ie.css" type="text/css" media="screen" />
+    <![endif]-->
+
+    <!--[if gte IE 8]>
+        <link rel="stylesheet" href="~/Content/ie8.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="~/Scripts/js/IE8.js" type="text/css" media="screen" />
+    <![endif]-->
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+
+    <script src="~/Scripts/js/jquery-ui.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    @*this script is used for Show placeholder value in IE*@
+    <script type="text/javascript">
+
+        //(function (b) { var d = !!("placeholder" in document.createElement("input")); b.fn.placeholder = function (c) { return d ? this : this.each(function () { var a = b(this); c = c || a.attr("placeholder"); "INPUT" !== this.tagName ? b.error('jquery.placeholder only works on "input" elements. Does not support "' + this.tagName.toLowerCase() + '" elements.') : a.data("jquery-placeholder") || (a.data("jquery-placeholder", !0), "" === a.val() && a.val(c).addClass("placeholder"), a.focus(function () { var a = b(this); a.val() === c && a.hasClass("placeholder") && a.val("").removeClass("placeholder") }).blur(function () { var a = b(this); "" === a.val() && a.val(c).addClass("placeholder") })) }) }; d || b(document).delegate("form", "submit", function () { b(this).find(".placeholder").val("").removeClass("placeholder") }) })(jQuery);
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            $('[placeholder]').focus(function () {
+                var input = $(this);
+                if (input.val() == input.attr('placeholder')) {
+                    input.val('');
+                    input.removeClass('placeholder');
+                }
+            }).blur(function () {
+                var input = $(this);
+                if (input.val() == '' || input.val() == input.attr('placeholder')) {
+                    input.addClass('placeholder');
+                    input.val(input.attr('placeholder'));
+                }
+            }).blur().parents('form').submit(function () {
+                $(this).find('[placeholder]').each(function () {
+                    var input = $(this);
+                    if (input.val() == input.attr('placeholder')) {
+                        input.val('');
+                    }
+                })
+            });
+
+            //$('input[placeholder]').placeholder();
+
+            /* prepend menu icon */
+            $('#nav-wrap').prepend('<div id="menu-icon">Menu</div>');
+            /* toggle nav */
+            $("#menu-icon").on("click", function () {
+                $("#nav").slideToggle();
+                $(this).toggleClass("active");
+            });
+        });
+    </script>
+
+    <!-- Fade slide -->
+    <script type="text/javascript" src="~/Scripts/js/jquery.corner.js"></script>
+    <script type="text/javascript">
+
+        ////Right Click Disable
+        //$(document).ready(function () {
+        //    $(document).bind("contextmenu", function (e) {
+        //        return false;
+        //    });
+        //});
+
+        //$(document).ready(function () {
+        //    var imgs = $('#slider > img'); var z = 1; var previousImageId = "";
+        //    $(imgs[0]).show(5000);
+        //    function loop(ev) {
+        //        imgs.delay(5000).fadeOut(1000).eq(z).fadeIn(1000, function () {
+        //            check = z != imgs.length - 1 ? z++ : z = 0;
+        //            loop();
+        //        });
+        //    }
+        //    loop();
+        //});
+
+        var fadeDuration = 2000;
+        var slideDuration = 4000;
+        var currentIndex = 1;
+        var nextIndex = 1;
+        $(document).ready(function () {
+            $('ul.slideshow li img').corner();
+            $('ul.slideshow li').css({ opacity: 0.0 });
+            $("'ul.slideshow li:nth-child(" + nextIndex + ")'").addClass('show').animate({ opacity: 1.0 }, fadeDuration);
+            var timer = setInterval('nextSlide()', slideDuration);
+        })
+        function nextSlide() {
+            nextIndex = currentIndex + 1;
+            if (nextIndex > $('ul.slideshow li').length) {
+                nextIndex = 1;
+            }
+            $("'ul.slideshow li:nth-child(" + nextIndex + ")'").addClass('show').animate({ opacity: 1.0 }, fadeDuration);
+            $("'ul.slideshow li:nth-child(" + currentIndex + ")'").animate({ opacity: 0.0 }, fadeDuration).removeClass('show');
+            currentIndex = nextIndex;
+        }
+
+    </script>
+    @*<%--For Check Duplicate UserName--%>*@
+    <script>
+        $(function () {
+            $("#@Html.IdFor(m => m.registerModel.UserName)").change(function () {
+                if ($("#@Html.IdFor(m => m.registerModel.UserName)").val() != "") {
+                    if (true) {
+                        var User = {
+                            UserName: $('#@Html.IdFor(m => m.registerModel.UserName)').val(),
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "/Authentication/ValidateUser",
+                            data: JSON.stringify(User),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                if (msg == false) {
+                                    // $('#btnSubmit').show();
+                                    $('#duplicateUser').hide();
+                                }
+                                else {
+                                    //$('#btnSubmit').hide();
+                                    $('#duplicateUser').show();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+
+</head>
+
+<body class="dashboardbg">
+    <div id="LoadingImage" style="display: none" class="modal_loder">
+    </div>
+    <div class="dashboardheader">
+        @using (Html.BeginForm(new { ReturnUrl = "/" }))
+        {
+            @Html.AntiForgeryToken()
+           
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span7">
+                        <a href="/" class="logo">
+                            <img src="../Images/d_logo.png" alt="" /></a>
+                    </div>
+
+                    <div class="span5 pull-right">
+                        <ul class="d_navigation">
+                            <li>
+                                @Html.TextBoxFor(m => m.loginModel.Userame, new { placeholder = "Username" })
+                                @Html.ValidationMessageFor(m => m.loginModel.UserName)
+                            </li>
+                            <li>
+                                @Html.PasswordFor(m => m.loginModel.Password, new { placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.loginModel.Password)
+                                <br />
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword", "Authentication")
+                            </li>
+                            <li class="d_navigation_last">
+                                <input id="btnLogin" type="submit" value="Login" />
+                            </li>
+                        </ul>
+                        <span id="lblErrorMsg" class="field-validation-error username_password_error">
+                            @Html.ValidationSummary(true)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div id="dialog-Alert" title="Aggrement" style="display: none;">
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Must accept our Privacy Policy and T&C to join</p>
+    </div>
+    @*<div id="fb-root"></div>*@
+    @*<script src="http://code.jquery.com/jquery-1.6.2.js" type="text/javascript"></script>*@
+    @*<script src="/Scripts/Facebook.js" type="text/javascript"></script>*@
+    @* <script type="text/javascript">
+        $(function () {
+            InitialiseFacebook(@System.Configuration.ConfigurationManager.AppSettings["FacebookAppId"]);
+        });
+    </script>*@
+
+    <div class="d_banner">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span8">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="country_block">
+                                <h3>Contact International Universities
+                                    <br />
+                                    from more than a dozen Countries.</h3>
+                                <img src="../Images/country_img.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" id="frmRegister">
+                    <div class="span4">
+                        <div class="d_register_block">
+                            <h1>Students: Sign up here</h1>
+                            <ul class="login_list">
+                                <li>
+                                    <label>Enter Username</label>
+                                    <div>
+                                        @Html.AntiForgeryToken()
+                                        <span class="login_sep"></span>
+                                        <span class="login_email"></span>
+                                        @Html.TextBoxFor(m => m.registerModel.UserName, new { placeholder = "Enter Email", })
+                                        @Html.ValidationMessageFor(m => m.registerModel.UserName)
+                                        @Html.ValidationMessage("duplicateUser")
+                                        <span id="duplicateUser" class="field-validation-error" style="display: none">UserName already exist in Record. Please Choose Any other..!</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>Enter Password</label>
+                                    <div>
+                                        <span class="login_sep"></span>
+                                        <span class="login_password"></span>
+                                        @Html.TextBoxFor(m => m.registerModel.Password, new { placeholder = "Enter Password", type = "password" })
+                                        @Html.ValidationMessageFor(m => m.registerModel.Password, "", new { @class = "field-validation-error" })
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>Confirm Password</label>
+                                    <div>
+                                        <span class="login_sep"></span><span class="login_password"></span>
+                                        @Html.TextBoxFor(m => m.registerModel.ConfirmPassword, new { placeholder = "Confirm Password", type = "password" })
+                                        @Html.ValidationMessageFor(m => m.registerModel.ConfirmPassword)
+                                    </div>
+                                </li>
+                                <li>
+                                    <input id="chkPolicy" type="checkbox" /><span>I agree to <a href="/Home/PrivacyAndPolicy" target="_blank">Privacy Policy</a> and <a href="/Home/TermToUse" target="_blank">T&C</a></span>
+                                </li>
+                                <li>
+                                    <input id="btnSubmit" type="submit" value="Register" class="button" />
+                                    @*<fb:login-button autologoutlink="true" perms="read_friendlists, create_event, email, publish_stream" class="button"></fb:login-button>*@
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div id="slider">
+            <ul class="slideshow">
+                <li>
+                    <img src="../Images/slide1.jpg" alt="" /></li>
+                <li>
+                    <img src="../Images/slide2.jpg" alt="" /></li>
+                <li>
+                    <img src="../Images/slide3.jpg" alt="" /></li>
+                <li>
+                    <img src="../Images/slide4.jpg" alt="" /></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="d_content">
+        <div class="container">
+            <div class="row-fluid">
+                <ul>
+                    <li class="span4">
+                        <div class="d_transperntbox">
+                            <div class="heading">
+                                <h1>Students: See Which Colleges Want You</h1>
+                            </div>
+                            <ul>
+                                <li>
+                                    <img src="../Images/std_1.gif" alt="" class="mtop5pex" />
+                                    <span>Search for the perfect international university that fits your budget and program</span>
+                                </li>
+                                <li>
+                                    <img src="../Images/std_2.gif" alt="" class="mtop5pex" />
+                                    <span>Contact admissions office for scholarships and other queries</span>
+                                </li>
+                                <li>
+                                    <img src="../Images/std_3.gif" alt="" class="mtop10pex" />
+                                    <span>Locate other students from your city applying to same university and collaborate with them on matters of housing, travel, flights and more</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="d_transperntbox">
+                            <div class="heading">
+                                <h1>Universities: Contact students around the world</h1>
+                            </div>
+                            <ul>
+                                <li>
+                                    <img src="../Images/std_4.gif" alt="" />
+                                    <span>Find the perfect students matching your admissions criteria.</span>
+                                </li>
+                                <li>
+                                    <img src="../Images/std_5.gif" alt="" />
+                                    <span>View complete profiles including marksheets, test scores, certificates</span>
+                                </li>
+                                <li>
+                                    <img src="../Images/std_6.gif" alt="" />
+                                    <span>Make spot offers to the right candidate</span>
+                                </li>
+                                <a href="/Home/RegisterUniversity" id="signUni" class="button fright">Sign Up here</a>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="d_transperntbox">
+                            <div class="heading">
+                                <h1>Leave Feedback</h1>
+                            </div>
+                            <ul>
+                                <li>
+                                    <img src="../Images/d_img5.gif" alt="" />
+                                    <span>
+                                        Did you go abroad for education ? Contribute an anonymous review on your experience at the university. 
+                                        <span class="clearfix"></span>
+                                        Inform future students about the cost of living, rent, feedback on landlords, on-campus jobs availability and more..
+                                    </span>
+                                </li>
+
+                                <a href="javascript:void(0)" onclick="javascript:OpenFeedbackPopup();" class="button">Click here to leave Feedback</a>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="d_footer">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span9">
+                    <ul class="d_footer_toplink">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/Home/Aboutus">About Us</a></li>
+                        <li><a href="/Home/PrivacyAndPolicy">Privacy Policy</a></li>
+                        <li><a href="/Home/TermToUse">Terms of Use</a></li>
+                        <li><a href="/Home/Careers">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="span3"><span class="d_footer_righttext">© 2013, Spot College.com, LLC</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+@*Validation script*@
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@*For FeedBack PopUp*@
+@Html.Partial("_LeaveFeedBack",new SpotCollege.DAL.DataModels.SurveyModel())
+    @*  *@
+<script type="text/javascript">
+    $("#frmRegister").submit(function () {
+        if ($(this).valid()) {
+            if ($("#chkPolicy").is(":checked")) {
+                return true;
+            }
+            else {
+                $("#dialog-Alert").dialog({
+                    open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                    resizable: false,
+                    height: 170,
+                    modal: true,
+                    closeOnEscape: true,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                });
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    });
+
+    //This function is not used. Functionality of this function id replaced by above function.
+    $("#btnSubmitt").click(function () {
+        if ($("#frmRegister").valid()) {
+            var userinfo = {
+                UserName: $("#txtEmail").val(),
+                Password: $("#txtRegPassword").val(),
+            };
+            if ($("#chkPolicy").is(":checked")) {
+                $("#frmRegister").submit();
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () { $("#LoadingImage").show(); },
+                    complete: function () { $("#LoadingImage").hide(); },
+                    url: "/Student/EditProfile",
+                    data: JSON.stringify(userinfo),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $("#txtEmail").val("");
+                        $("#txtRegPassword").val("");
+                        $("#txtConfirmPassword").val("");
+                        $("#LoadingImage").hide();
+                        window.location.href = "EditProfile.aspx";
+                    },
+                    error: function (e1, e2, e3, e4) {
+                        alert(JSON.stringify(e1));
+                    }
+
+                });
+            }
+            else {
+                $("#dialog-Alert").dialog({
+                    open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                    resizable: false,
+                    height: 170,
+                    modal: true,
+                    closeOnEscape: true,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                });
+            }
+        }
+    });
+
+    function OpenFeedbackPopup() {
+        $("#FeedbackModal").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 500, closeOnEscape: true, closeText: "" });
+    }
+</script>
+</html>

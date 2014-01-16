@@ -1,0 +1,801 @@
+﻿@using SpotCollege.Common
+@using Newtonsoft.Json
+@using SpotCollege.DAL.DataModels
+@using SpotCollege.DAL
+@using SpotCollege.BLL
+@{
+    ViewBag.Title = "Portal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    StudentBLL studentBll = new StudentBLL();
+    Student std = new Student();
+}
+@model StudentProfileModel
+
+<div class="row-fluid">
+    <div class="msg_replay_hide">
+        <div class="span3">
+
+            <div class="searh_box">
+                <form action="/Student/Portal" method="post">
+                    <div class="pattern_box box_space">
+                        <div class="h2_heading">
+                            <h2>Student Search</h2>
+                        </div>
+                        @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                        {
+                            <ul>
+                                <li><span>Student From : </span>
+
+                                    @Html.DropDownList("dllStudentCountry", DropDownHelper.getCountry(Model.student.Country))
+                                </li>
+                                <li>
+                                    <span>Seeking : </span>
+                                    @Html.DropDownList("ddlSearchByLookingFor", DropDownHelper.getPrograms(Model.student.LookingFor))
+                                </li>
+                                <li>
+                                    <span>Going To : </span>
+                                    @Html.DropDownList("ddlSearchByCountry", DropDownHelper.getCountry(Model.student.LookingForCountry))
+                                </li>
+                                <li>
+                                    <input type="submit" name="btnSearch" id="btnSearch" value="Search" class="button" />
+                                </li>
+                            </ul>
+                            <div style="color: black; font-size: larger" class="record_found">
+                                <span id="lblStudRecPageLd">@ViewBag.lblStudRecPageLd</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <ul>
+                                <li><span>Student From : </span>
+
+                                    @Html.DropDownList("dllStudentCountry", DropDownHelper.getCountry(Model.student.Country))
+                                </li>
+                                <li>
+                                    <span>Seeking : </span>
+                                    @Html.DropDownList("ddlSearchByLookingFor", DropDownHelper.getPrograms(Model.student.LookingFor))
+                                </li>
+                                <li>
+                                    <span>Going To : </span>
+                                    @Html.DropDownList("ddlSearchByCountry", DropDownHelper.getCountry(Model.student.LookingForCountry))
+                                </li>
+                                <li>
+                                    <input type="submit" name="btnSearch" id="btnSearch" value="Search" class="button" />
+                                </li>
+                            </ul>
+                            <div style="color: black; font-size: larger" class="record_found">
+                                <span id="lblUniRecPageLd">@ViewBag.lblUniRecPageLd   </span>
+                            </div>
+
+                        }
+                        <div style="color: black; font-size: larger" class="record_found">
+                            <span id="lblTotalRecUni">@ViewBag.lblTotalRecBtn   </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="span9">
+            <div class="list_5">
+                <div class="pattern_box box_space">
+                    @if (Model.studentList != null)
+                    {
+                        if (Model.studentList.Count == 0)
+                        { 
+                        <div style="color: black; font-size: larger" id="errorMsgDiv" class="box">
+                            <br />
+                            No Record Found
+                        </div>
+                        }
+
+                        <ul id="dlStudentList">
+                            @foreach (var r in @Model.studentList)
+                            {
+                                //if (r.StudyingIn != null && r.StudyingIn != 0)
+                                //{
+                                <li>
+                                    <div class="name">
+                                        @r.FirstName @r.LastName
+                                        <div class="country">@r.Country</div>
+                                    </div>
+
+                                    <div class="img">
+                                        <img ID="imgStudent" src="..\Images\Profile\@r.Photo" />
+                                    </div>
+                                    <div class="detail">
+                                        <ul class="list_4">
+                                            <li>
+                                                <label>Location :</label>
+                                                <span>@r.City,@r.Country</span>
+                                            </li>
+                                            <li>
+                                                <label>Current Status :</label>
+                                                @if (r.StudyingIn != 0 && r.StudyingIn != null)
+                                                {
+                                                    <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.CurrentlyIn)@r.StudyingIn).ToString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Looking for a :</label>
+                                                @if (r.LookingFor != 0 && r.LookingFor != null)
+                                                {
+                                                    <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.ProgramLookingFor)@r.LookingFor).ToString() in @r.DesiredFieldofStudy</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Desired Start Date :</label>
+                                                @if (r.StartDate != 0 && r.LookingFor != null)
+                                                {
+                                                    <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.expectedStart)@r.StartDate).ToString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Desired Location :</label>
+                                                @if (r.LookingForCountry != "" && r.LookingForCountry != null)
+                                                {
+                                                    <span>@r.LookingForCountry</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Profile Created On :</label>
+                                                <span>@r.CreatedDate.Value.ToShortDateString()</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="morebtn_">
+                                        @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                                        {
+                                            <a href="javascript:void(0)"  onclick="javascript:OpenMsgPopup('@r.FirstName @r.LastName','@r.UserName');" class="msgbtn">Message</a>
+                                        }
+                                        else
+                                        {
+@*<a href="/Student/Profile/@r.StudentId" class="button fright">Profile</a>*@
+                                            <a href="javascript:void(0)" onclick="javascript:ShowStudentProfile('@r.UserName');" class="button fright">Profile</a>
+                                        }
+                                    </div>
+                                </li>
+                                //}
+                            }
+                        </ul>
+                    }
+                    @if (Model.studentInterestList != null)
+                    {
+                        if (Model.studentInterestList.Count == 0)
+                        {
+                        @*<div style="color: black; font-size: larger" id="errorMsgDiv" class="box">
+                            <br />
+                            No Record Found
+                        </div>*@
+                        }
+                        else
+                        {
+                        <ul id="dlStudentList">
+                            @foreach (var i in Model.studentInterestList)
+                            {
+
+                                std = studentBll.GetByUserName(i.StudentUserName);
+                                // if (std.StudyingIn != null && std.StudyingIn != 0)
+                                //{
+                                <li>
+                                    <div class="name">
+                                        @std.FirstName @std.LastName
+                                        <div class="country">@std.Country</div>
+                                    </div>
+
+                                    <div class="img">
+                                        <img ID="imgStudent" src="..\Images\Profile\@std.Photo" />
+                                    </div>
+                                    <div class="detail">
+                                        <ul class="list_4">
+                                            <li>
+                                                <label>Location :</label>
+                                                <span>@std.City,@std.Country</span>
+                                            </li>
+                                            <li>
+                                                <label>Current Status :</label>
+                                                @if (std.StudyingIn != 0 && std.StudyingIn != null)
+                                                {
+                                                    <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.CurrentlyIn)@std.StudyingIn).ToString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Looking for a :</label>
+                                                @if (std.LookingFor != 0 && std.LookingFor != null)
+                                                {
+                                                    <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.ProgramLookingFor)@std.LookingFor).ToString() in @std.DesiredFieldofStudy</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Desired Start Date :</label>
+                                                @if (std.StartDate != 0 && std.LookingFor != null)
+                                                {
+                                                    <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.expectedStart)@std.StartDate).ToString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Desired Location :</label>
+                                                @if (std.LookingForCountry != "" && std.LookingForCountry != null)
+                                                {
+                                                    <span>@std.LookingForCountry</span>
+                                                }
+                                                else
+                                                {
+                                                    <span></span>
+                                                }
+                                            </li>
+                                            <li>
+                                                <label>Profile Created On :</label>
+                                                <span>@std.CreatedDate.Value.ToShortDateString()</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="morebtn_">
+                                        @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                                        {
+                                            <a href="javascript:void(0)" onclick="javascript:OpenMsgPopup('@std.FirstName @std.LastName','@std.UserName');" class="msgbtn">Message</a>
+                                        }
+                                        else
+                                        {
+@*<a href="/University/StudentProfile/@std.StudentId" class="button fright">Profile</a>*@
+                                            <a href="javascript:void(0)" onclick="javascript:ShowStudentProfile('@std.UserName','true');" class="button fright">Profile</a>
+                                        }
+                                    </div>
+                                </li>
+                                //}
+                            }
+                        </ul>
+                        }
+                    }
+                    <div id="waitdiv" style="display: none" class="left_right_space">
+                        please wait...
+                    </div>
+                    <div id="noUniversityMsg" style="display: none" class="left_right_space">
+                        No More Students Found
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="msg_replay_show messagereplayfrom">
+            <div class="pattern_box">
+                <div class="span8">
+                    <div id="messageList" class="student_msg message_right shadowbox">
+                    </div>
+                </div>
+                <div class="span4">
+                    <ul class="student_right_block" id="ulMessageBetween">
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+    @* <div id="divStudentProfile" class="ViewStudentProfile">
+            @Html.Partial("_ViewProfile")
+        </div>*@
+</div>
+
+<div id="LoadingImage" style="display: none" class="modal_loder">
+    @*<img src="/Images/ajaxloader.gif" />*@
+</div>
+@*For Message PopUp*@
+@Html.Partial("_MessageBox")
+
+@Html.Partial("_ViewProfile")
+
+<div id="StudentApproveMessagebox" class="student_msg" style="display: none" title="Message Box">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="message_right">
+                <ul class="profile_form">
+                    <li class="row-fluid">
+
+                        <div class="span4">
+                            <label>Send to :</label>
+                        </div>
+                        <div class="span4">
+                            <input id="txtApproveToUserName" type="text" disabled="disabled" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Subject :</label>
+                        </div>
+                        <div class="span4">
+                            <input id="txtApproveSubject" type="text" />
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4">
+                            <label>Message :</label>
+                        </div>
+                        <div class="span6">
+                            <textarea id="txtApproveMessage"></textarea>
+                        </div>
+                    </li>
+                    <li class="row-fluid">
+                        <div class="span4"></div>
+                        <div class="span6">
+                            <input type="button" id="btnMsgSendApproveStudent" value="Send" class="large_button" />
+                            <input type="button" id="btnMsgCancelApproveStudent" value="Cancel" class="large_button" />
+                        </div>
+                        <input type="hidden" id="hndApproveMsgToUserName" />
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Dialog-Alert" title="" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Message Text</p>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkStudent").addClass('navi_active');
+
+        $(".msg_replay_show").hide();
+        $(".ViewStudentProfile").hide();
+    });
+
+    //For open Message Dialog or Conversation
+    function OpenMsgPopup(sendToUserName, username) {
+        $("#btnMsgSend").show();
+        $("#hndMsgToUserName").val(username);
+        $("#txtSendToUserName").val(sendToUserName);
+        $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+    }
+
+    //For Send Message
+    $("#btnMsgSend").click(function () {
+        var Message = {
+            Title: $("#txtSubject").val(),
+            Description: $("#txtMessage").val(),
+            sendToUserName: $("#hndMsgToUserName").val(),
+            ParentId: "0",
+        };
+        if ($("#txtSubject").val() != "" && $("#txtMessage").val() != "") {
+            $(this).hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SendMessage",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    $("#hndMsgToUserName").val("");
+                    $("#messagebox").dialog('close');
+                    // retriveConversation(msg);
+                    //$(".msg_replay_hide").show();
+                    //$(".ViewStudentProfile").hide();
+
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true, closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // for Cancel Message
+    $("#btnMsgCancel").click(function () {
+        $("#hndMsgToUserName").val("");
+        $("#txtSubject").val("");
+        $("#txtMessage").val("");
+        $("#messagebox").dialog().dialog("close");
+        //$(".msg_replay_hide").show();
+        //$(".msg_replay_show").hide();
+    });
+
+    //open Message Dialog for Interested student approving and send message
+    function OpenMsgPopupApprove(sendToUserName, username) {
+        $("#btnMsgSendApproveStudent").show();
+        $("#hndApproveMsgToUserName").val(username);
+        $("#txtApproveToUserName").val(sendToUserName);
+        $("#StudentApproveMessagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+    }
+
+    //For Approve Interested Student and Send Message
+    $("#btnMsgSendApproveStudent").click(function () {
+        var Message = {
+            Title: $("#txtApproveSubject").val(),
+            Description: $("#txtApproveMessage").val(),
+            sendToUserName: $("#hndApproveMsgToUserName").val(),
+            ParentId: "0",
+        };
+        if ($("#txtApproveSubject").val() != "" && $("#txtApproveMessage").val() != "") {
+            $(this).hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/University/_SendMessage",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtApproveSubject").val("");
+                    $("#txtApproveMessage").val("");
+                    $("#hndApproveMsgToUserName").val("");
+                    $("#StudentApproveMessagebox").dialog('close');
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true, closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // for Approve Interested Student Cancel Message
+    $("#btnMsgCancelApproveStudent").click(function () {
+        $("#hndApproveMsgToUserName").val("");
+        $("#txtApproveSubject").val("");
+        $("#txtApproveMessage").val("");
+        $("#StudentApproveMessagebox").dialog('close');
+    });
+
+
+
+    function retriveConversation(parentId) {
+        var msgId = {
+            messageId: parentId
+        };
+        //$("#messageList").html("please wait...");
+        //$("#ulMessageBetween").html("");
+        $("#divLoader").show();
+
+        $.ajax({
+            type: "POST",
+            url: "/Student/_GetAllConversation",
+            data: JSON.stringify(msgId),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                $("#messageList").html(data[0]);
+                $("#ulMessageBetween").html(data[1]);
+                $("#messageList").show();
+                $(".msg_replay_hide").hide();
+                $(".msg_replay_show").show();
+                $("#LoadingImage").hide();
+                bindToDisplayRemainMessage();
+            }
+        });
+
+    }
+
+    function SaveMessageReply(parentMsgId, title, fromuser, touser) {
+        var msgdata = {
+            parentMsgId: parentMsgId,
+            msgDesc: $('#txtReplyDesc').val(),
+            msgTitle: title,
+            fromusername: fromuser,
+            tousername: touser
+        };
+        if ($('#txtReplyDesc').val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SaveMessageReply",
+                data: JSON.stringify(msgdata),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtReplyDesc").val("");
+                    $("#ulMessage").html(msg + $("#ulMessage").html());
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140,
+                modal: true, closeOnEscape: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    }
+
+    function bindToDisplayRemainMessage() {
+        var str = $("#openAll").text();
+        var status = true;
+        $("#openAll").click(function () {
+            $(".remainMsg").toggle(1000);
+
+            if (status) {
+                $(this).text("hide Messages");
+                status = false;
+            }
+            else {
+                $(this).text(str);
+                status = true;
+            }
+        });
+    }
+
+    //this is use to show studentProfile
+    function ShowStudentProfile(userName, intstd) {
+        var student = {
+            UserName: userName,
+        };
+        //alert(userName);
+
+
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/AdminSec/_GetStudentData",
+            data: JSON.stringify(student),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                document.getElementById("lblFirstName").innerHTML = data[0];
+                document.getElementById("lblMiddleName").innerHTML = data[1];
+                document.getElementById("lblLastName").innerHTML = data[2];
+                document.getElementById("lblCountryOfCitizenship").innerHTML = data[3];
+                document.getElementById("lblAddress1").innerHTML = data[4];
+                if (data[5] != null) {
+                    document.getElementById("imgStudentProfile").src = "/Images/Profile/" + data[5];
+                    document.getElementById("hoverimg").href = "/Images/Profile/" + data[5];
+                }
+                else
+                    document.getElementById("imgStudentProfile").src = "/Images/no_image.jpg";
+
+                if (data[6] != null && data[6] != "")
+                    document.getElementById("lblAddress2").innerHTML = data[6];
+                else
+                    document.getElementById("lblAddress2").innerHTML = "Not Available";
+                document.getElementById("lblzipcode").innerHTML = data[7];
+                document.getElementById("lblPrimaryNumber").innerHTML = data[8];
+                document.getElementById("lblBirthDate").innerHTML = data[9];
+                document.getElementById("lblCity").innerHTML = data[10];
+                document.getElementById("lblCountry").innerHTML = data[11];
+                document.getElementById("lblPrimaryEmail").innerHTML = data[12];
+                if (data[13] != null && data[13] != 0)
+                    document.getElementById("lblCurrentlyIn").innerHTML = data[13];
+                else
+                    document.getElementById("lblCurrentlyIn").innerHTML = "Not Available";
+                if (data[14] != null && data[14] != 0)
+                    document.getElementById("lblLookingFor").innerHTML = data[14];
+                else
+                    document.getElementById("lblLookingFor").innerHTML = "Not Available";
+                if (data[15] != null && data[15] != "")
+                    document.getElementById("lblPreferStudyIn").innerHTML = data[15];
+                else
+                    document.getElementById("lblPreferStudyIn").innerHTML = "Not Available";
+                if (data[16] != null && data[16] != 0)
+                    document.getElementById("lblExpectedStartDate").innerHTML = data[16];
+                else
+                    document.getElementById("lblExpectedStartDate").innerHTML = "Not Available";
+                if (data[17] != null && data[17] != "")
+                    document.getElementById("lblPayout").innerHTML = data[17];
+                else
+                    document.getElementById("lblPayout").innerHTML = "Not Available";
+                if (data[18] != null && data[18] != "")
+                    document.getElementById("lbldesiredfieldstudy").innerHTML = data[18];
+                else
+                    document.getElementById("lbldesiredfieldstudy").innerHTML = "Not Available";
+
+                if (data[19] != null && data[19] != "")
+                    document.getElementById("tblCurrentAcademics").innerHTML = data[19];
+                else
+                    document.getElementById("tblCurrentAcademics").innerHTML = "Not Available";
+
+                if (data[20] != null && data[20] != "")
+                    document.getElementById("tblInternationalTest").innerHTML = data[20];
+                else
+                    document.getElementById("tblInternationalTest").innerHTML = "Not Available";
+
+                if (data[21] != null && data[21] != "")
+                    document.getElementById("tblWorkHistory").innerHTML = data[21];
+                else
+                    document.getElementById("tblWorkHistory").innerHTML = "Not Available";
+
+                if (data[22] != null && data[22] != "")
+                    document.getElementById("lblSports").innerHTML = data[22];
+                else
+                    document.getElementById("lblSports").innerHTML = "Not Available";
+
+                if (data[23] != null && data[23] != "")
+                    document.getElementById("lblLeadership").innerHTML = data[23];
+                else
+                    document.getElementById("lblLeadership").innerHTML = "Not Available";
+
+                if (data[24] != null && data[24] != "")
+                    document.getElementById("lblActivity").innerHTML = data[24];
+                else
+                    document.getElementById("lblActivity").innerHTML = "Not Available";
+
+                if (intstd == "true") {
+                    $("#btnDecline").show();
+                    document.getElementById("lnkBtnApprove").innerHTML = data[26];
+                }
+                else {
+                    document.getElementById("lnkBtnApprove").innerHTML = data[25];
+                }
+
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () { $("#LoadingImage").show(); },
+                    complete: function () { $("#LoadingImage").hide(); },
+                    url: "/Student/_ProfileCount",
+                    data: JSON.stringify(student),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                    }
+                });
+
+                $("#divStudentProfile").dialog({ modal: true, minWidth: 1000, resizable: false, minHeight: 700, closeOnEscape: true, closeText: "" });
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.statusText);
+            }
+        });
+    }
+
+    function InterestedStudentDecline(username) {
+        var student = {
+            Username: username,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_DeclineInterstedStudent",
+            data: JSON.stringify(student),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                $("#btnDecline").hide();
+            }
+        });
+    }
+
+
+    $("#Backbtn").click(function () {
+        $("#divStudentProfile").dialog('close');
+    });
+
+    //for scrolling
+    var flag = true;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            if (flag) {
+                $("#waitdiv").show();
+                flag = false
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () { $("#waitdiv").show(); },
+                    complete: function () { $("#waitdiv").hide(); },
+                    url: "/Student/_AppendAndDisplayStudent",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data == "no")
+                            $("#noUniversityMsg").show();
+                        else {
+                            $("#noUniversityMsg").hide();
+                            flag = true;
+                            $("#dlStudentList").append(data);
+                            //Dynamic li Geneate design
+                            $('.list_5 #dlStudentList').BlocksIt({
+                                numOfCol: 2,
+                                offsetX: 15,
+                                offsetY: 10
+                            });
+                            //window resize
+                            var currentWidth = 1100;
+                            $(window).resize(function () {
+                                var winWidth = $(window).width();
+                                var conWidth;
+                                if (winWidth < 660) {
+                                    conWidth = 440;
+                                    col = 2
+                                } else if (winWidth < 880) {
+                                    conWidth = 660;
+                                    col = 2
+                                } else if (winWidth < 1100) {
+                                    conWidth = 880;
+                                    col = 2;
+                                } else {
+                                    conWidth = 1100;
+                                    col = 2;
+                                }
+
+                                if (conWidth != currentWidth) {
+                                    currentWidth = conWidth;
+                                    $('.list_5 #dlStudentList').width(conWidth);
+                                    $('.list_5 #dlStudentList').BlocksIt({
+                                        numOfCol: col,
+                                        offsetX: 15,
+                                        offsetY: 10
+                                    });
+                                }
+                            });
+                            //Dynamic li Geneate design End
+                        }
+                        $("#waitdiv").hide();
+                    }
+                });
+            }
+            else {
+
+            }
+        }
+    });
+
+</script>

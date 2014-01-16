@@ -1,0 +1,771 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@{
+    ViewBag.Title = "Edit Profile";
+    if (CookieHelper.UserType == ((int)LoginTypes.Admin).ToString() || CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+    if (ViewBag.Current == null)
+    {
+        if (ViewContext.RouteData.Values["id"] != null)
+        {
+            ViewBag.Current = ViewContext.RouteData.Values["id"];
+        }
+        else
+        {
+            ViewBag.Current = "basic";
+        }
+    }
+    
+}
+@model UniversityEditModel
+<div class="pattern_box">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span3 first">
+                <div class="shadowbox">
+                    <div id="LoadingImage" style="display: none" class="modal_loder"></div>
+                    <div class="h2_heading">
+                        <h2>Core Profile</h2>
+                    </div>
+                    <div class="paddingbox">
+                        <div id="pnlHeaderLinks">
+                            <ul class="list_1" id="tabNavigation">
+                                <li id="basic">
+                                    @Html.ActionLink("The Basics", "Edit/basic", "University")
+                                </li>
+                                <li id="cost">
+                                    @Html.ActionLink("Cost for International Student", "Edit/cost", "University")
+                                </li>
+                                <li id="enrollment">
+                                    @Html.ActionLink("Enrollment Numbers", "Edit/enrollment", "University")
+                                </li>
+                                <li id="programs">
+                                    @Html.ActionLink("Program and Majors", "Edit/programs", "University")
+                                </li>
+                                <li id="faqs">
+                                    @Html.ActionLink("FAQ for students", "Edit/faqs", "University")
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Edit", "University", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(m => m.university.UniversityId)
+               
+                if (ViewBag.Current == "basic")
+                {
+                <div id="pnlBasicDetail" class="span9">
+                    <ul class="profile_form">
+                        @if (CookieHelper.UserType == ((int)LoginTypes.Admin).ToString() || CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                        {
+                            <li class="row-fluid">
+                                <div class="span3">
+                                    <label>UserName :</label>
+                                </div>
+                                <div class="span6">
+                                    @if (Model != null)
+                                    {
+                                        if (Model.registerModel != null)
+                                        {
+                                            if (Model.registerModel.UserName != null)
+                                            {
+                                        @Html.TextBoxFor(x => x.registerModel.UserName, new { @readonly = "readonly" })
+                                            }
+                                            else
+                                            {
+                                        @Html.TextBoxFor(x => x.registerModel.UserName, new { placeholder = "UserName" })
+                                            }
+                                        }
+                                        else
+                                        {
+                                        @Html.TextBoxFor(x => x.registerModel.UserName, new { placeholder = "UserName" })
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.registerModel.UserName, new { placeholder = "UserName" })
+                                    }
+                                    @Html.ValidationMessageFor(x => x.registerModel.UserName)
+                                    @*  @Html.TextBoxFor(x => x.registerModel.UserName, new { placeholder = "UserName" })
+                                    @Html.ValidationMessageFor(x => x.registerModel.UserName)*@
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span3">
+                                    <label>Password :</label>
+                                </div>
+                                <div class="span6">
+                                    @Html.TextBoxFor(x => x.registerModel.Password, new { placeholder = "Password", type = "password" })
+                                    @Html.ValidationMessageFor(x => x.registerModel.Password)
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span3">
+                                    <label>Confirm Password :</label>
+                                </div>
+                                <div class="span6">
+                                    @Html.TextBoxFor(x => x.registerModel.ConfirmPassword, new { placeholder = "Confirm Password", type = "password" })
+                                    @Html.ValidationMessageFor(x => x.registerModel.ConfirmPassword)
+                                </div>
+                            </li>
+                        }
+                        @if (CookieHelper.UserType == ((int)LoginTypes.University).ToString())
+                        {
+                            <li class="row-fluid">
+                                <div class="span3">
+                                    <label>UserName :</label>
+                                </div>
+                                <div class="span6">
+                                    <input type="text" value="@CookieHelper.Username" readonly="true" />
+                                </div>
+                            </li>
+                        }
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>University Name :</label>
+                            </div>
+                            <div class="span4">
+                                @Html.TextBoxFor(m => m.university.UniversityName)
+                                @Html.ValidationMessageFor(m => m.university.UniversityName)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>University Address :</label>
+                            </div>
+                            <div class="span4">
+                                @Html.TextBoxFor(m => m.university.Address)
+                                @Html.ValidationMessageFor(m => m.university.Address)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Administrator Name :</label>
+
+                            </div>
+                            <div class="span4">
+                                @Html.TextBoxFor(m => m.university.AdminName)
+                                @Html.ValidationMessageFor(m => m.university.AdminName)
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>City :</label>
+                            </div>
+                            <div class="span4">
+                                @Html.TextBoxFor(m => m.university.City)
+                                @Html.ValidationMessageFor(m => m.university.City)
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Country :</label>
+                            </div>
+                            <div class="span4">
+
+                                @{
+                       
+                        if (Model != null)
+                        {
+                            if (Model.university != null)
+                            {
+                                string tmp = Convert.ToString((int)EnumHelper.GetEnumValueFromDescription<CountryList>(Model.university.Country));
+                                if (Model.university.Country != null && tmp == "0")
+                                {
+                                    //To get value of enum if it does not contain description
+                                    CountryList cl = (CountryList)Enum.Parse(typeof(CountryList), Model.university.Country);
+                                    Model.university.Country = ((int)cl).ToString();
+                                }
+                                else
+                                {
+                                    Model.university.Country = tmp;
+
+                                }
+                                    @Html.DropDownListFor(m => m.university.Country, DropDownHelper.getCountry(Model.university.Country))
+                                    @Html.ValidationMessageFor(m => m.university.Country)
+                            }
+                        }
+                        else
+                        {
+                                    @Html.DropDownListFor(m => m.university.Country, DropDownHelper.getCountry("0"))
+                                    @Html.ValidationMessageFor(m => m.university.Country)
+                        }
+                        
+                                }
+
+
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Established Year :</label>
+                            </div>
+                            <div class="span4">
+                                @Html.TextBoxFor(m => m.university.EstablishedYear)
+                                @Html.ValidationMessageFor(m => m.university.EstablishedYear)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Country Code :</label>
+                            </div>
+                            <div class="span4">
+                                @if (CookieHelper.UserType == ((int)LoginTypes.Admin).ToString() || CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                                {
+                                    if (Model != null)
+                                    {
+                                        if (Model.university != null)
+                                        {
+                                    @Html.DropDownListFor(m => m.university.CountryCode, DropDownHelper.getCountryCode(Model.university.CountryCode))
+                                    @Html.ValidationMessageFor(m => m.university.CountryCode)
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => m.university.CountryCode, DropDownHelper.getCountryCode("0"))
+                                    @Html.ValidationMessageFor(m => m.university.CountryCode)
+                                }
+
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Contact No. :</label>
+                            </div>
+                            <div class="span4">
+                                @Html.TextBoxFor(m => m.university.ContactNo)
+                                @Html.ValidationMessageFor(m => m.university.ContactNo)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Description :</label>
+
+                            </div>
+                            <div class="span8">
+                                <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+                                <script type="text/javascript">
+                                    //<![CDATA[
+                                    bkLib.onDomLoaded(function () {
+                                        nicEditors.editors.push(
+                                        new nicEditor().panelInstance(
+                                            document.getElementById('@Html.IdFor(m => m.university.Description)')
+                                        )
+                                    );
+                                    });
+                                    //]]>
+                                </script>
+                                <div class="editor">
+                                    @Html.TextAreaFor(m => m.university.Description, new { @class = "address", style = "width:'100%' height:'250px'" })
+                                    @Html.ValidationMessageFor(m => m.university.Description)
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>Logo :</label>
+                            </div>
+                            <div class="span4">
+                                @if (Model != null)
+                                {
+                                    if (Model.university != null)
+                                    {
+                                    @Html.TextBoxFor(m => m.university.logo_image, new { type = "file" })
+                                   
+                                    }
+                                }
+                                [Preffered Size: 230px * 219px]
+                            </div>
+                            <div class="span3">
+                                @if (Model != null)
+                                {
+                                    if (Model.university != null)
+                                    {
+                               
+                                    <img id="imgUniversityLogo" src="@(Model.university.Image != null ? "/Images/Profile/" + Model.university.Image : "/Images/no_image.jpg")" width="100" />
+                                    }
+                                }
+
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3">
+                                <label>University Image :</label>
+                            </div>
+                            <div class="span4">
+                                @if (Model != null)
+                                {
+                                    if (Model.university != null)
+                                    {
+                                    @Html.TextBoxFor(m => m.university.large_image, new { type = "file" })
+                                    }
+                                }
+                                [Preffered Size: 1024px * 768px]
+                            </div>
+                            <div class="span3">
+                                @if (Model != null)
+                                {
+                                    if (Model.university != null)
+                                    {
+                                    <img id="imgUniversityImage" src="@(Model.university.UniversityImage != null ? "/Images/Profile/" + Model.university.UniversityImage : "/Images/no_image.jpg")" width="100" />
+                                    }
+                                }
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span3"></div>
+                            <div class="span6">
+                                <input type="submit" value="Save and Continue" class="large_button" name="btnSaveBasic" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                }
+                else if (ViewBag.Current == "cost")
+                { 
+                <div class="span9">
+                    <ul class="profile_form">
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Tuition for international students pursuing Bachelor's degree :</label>
+                            </div>
+                            @{
+                    string[] arr;
+                    var currency = "";
+                    var fee = "";
+                    var unit = "";
+                    if (Model.university.UnderGraduateFee != null)
+                    {
+                        arr = Model.university.UnderGraduateFee.ToString().Split('/');
+
+                        if (arr.Length > 2)
+                        {
+                            currency = arr[1];
+                            fee = arr[0];
+                            unit = arr[2];
+                            Model.university.UnderGraduateFee = fee;
+                        }
+                    }  
+                            }
+                            <div class="span3">
+                                @Html.DropDownListFor(m => m.university.UnderGraduateFeeCurrency, DropDownHelper.getCurrency(currency))
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(m => m.university.UnderGraduateFee)
+                                @Html.ValidationMessageFor(m => m.university.UnderGraduateFee)
+
+                            </div>
+                            <div class="span2">
+                                @Html.DropDownListFor(m => m.university.UnderGraduateFeeUnit, DropDownHelper.getUnitsForCost(unit))
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Tuition for international students pursuing Master's degree :</label>
+                            </div>
+                            @{
+                                
+                    currency = "";
+                    fee = "";
+                    unit = "";
+                    if (Model.university.GraduateFee != null)
+                    {
+                        arr = Model.university.GraduateFee.ToString().Split('/');
+
+                        if (arr.Length > 2)
+                        {
+                            currency = arr[1];
+                            fee = arr[0];
+                            unit = arr[2];
+                            Model.university.GraduateFee = fee;
+                        }
+                    }  
+                            }
+                            <div class="span3">
+                                @Html.DropDownListFor(m => m.university.GraduateFeeCurrency, DropDownHelper.getCurrency(currency))
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(m => m.university.GraduateFee)
+                                @Html.ValidationMessageFor(m => m.university.GraduateFee)
+                            </div>
+                            <div class="span2">
+                                @Html.DropDownListFor(m => m.university.GraduateFeeUnit, DropDownHelper.getUnitsForCost(unit))
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Books and supplies :</label>
+                            </div>
+                            @{
+                                
+                    currency = "";
+                    fee = "";
+                    unit = "";
+                    if (Model.university.BookFee != null)
+                    {
+                        arr = Model.university.BookFee.ToString().Split('/');
+
+                        if (arr.Length > 2)
+                        {
+                            currency = arr[1];
+                            fee = arr[0];
+                            unit = arr[2];
+                            Model.university.BookFee = fee;
+                        }
+                    }  
+                            }
+                            <div class="span3">
+                                @Html.DropDownListFor(m => m.university.BookFeeCurrency, DropDownHelper.getCurrency(currency))
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(m => m.university.BookFee)
+                                @Html.ValidationMessageFor(m => m.university.BookFee)
+                            </div>
+                            <div class="span2">
+                                @Html.DropDownListFor(m => m.university.BookFeeUnit, DropDownHelper.getUnitsForCost(unit))
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Off-campus room and Board :</label>
+                            </div>
+                            @{
+                                
+                    currency = "";
+                    fee = "";
+                    unit = "";
+                    if (Model.university.BoardFee != null)
+                    {
+                        arr = Model.university.BoardFee.ToString().Split('/');
+
+                        if (arr.Length > 1)
+                        {
+                            currency = arr[1];
+                            fee = arr[0];
+                            //unit = arr[3];
+                            Model.university.BoardFee = fee;
+                        }
+                    }  
+                            }
+                            <div class="span3">
+                                @Html.DropDownListFor(m => m.university.BoardFeeCurrency, DropDownHelper.getCurrency(currency))
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(m => m.university.BoardFee)
+                                @Html.ValidationMessageFor(m => m.university.BoardFee)
+                            </div>
+                            <div class="span2">
+                                Per Month
+                                @*@Html.DropDownListFor(m => m.university.BoardFee, DropDownHelper.getUnitsForCost(unit))*@
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Application Fee :</label>
+                            </div>
+                            @{
+                                
+                    currency = "";
+                    fee = "";
+                    if (Model.university.ApplicationFee != null)
+                    {
+                        arr = Model.university.ApplicationFee.ToString().Split('/');
+
+                        if (arr.Length > 1)
+                        {
+                            currency = arr[1];
+                            fee = arr[0];
+                            Model.university.ApplicationFee = fee;
+                        }
+                    }  
+                            }
+                            <div class="span3">
+                                @Html.DropDownListFor(m => m.university.ApplicationFeeCurrency, DropDownHelper.getCurrency(currency))
+                            </div>
+                            <div class="span2">
+                                @Html.TextBoxFor(m => m.university.ApplicationFee)
+                                @Html.ValidationMessageFor(m => m.university.ApplicationFee)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5"></div>
+                            <div class="span6">
+                                <input class="large_button" value="Save and Continue" name="btnSaveCost" type="submit" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                }
+                else if (ViewBag.Current == "enrollment")
+                {
+                <div class="span9">
+                    <ul class="profile_form">
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg Number of international students pursuing bachelor's degree each year :</label>
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.Graduates)
+                                @Html.ValidationMessageFor(m => m.university.Graduates)
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg Number of international students pursuing Master's degree each year :</label>
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.UnderGraduates)
+                                @Html.ValidationMessageFor(m => m.university.UnderGraduates)
+                            </div>
+                        </li>
+
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg Number of international students pursuing Phd degree each year :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.InternationalGraduate)
+                                @Html.ValidationMessageFor(m => m.university.InternationalGraduate)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg Number of international students pursuing associates degree each year :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.PersuingAssociateDegree)
+                                @Html.ValidationMessageFor(m => m.university.PersuingAssociateDegree)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg. number of students enrolled, per year, from china :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.EnroledPerYearChina)
+                                @Html.ValidationMessageFor(m => m.university.EnroledPerYearChina)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>
+                                    Avg. number of students enrolled, per year, from Indian-sub continent 
+(i.e India, Pakistan, Bangladesh,Nepal, Sri-Lanka)  :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.EnroledPerYearIndianSub)
+                                @Html.ValidationMessageFor(m => m.university.EnroledPerYearIndianSub)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg. number of students enrolled, per year, from African continent :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.EnroledPerYearAfrica)
+                                @Html.ValidationMessageFor(m => m.university.EnroledPerYearAfrica)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg. number of students enrolled, per year, from Middle East countries :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.EnroledPerYearMidEast)
+                                @Html.ValidationMessageFor(m => m.university.EnroledPerYearMidEast)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg. number of students enrolled, per year, from South America :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.EnroledPerYearSouthAmerica)
+                                @Html.ValidationMessageFor(m => m.university.EnroledPerYearSouthAmerica)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5">
+                                <label>Avg. number of students enrolled, per year, from European countries :</label>
+
+                            </div>
+                            <div class="span3">
+                                @Html.TextBoxFor(m => m.university.EnroledPerYearEurope)
+                                @Html.ValidationMessageFor(m => m.university.EnroledPerYearEurope)
+                            </div>
+                        </li>
+                        <li class="row-fluid">
+                            <div class="span5"></div>
+                            <div class="span6">
+                                <input id="btnSaveEnrollNumber" name="btnSaveEnrollNumber" class="large_button" value="Save and Continue" type="submit" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                }
+                else if (ViewBag.Current == "programs")
+                {
+                <div class="span9">
+                    <ul class="list_5">
+                        <li class="row">
+                            <h4>Degree Level Offred :</h4>
+                            <ul class="checkbox_list">
+                                @{
+                    string[] names = Enum.GetNames(typeof(Programs));
+                    Array value = Enum.GetValues(typeof(Programs));
+                    int[] Values = (int[])value;
+                                }
+                                @if (Model.university.Degree != null)
+                                {
+                                    string SelectedValue = Model.university.Degree.ToString();
+                                    string[] degree = SelectedValue.Split(',');
+
+                                    for (int i = 0; i < names.Length; i++)
+                                    {
+                                    <li>
+                                        <input type="checkbox" class="checkbox_list" id="@names[i].ToString()" name="chkCourses" @(degree.Contains(names[i]) ? "checked" : "") value="@names[i]" />
+                                        <label for="@names[i].ToString()">@EnumHelper.GetDescriptionFromEnumValue((Programs)Values[i])</label>
+                                    </li>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < names.Length; i++)
+                                    {
+                                    <li>
+                                        <input type="checkbox" class="checkbox_list" id="@names[i].ToString()" name="chkCourses" @(i < 2 ? "checked" : "") value="@names[i]" />
+                                        <label for="@names[i].ToString()">@EnumHelper.GetDescriptionFromEnumValue((Programs)Values[i])</label>
+                                    </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="row">
+                            <h4>Courses Offred :</h4>
+                            <ul class="checkbox_list">
+                                @{
+                                string[] namescource = Enum.GetNames(typeof(CoursesOffered));
+                                Array valuecource = Enum.GetValues(typeof(CoursesOffered));
+                                int[] Valuescource = (int[])valuecource;
+                                }
+                                @if (Model.university.Courses != null)
+                                {
+                                    string SelectedValue = Model.university.Courses.ToString();
+                                    string[] courses = SelectedValue.Split(',');
+
+                                    for (int i = 0; i < namescource.Length; i++)
+                                    {
+                                    <li>
+                                        <input type="checkbox" class="checkbox_list" id="@namescource[i].ToString()" name="chkDegree" @(courses.Contains(@EnumHelper.GetDescriptionFromEnumValue((CoursesOffered)Valuescource[i])) ? "checked" : "") value="@EnumHelper.GetDescriptionFromEnumValue((CoursesOffered)Valuescource[i])" />
+                                        <label for="@namescource[i].ToString()">@EnumHelper.GetDescriptionFromEnumValue((CoursesOffered)Valuescource[i])</label>
+                                    </li>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < namescource.Length; i++)
+                                    {
+                                    <li>
+                                        <input type="checkbox" class="checkbox_list" id="@namescource[i].ToString()" name="chkDegree"  value="@EnumHelper.GetDescriptionFromEnumValue((CoursesOffered)Valuescource[i])" />
+                                        <label for="@namescource[i].ToString()">@EnumHelper.GetDescriptionFromEnumValue((CoursesOffered)Valuescource[i])</label>
+                                    </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                    @*  <div class="span5 first">
+                        <input id="btnSavePrograms" name="btnSavePrograms" class="large_button" value="Save" type="submit" />
+                    </div>*@
+                    <div class="span6">
+                        <input id="btnSavePrograms" name="btnSavePrograms" class="large_button" value="Save and Continue" type="submit" />
+                    </div>
+                </div>
+                }
+                else if (ViewBag.Current == "faqs")
+                {
+                <div class="span9">
+                    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        bkLib.onDomLoaded(function () {
+                            nicEditors.editors.push(
+                            new nicEditor().panelInstance(
+                                document.getElementById('@Html.IdFor(m => m.university.Faqs)')
+                                        )
+                                    );
+                        });
+                        //]]>
+                    </script>
+                    <ul>
+                        <li class="row-fluid">
+                            <div class="span12">
+
+                                @Html.TextAreaFor(m => m.university.Faqs, new { @class = "address", @style = "width:800px;height:300px; resize :none;" })
+
+                            </div>
+                            <br />
+                            <br />
+                            <div class="span12 first">
+                                <div class="center">
+                                    <input id="btnSaveFaq" name="btnSaveFaq" class="large_button" value="Save" type="submit" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+@*This Script is useful yo manage tabs*@
+<script type="text/javascript">
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+
+        $("#lnkProfile").addClass('navi_active');
+    });
+
+    jQuery(function ($) {
+        $("#@Html.IdFor(m => m.university.ContactNo)").mask("(999) 999-9999");
+    });
+</script>
+<script type="text/javascript">
+    $("#tabNavigation li").each(function () {
+        $(this).removeClass('list1_active');
+    });
+    $("#@ViewBag.Current").addClass('list_active');
+</script>
+

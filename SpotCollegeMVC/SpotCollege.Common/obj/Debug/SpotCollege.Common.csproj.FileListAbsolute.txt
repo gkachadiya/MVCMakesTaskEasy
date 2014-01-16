@@ -1,0 +1,251 @@
+D:\Viren\Development\SpotCollege\Project\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Viren\Development\SpotCollege\Project\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Viren\Development\SpotCollege\Project\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Viren\Development\SpotCollege\Project\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Spot college viren\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Spot college viren\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Spot college viren\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Spot college viren\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Spot college viren\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Shrey\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Shrey\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege-final\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Shrey\SpotCollege-final\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege-final\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Shrey\SpotCollege-final\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege-final\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+D:\Spot Collage\Sport College 9-5\SpotCollege\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Spot Collage\Sport College 9-5\SpotCollege\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Spot Collage\Sport College 9-5\SpotCollege\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+D:\Spot Collage\Sport College 9-5\SpotCollege\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Spot Collage\Sport College 9-5\SpotCollege\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollegemsgFinal\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollegemsgFinal\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollegemsgFinal\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollegemsgFinal\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Spot Collage\Sport College 10-5\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Spot Collage\Sport College 10-5\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Spot Collage\Sport College 10-5\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+D:\Spot Collage\Sport College 10-5\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Spot Collage\Sport College 10-5\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege-Nikunj\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+D:\Shrey\SpotCollege-Nikunj\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+D:\Shrey\SpotCollege-Nikunj\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+D:\Shrey\SpotCollege-Nikunj\SpotCollege-Update-ashish\SpotCollege-Update-eve\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1305\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-1305\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1305\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-1305\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\aps\SpotCollege-1305\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\aps\SpotCollege-1305\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\aps\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\aps\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\aps\SpotCollege-1305\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1605-Final2\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-1605-Final2\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1605-Final2\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\SpotCollege-1605-Final2\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-1605-Final2\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+C:\Users\JayeshG\Desktop\SpotCollege-1605-Final2\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+C:\Users\JayeshG\Desktop\SpotCollege-1605-Final2\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+C:\Users\JayeshG\Desktop\SpotCollege-1605-Final2\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+C:\Users\JayeshG\Desktop\SpotCollege-1605-Final2\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+C:\Users\JayeshG\Desktop\SpotCollege-1605-Final2\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1605-Final3\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-1605-Final3\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-1605-Final3\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-1605-Final3\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1605-Final3\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-1605-Final3\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1605-Final3\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollege-1605-Final3\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-1605-Final3\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1805\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-1805\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1805\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-1805\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-1805\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\SPotCo\SpotCollege-2005-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SPotCo\SpotCollege-2005-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SPotCo\SpotCollege-2005-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SPotCo\SpotCollege-2005-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-2005-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-2005-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-2005-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-2005-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-2105-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-2105-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege-2105-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\SpotCollege-2105-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege-2105-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-2105-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-2105-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege-2105-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege-2105-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Sagar\Spot College new\23_05_2013 SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Sagar\Spot College new\23_05_2013 SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Sagar\Spot College new\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Sagar\Spot College new\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Sagar\Spot College new\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\23_05_2013 SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\23_05_2013 SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\23_05_2013 SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\23_05_2013 SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\23_05_2013 SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\23_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\23_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\23_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\23_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\24_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\24_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\24_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\24_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\24_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\25_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\25_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\25_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\25_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\25_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\25_05_2013 SpotCollege--final\25_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\25_05_2013 SpotCollege--final\25_05_2013 SpotCollege--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\25_05_2013 SpotCollege--final\25_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\25_05_2013 SpotCollege--final\25_05_2013 SpotCollege--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\29_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\30_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\30_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\30_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\30_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\30_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\30_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\30_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\30_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\30_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final-jayesh\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\31_05_2013 SpotCollege\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\31_05_2013 SpotCollege\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\31_05_2013 SpotCollege\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\31_05_2013 SpotCollege\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\31_05_2013 SpotCollege\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege\31_05_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--03-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollege - Copy--03-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--03-06\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--03-06\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--03-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\01_06_2013 SpotCollege--final\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\SpotCollege - Copy--03-06--final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\SpotCollege - Copy--04-06-- final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\SpotCollege - Copy--04-06-- final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\SpotCollege - Copy--04-06-- final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\SpotCollege - Copy--04-06-- final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\SpotCollege - Copy--04-06-- final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\SpotCollege - Copy--04-06-- final1\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\SpotCollege - Copy--04-06-- final1\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\SpotCollege - Copy--04-06-- final1\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\SpotCollege - Copy--04-06-- final1\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--05-06\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--05-06\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--05-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--05-06\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege Backup\SpotCollege - Copy--06-06-without design Integrate\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege Backup\SpotCollege - Copy--06-06-without design Integrate\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege Backup\SpotCollege - Copy--06-06-without design Integrate\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege Backup\SpotCollege - Copy--06-06-without design Integrate\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--07-06-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--07-06-Final\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--07-06-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollege - Copy--07-06-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollege - Copy--07-06-Final\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\spot college SVN\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\spot college SVN\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\spot college SVN\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\spot college SVN\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\spot college SVN\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+G:\6th Development\svn1\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\svn1\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\svn1\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\svn1\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\spot SVN\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\spot SVN\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\spot SVN\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\spot SVN\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\spot SVN\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\Spot College MVC\Spot College MVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\Spot College MVC\Spot College MVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\Spot College MVC\Spot College MVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotSVN\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotSVN\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotSVN\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotSVN\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+G:\6th Development\svn1\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+G:\6th Development\svn1\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+G:\6th Development\svn1\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+G:\6th Development\svn1\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotSvnFinal\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\SpotCollege.Common\bin\Debug\SpotCollege.Common.pdb
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.dll
+E:\Sagar\SVN\Spotcollege\Spotcollege\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.pdb
+E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\SpotCollege.Common\obj\Debug\SpotCollege.Common.csprojResolveAssemblyReference.cache

@@ -1,0 +1,337 @@
+﻿@using SpotCollege.Common
+@using SpotCollege.DAL
+@using SpotCollege.BLL
+
+@using Newtonsoft.Json
+@using SpotCollege.DAL.DataModels
+
+@{
+    ViewBag.Title = "ViewAllList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model StudentProfileModel
+@using (Html.BeginForm())
+{
+    <div class="pattern_box">
+        <div class="row-fluid">
+            <div class="msg_replay_hide">
+                <div class="span12 shadowbox">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="h2_heading">
+                                <h2>Student List</h2>
+                            </div>
+                            @{
+    StudentBLL studentBll = new StudentBLL();
+    Student std = new Student();
+                            }
+
+                            @if (Model.studentInterestList != null)
+                            {
+                                if (Model.studentInterestList.Count == 0)
+                                {
+                                <div style="color: black; font-size: larger">No Record Found</div>
+                                }
+                                else
+                                {
+                                <ul id="dlStudentList" class="clg_listing">
+
+                                    @foreach (var i in Model.studentInterestList)
+                                    {
+                                        std = studentBll.GetByUserName(i.StudentUserName);
+                                        <li>
+
+                                            <div class="clg_img">
+                                                @if (std.Photo != null)
+                                                {
+                                                    <img id="ImgStudent" src="/Images/Profile/@std.Photo" />
+                                                }
+                                                else
+                                                {
+                                                    <img id="ImgStudent1" src="/Images/no_image.jpg" />
+                                                }
+                                            </div>
+                                            <div class="clg_descripition">
+                                                <p>
+                                                    <b>
+                                                        @std.FirstName @std.LastName
+                                                    </b>
+                                                    <br />
+                                                    Applying from @std.City
+                                                    for @Enum.Parse(typeof(ProgramLookingFor), std.LookingFor.ToString()).ToString()  @std.DesiredFieldofStudy in @std.LookingForCountry .
+                                                    <br />
+                                                    Desired joining in date 
+                                                @Enum.Parse(typeof(expectedStart), std.StartDate.ToString()).ToString() .
+                                                </p>
+                                            </div>
+                                            <div class="clg_apply">
+                                                <a href="/University/StudentProfile/@std.StudentId" class="button fright">Profile</a>
+                                                @*<a href="javascript:void(0);" onclick="javascript:OpenMsgPopup( '@std.FirstName @std.LastName','@std.UserName' );" class="msgbtn fright" id="@std.UserName">Message</a>*@
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+            
+                                }
+                            }
+                            @if (Model.studentList != null)
+                            {
+                                if (Model.studentList.Count == 0)
+                                { 
+                                <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                                }
+                                else
+                                {
+                                <ul id="dlStudentList" class="clg_listing">
+                                    @foreach (var r in @Model.studentList)
+                                    {
+                                        <li>
+
+                                            <div class="clg_img">
+                                                @if (r.Photo != null)
+                                                {
+                                                    <img id="ImgStudent" src="/Images/Profile/@r.Photo" />
+                                                }
+                                                else
+                                                {
+                                                    <img id="ImgStudent1" src="/Images/no_image.jpg" />
+                                                }
+                                            </div>
+                                            <div class="clg_descripition">
+                                                <p>
+                                                    <b>
+                                                        <a id="lnkBtnViewProfile" href="/Student/Profile/@r.StudentId">@r.FirstName @r.LastName</a>
+                                                    </b>
+                                                    <br />
+                                                    Applying from @r.City
+                                                    for @Enum.Parse(typeof(ProgramLookingFor), r.LookingFor.ToString()).ToString()  @r.DesiredFieldofStudy in @r.LookingForCountry .
+                                                    <br />
+                                                    Desired joining in date 
+                                                @Enum.Parse(typeof(expectedStart), r.StartDate.ToString()).ToString()
+                                                </p>
+                                            </div>
+                                            <div class="clg_apply">
+                                                <a href="javascript:void(0);" onclick="javascript:OpenMsgPopup( '@r.FirstName @r.LastName','@r.UserName' );" class="msgbtn fright" id="@r.UserName">Message</a>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                                }
+                            }
+                            <div id="noUniversityMsg" style="display: none" class="left_right_space">
+                                No More Students
+                            </div>
+                            <div id="waitdiv" style="display: none" class="left_right_space">
+                                please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="msg_replay_show messagereplayfrom">
+                <div class="span8">
+                    <div id="messageList" class="student_msg message_right shadowbox">
+                    </div>
+                </div>
+                <div class="span4">
+                    <ul class="student_right_block" id="ulMessageBetween">
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Dialog-Alert" title="" style="display: none;">
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Message Text</p>
+    </div>
+    <div id="LoadingImage" style="display: none" class="modal_loder">
+        @*<img src="/Images/ajaxloader.gif" />*@
+    </div>
+    @Html.Partial("_MessageBox")
+    <script type="text/javascript">
+
+        $(function () {
+            $(".msg_replay_show").hide();
+        });
+
+        //For open Message Dialog or Conversation
+        function OpenMsgPopup(sendToUserName, username) {
+            $("#btnMsgSend").show();
+            $("#hndMsgToUserName").val(username);
+            $("#txtSendToUserName").val(sendToUserName);
+            $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+        }
+
+        //For Send Message
+        $("#btnMsgSend").click(function () {
+            var Message = {
+                Title: $("#txtSubject").val(),
+                Description: $("#txtMessage").val(),
+                sendToUserName: $("#hndMsgToUserName").val(),
+                ParentId: "0",
+            };
+            if ($("#txtSubject").val() != "" && $("#txtMessage").val() != "") {
+                $(this).hide();
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () { $("#LoadingImage").show(); },
+                    complete: function () { $("#LoadingImage").hide(); },
+                    url: "/Student/_SendMessage",
+                    data: JSON.stringify(Message),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $("#txtSubject").val("");
+                        $("#txtMessage").val("");
+                        $("#messagebox").dialog("close");
+                        $("#hndMsgToUserName").val("");
+                        // retriveConversation(msg);
+                        $(".msg_replay_hide").show();
+                        $(".msg_replay_show").hide();
+                    }
+                });
+            }
+            else {
+                $("#Dialog-Alert").dialog({
+                    open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                    resizable: false,
+                    height: 140,
+                    modal: true,
+                    closeOnEscape: true,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                        }
+
+                    },
+                });
+            }
+        });
+
+        // for Cancel Message
+        $("#btnMsgCancel").click(function () {
+            $("#txtSubject").val("");
+            $("#txtMessage").val("");
+            $("#messagebox").dialog().dialog("close");
+            $(".msg_replay_hide").show();
+            $(".msg_replay_show").hide();
+        });
+
+        function retriveConversation(parentId) {
+            var msgId = {
+                messageId: parentId
+            };
+            //$("#messageList").html("please wait...");
+            //$("#ulMessageBetween").html("");
+            $("#divLoader").show();
+
+            $.ajax({
+                type: "POST",
+                url: "/Student/_GetAllConversation",
+                data: JSON.stringify(msgId),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var data = msg;
+                    $("#messageList").html(data[0]);
+                    $("#ulMessageBetween").html(data[1]);
+                    $("#messageList").show();
+                    $(".msg_replay_hide").hide();
+                    $(".msg_replay_show").show();
+                    $("#LoadingImage").hide();
+                    bindToDisplayRemainMessage();
+                }
+            });
+
+        }
+
+        function SaveMessageReply(parentMsgId, title, fromuser, touser) {
+            var msgdata = {
+                parentMsgId: parentMsgId,
+                msgDesc: $('#txtReplyDesc').val(),
+                msgTitle: title,
+                fromusername: fromuser,
+                tousername: touser
+            };
+            if ($('#txtReplyDesc').val() != "") {
+                $.ajax({
+                    type: "POST",
+                    beforeSend: function () { $("#LoadingImage").show(); },
+                    complete: function () { $("#LoadingImage").hide(); },
+                    url: "/Student/_SaveMessageReply",
+                    data: JSON.stringify(msgdata),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $("#txtReplyDesc").val("");
+                        $("#ulMessage").html(msg + $("#ulMessage").html());
+                    }
+                });
+            }
+            else {
+                $("#Dialog-Alert").dialog({
+                    open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                    resizable: false,
+                    height: 140,
+                    modal: true,
+                    closeOnEscape: true,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                        }
+
+                    },
+                });
+            }
+        }
+
+        function bindToDisplayRemainMessage() {
+            var str = $("#openAll").text();
+            var status = true;
+            $("#openAll").click(function () {
+                $(".remainMsg").toggle(1000);
+
+                if (status) {
+                    $(this).text("hide Messages");
+                    status = false;
+                }
+                else {
+                    $(this).text(str);
+                    status = true;
+                }
+            });
+        }
+
+        //for scrolling
+        var flag = true;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                if (flag) {
+                    $("#waitdiv").show();
+                    flag = false
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#waitdiv").show(); },
+                        complete: function () { $("#waitdiv").hide(); },
+                        url: "/Home/_AppendAndDisplayStudents",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data == "no")
+                                $("#noUniversityMsg").show();
+                            else {
+                                $("#noUniversityMsg").hide();
+                                flag = true;
+                                $("#dlStudentList").append(data);
+                            }
+                            $("#waitdiv").hide();
+                        }
+                    });
+                }
+                else {
+
+                }
+            }
+        });
+
+    </script>
+}

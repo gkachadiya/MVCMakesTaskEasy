@@ -1,0 +1,92 @@
+﻿@using SpotCollege.Common
+@using Newtonsoft.Json
+@using System.Text
+@using SpotCollege.DAL.DataModels
+
+@{
+    ViewBag.Title = "ViewAllAlerts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model StudentProfileModel
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="pattern_box box_space">
+                        <div class="h2_heading">
+                            <h2>Alert List</h2>
+                        </div>
+                        @if (@Model.alertList.Count == 0)
+                        { 
+                            <div style="color: black; font-size: larger" id="errorMsgDiv" class="left_right_space">No Record Found</div>
+                        }
+                         <ul class="list_3" id="AlertListAll">
+                            @{
+                                StringBuilder builder = new StringBuilder();
+                            }
+                            @foreach (var r in @Model.alertList)
+                            {
+                               <li>
+                                <div class='list_3_date'>
+                              <span> @r.CreatedDate.ToShortDateString() </span>
+                                </div>
+                               <div class='list_3_detail'>
+                                <p>  @r.Message  </p>
+                                </div>
+                                </li>
+                            }
+                       
+                        </ul>
+                        <div id="noUniversityMsg" style="display: none" class="left_right_space">
+                            No More Alerts
+                        </div>
+                        <div id="waitdiv" style="display: none" class="left_right_space">
+                            please wait...
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#nav li").each(function () {
+                $(this).removeClass('navi_active');
+            });
+        });
+
+        // for Scrolling
+        var flag = true;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                if (flag) {
+                    $("#waitdiv").show();
+                    flag = false
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#waitdiv").show(); },
+                        complete: function () { $("#waitdiv").hide(); },
+                        url: "_AppendAndDisplayAlert",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data == "no")
+                                $("#noUniversityMsg").show();
+                            else {
+                                $("#noUniversityMsg").hide();
+                                flag = true;
+                                $("#AlertListAll").append(data);
+                            }
+                            $("#waitdiv").hide();
+                        }
+                    });
+                }
+                else {
+
+                }
+            }
+        });
+    </script>
+}

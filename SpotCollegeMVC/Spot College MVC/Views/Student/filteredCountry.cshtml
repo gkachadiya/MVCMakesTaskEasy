@@ -1,0 +1,31 @@
+﻿@using SpotCollege.Common
+@using Newtonsoft.Json
+@using SpotCollege.DAL.DataModels
+@{
+    Layout = "";
+}
+@model StudentProfileModel
+
+@*<div class="simple_block">
+    @Html.DropDownList("ddlReviewCountry", DropDownHelper.getCountry("0"))*@
+<ul class="list_4 list_li3" id="rewList">
+    @if (Model.reviewList.Count != 0)
+    {
+        var cnt=1;
+        foreach (var r in @Model.reviewList)
+        {
+        <li>
+            <a href="javascript:void(0);" onclick="javascript:OpenSurveyPopup('@r.SurveyId')">Review-@cnt</a>
+            @{
+            cnt = cnt + 1;
+                }
+        </li>
+        }
+    }
+    else
+    {
+        <li>No Record Found
+        </li>
+    }
+</ul>
+@*</div>*@

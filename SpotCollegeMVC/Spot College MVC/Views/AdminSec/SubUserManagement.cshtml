@@ -1,0 +1,247 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+@model SubUserManagementModel
+@{
+    ViewBag.Title = "SubUserManagement";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    //HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div id="dialog-confirm" title="Delete" style="display: none;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+        </div>
+        @{
+            if (ViewContext.RouteData.Values["id"] != null)
+            {
+                ViewBag.Current = ViewContext.RouteData.Values["id"];
+            }
+        }
+
+        <div class="pattern_box box_space">
+            <div class="row-fluid">
+                <div id="LoadingImage" style="display: none" class="modal_loder">
+                </div>
+                <div class="span9">
+                    @using (Html.BeginForm())
+                    {
+                        if (ViewBag.Current != null)
+                        {
+                        <div id="pnlSubuserManagement">
+                            @Html.HiddenFor(m => m.permissionModel.PermissionId)
+                            <div id="pnlSubuserManagementAddInfo">
+                                <ul class="profile_form">
+                                    <li class="row-fluid">
+                                        <div class="span3">
+                                            <label>
+                                                First Name :</label>
+                                        </div>
+                                        <div class="span3">
+                                            @Html.TextBoxFor(m => m.permissionModel.FirstName)
+                                            @Html.ValidationMessageFor(m => m.permissionModel.FirstName)
+                                        </div>
+                                    </li>
+                                    <li class="row-fluid">
+                                        <div class="span3">
+                                            <label>
+                                                Last Name :</label>
+                                        </div>
+                                        <div class="span3">
+                                            @Html.TextBoxFor(m => m.permissionModel.LastName)
+                                            @Html.ValidationMessageFor(m => m.permissionModel.LastName)
+                                        </div>
+                                    </li>
+                                    <li class="row-fluid">
+                                        <div class="span3">
+                                            <label>
+                                                Email :</label>
+                                        </div>
+                                        <div class="span3">
+                                            @if (Model.permissionModel.UserName != null)
+                                            {
+                                                @Html.TextBoxFor(m => m.permissionModel.UserName, new { @readonly = "readonly" })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(m => m.permissionModel.UserName, new { placeholder = "UserName" })
+                                            }
+                                            @Html.ValidationMessageFor(m => m.permissionModel.UserName)
+                                            <span id="duplicateUser" style="display: none; color: red">Email already exist in Record. Please Choose Any other..!</span>
+                                            @Html.ValidationMessage("errDuplicateUser", new { style = "color:red" })
+                                        </div>
+                                    </li>
+                                    <li class="row-fluid">
+                                        <div class="span3">
+                                            <label>
+                                                Password :</label>
+                                        </div>
+                                        <div class="span3">
+                                            @Html.TextBoxFor(m => m.permissionModel.Password, new { type = "password" })
+                                            @Html.ValidationMessageFor(m => m.permissionModel.Password)
+                                        </div>
+                                    </li>
+                                    <li class="row-fluid">
+                                        <div class="span3">
+                                            <label>
+                                                Phone :</label>
+                                        </div>
+                                        <div class="span3">
+                                            @Html.TextBoxFor(m => m.permissionModel.Phone)
+                                            @Html.ValidationMessageFor(m => m.permissionModel.Phone)
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="checkbox_list">
+                                    <li>
+                                        @Html.CheckBoxFor(m => m.permissionModel.StudentMessage)
+                                        @Html.LabelFor(m => m.permissionModel.StudentMessage)
+                                    </li>
+                                    <li>
+                                        @Html.CheckBoxFor(m => m.permissionModel.CollegeProfile)
+                                        @Html.LabelFor(m => m.permissionModel.CollegeProfile)
+                                    </li>
+                                    <li>
+                                        @Html.CheckBoxFor(m => m.permissionModel.CollegeMessage)
+                                        @Html.LabelFor(m => m.permissionModel.CollegeMessage)
+                                    </li>
+                                    <li>
+                                        @Html.CheckBoxFor(m => m.permissionModel.Article)
+                                        @Html.LabelFor(m => m.permissionModel.Article)
+                                    </li>
+                                    <li>
+                                        @Html.CheckBoxFor(m => m.permissionModel.Review)
+                                        @Html.LabelFor(m => m.permissionModel.Review)
+                                    </li>
+
+                                </ul>
+                                <ul>
+                                    <li class="row-fluid">
+                                        <div class="span3">
+                                        </div>
+                                        <div class="span6">
+                                            <input id="btnSaveSubUserPermissionDetail" name="btnSaveSubUserPermissionDetail" value="Save" class="large_button" type="submit" /><span class="small_space"></span>
+                                            <a href="/AdminSec/SubUserManagement/" class="button">Cancel</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                        <div id="pnlSubuserManagementDetail">
+                            <a href="/AdminSec/SubUserManagement/0" class="button fright">Add New Sub-User</a>
+                            @if (Model.permissionList.Count != 0)
+                            {
+                                <table cellspacing="0" border="1" style="border-collapse: collapse;" id="MainContent_grvresourcesCategory" rules="all" class="simple_table box">
+                                    <tr>
+                                        <th style="width: 10%;" scope="col">Name</th>
+                                        <th style="width: 10%;" scope="col">Contact No.</th>
+                                        <th style="width: 5%;" scope="col">Delete</th>
+                                    </tr>
+
+                                    @foreach (var r in Model.permissionList)
+                                    {
+                                        <tr>
+
+                                            <td style="width: 10%;">
+                                                <a href="/AdminSec/SubUserManagement/@r.PermissionId">@r.FirstName  @r.LastName</a>
+                                            </td>
+                                            <td style="width: 10%;">@r.Phone</td>
+                                            <td style="width: 5%;">
+                                                <a id="deleteSubUserDetail" href="javascript:void(0)" onclick="SubUserDetailDelete('@r.PermissionId',this,'@r.UserName');">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                            else
+                            {
+                                <div>There is No SubUser</div>
+                            }
+
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkSubUser").addClass('navi_active');
+    });
+
+    //$("#btnCancel").click(function () {
+    //    $("#pnlSubuserManagementDetail").show();
+    //    $("#pnlSubuserManagement").hide();
+    //});
+
+    $("#@Html.IdFor(m => m.permissionModel.UserName)").change(function () {
+        if ($("#@Html.IdFor(m => m.permissionModel.UserName)").val() != "") {
+            var User = {
+                UserName: $('#@Html.IdFor(m => m.permissionModel.UserName)').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Home/_ValidateUser",
+                data: JSON.stringify(User),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg == "false") {
+                        $('#btnUniReg').show();
+                        $('#duplicateUser').hide();
+                    }
+                    else {
+                        $('#duplicateUser').show();
+                    }
+                }
+            });
+        }
+    });
+
+    function SubUserDetailDelete(permissionId, element, compname) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            modal: true,
+            closeOnEscape: true,
+            buttons: {
+                "Yes": function () {
+                    if (Page_IsValid) {
+                        var subUser = {
+                            PermissionId: parseInt(permissionId),
+                            Username: compname,
+                        };
+                        $.ajax({
+                            type: "POST",
+                            beforeSend: function () { $("#LoadingImage").show(); },
+                            complete: function () { $("#LoadingImage").hide(); },
+                            url: "/AdminSec/_SubUserDetailDelete/",
+                            data: JSON.stringify(subUser),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                $(element).parent().parent().remove();
+                            }
+                        });
+                    }
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+</script>

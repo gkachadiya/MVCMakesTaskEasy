@@ -1,0 +1,307 @@
+﻿@using SpotCollege.Common;
+@using SpotCollege.DAL
+@using SpotCollege.DAL.DataModels;
+@model University
+@{
+    ViewBag.Title = "University Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="pattern_box box_space">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div id="BasicOverview">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <div class="accordion-header">
+                                    <h2>Basic Profile Detail</h2>
+                                </div>
+                                <a href="/University/Edit/basic" class="edit fright">Edit</a>
+                            </div>
+                            @{
+                                string[] tmp;   
+                            }
+                            <div class="accordion-content">
+                                <ul class="list_4">
+                                    <li>
+                                        <label>University Name :</label>
+                                        <span>@Model.UniversityName</span>
+                                    </li>
+                                    <li>
+                                        <label>University Address :</label>
+                                        <span>@Model.Address</span>
+                                    </li>
+                                    <li>
+                                        <label>Administrator Email Id :</label>
+                                        <span>@Model.UserName</span>
+                                    </li>
+                                    <li>
+                                        <label>Administrator Name :</label>
+                                        <span>@Model.AdminName</span>
+                                    </li>
+
+                                    <li>
+                                        <label>City :</label>
+                                        <span>@Model.City</span>
+                                    </li>
+
+                                    <li>
+                                        <label>Country :</label>
+                                        <span>@Model.Country</span>
+                                    </li>
+                                      <li>
+                                        <label>Contact No :</label>
+                                        <span>@Model.ContactNo</span>
+                                    </li>
+                                    <li>
+                                        <label>Established Year :</label>
+                                        <span>@Model.EstablishedYear</span>
+                                    </li>
+
+                                    <li>
+                                        <label>Description :</label>
+                                        <span>
+                                            @*<span>@Model.Description</span>*@
+                                            @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <label>Logo :</label>
+                                        <span>
+                                            @if (Model.Image != null)
+                                            {
+                                                <a href="/Images/Profile/@Model.Image" id="hoverimg" class="preview">
+                                                    <img id="imgProfileImage" height="70px" width="70px" class="large_images" src="/Images/Profile/@Model.Image" /></a>
+                                            }
+                                            else
+                                            {
+                                                <img src="/Images/no_image.jpg" />
+                                            }
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label>Image :</label>
+                                        <span>
+                                            @if (Model.UniversityImage != null)
+                                            {
+                                                <a href="/Images/Profile/@Model.UniversityImage"  id="hoverimg" class="preview">
+                                                    <img height="150px" width="150px" src="/Images/Profile/@Model.UniversityImage" /></a>
+                                            }
+                                            else
+                                            {
+                                                <img src="/Images/no_image.jpg" />
+                                            }
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="CostForInternationalStudent">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <div class="accordion-header">
+                                    <h2>Cost for International students</h2>
+                                </div>
+                                <a href="/University/Edit/cost" class="edit fright">Edit</a>
+                            </div>
+                            <div class="accordion-content">
+                                <ul class="list_4 list_10">
+                                    <li>
+                                        <label>Tuition for international students pursuing Bachelor's degree : </label>
+                                        <span>
+                                            @{
+                                                
+                                                var lblFeesForUnderGraduateStudents = "Not Available";
+                                                if (Model.UnderGraduateFee != null)
+                                                {
+                                                    tmp = Model.UnderGraduateFee.ToString().Split('/');
+                                                    lblFeesForUnderGraduateStudents = tmp[0] + " " + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + ' ' + tmp[2];
+                                                }
+                                            }
+                                            @lblFeesForUnderGraduateStudents
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label>Tuition for international students pursuing Master's degree :</label>
+                                        <span>
+
+                                            @{
+                                                var lblFeesForGraduateStudents = "Not Available";
+                                                if (Model.GraduateFee != null)
+                                                {
+                                                    tmp = Model.GraduateFee.ToString().Split('/');
+                                                    lblFeesForGraduateStudents = tmp[0] + " " + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + ' ' + tmp[2];
+                                                }
+                                            }
+                                            @lblFeesForGraduateStudents
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label>Books and supplies :</label>
+                                        <span>
+                                            @{
+                                                var lblBookFees = "Not Available";
+                                                if (Model.BookFee != null)
+                                                {
+                                                    tmp = Model.BookFee.ToString().Split('/');
+                                                    lblBookFees = tmp[0] + " " + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + ' ' + tmp[2];
+                                                }
+                                            }
+                                            @lblBookFees
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label>Off-campus room and Board :</label>
+                                        <span>
+                                            @{
+                                                var lblBoardFees = "Not Available";
+                                                if (Model.BoardFee != null)
+                                                {
+                                                    tmp = Model.BoardFee.ToString().Split('/');
+                                                    lblBoardFees = tmp[0] + " " + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')') + " Per Month";
+                                                }
+                                            }
+                                            @lblBoardFees
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <label>Application Fee :</label>
+                                        <span>
+                                            @{
+                                                var lblApplicationFees = "Not Available";
+                                                if (Model.ApplicationFee != null)
+                                                {
+                                                    tmp = Model.ApplicationFee.ToString().Split('/');
+                                                    lblApplicationFees = tmp[0] + " " + EnumHelper.GetDescriptionFromEnumValue((CurrencyTypes)Convert.ToInt32(tmp[1])).Split('(')[1].TrimEnd(')');
+                                                }
+                                            }
+                                            @lblApplicationFees
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ProgramsAndMajors">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <div class="accordion-header">
+                                    <h2>Programs and majors</h2>
+                                </div>
+                                <a href="/University/Edit/programs" class="edit fright">Edit</a>
+                            </div>
+
+                            <div class="accordion-content">
+                                <ul class="list_4">
+                                    <li>
+                                        <label>Programs Offered :</label>
+                                        <span>@(string.IsNullOrEmpty(Model.Degree) ? "Not Available" : Model.Degree)</span>
+                                    </li>
+                                    <li>
+                                        <label>Courses Offered :</label>
+                                        <span>@(string.IsNullOrEmpty(Model.Courses) ? "Not Available" : Model.Courses)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div id="EnrollmentNumber">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <div class="accordion-header">
+                                    <h2>Enrollment Number</h2>
+                                </div>
+                                <a href="/University/Edit/enrollment" class="edit fright">Edit</a>
+                            </div>
+                            <div class="accordion-content">
+                                <ul class="list_4 list_9">
+                                    <li>
+                                        <label>Avg Number of international students pursuing bachelor's degree each year:</label>
+                                        <span>
+                                            @(Model.Graduates == null ? "Not Available" : Model.Graduates.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg Number of international students pursuing Master's degree each year :</label>
+                                        <span>@(Model.UnderGraduates == null ? "Not Available" : Model.UnderGraduates.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg Number of international students pursuing Phd degree each year :</label>
+                                        <span>@(Model.InternationalGraduate == null ? "Not Available" : Model.InternationalGraduate.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg Number of international students pursuing associates degree each year :</label>
+                                        <span>@(Model.PersuingAssociateDegree == null ? "Not Available" : Model.PersuingAssociateDegree.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg. number of students enrolled, per year, from china :</label>
+                                        <span>@(Model.EnroledPerYearChina == null ? "Not Available" : Model.EnroledPerYearChina.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg. number of students enrolled, per year, from Indian-sub continent 
+(i.e India, Pakistan, Bangladesh,Nepal, Sri-Lanka) :</label>
+                                        <span>@(Model.EnroledPerYearIndianSub == null ? "Not Available" : Model.EnroledPerYearIndianSub.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg. number of students enrolled, per year, from African continent :</label>
+                                        <span>@(Model.EnroledPerYearAfrica == null ? "Not Available" : Model.EnroledPerYearAfrica.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg. number of students enrolled, per year, from Middle East countries :</label>
+                                        <span>@(Model.EnroledPerYearMidEast == null ? "Not Available" : Model.EnroledPerYearMidEast.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg. number of students enrolled, per year, from South America :</label>
+                                        <span>@(Model.EnroledPerYearSouthAmerica == null ? "Not Available" : Model.EnroledPerYearSouthAmerica.ToString())</span>
+                                    </li>
+                                    <li>
+                                        <label>Avg. number of students enrolled, per year, from European countries :</label>
+                                        <span>@(Model.EnroledPerYearEurope == null ? "Not Available" : Model.EnroledPerYearEurope.ToString())</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="Faq">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <div class="accordion-header">
+                                    <h2>FAQs for Students</h2>
+                                </div>
+                                <a href="/University/Edit/faqs" class="edit fright">Edit</a>
+                            </div>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>
+                                        @* <span>@(string.IsNullOrEmpty(Model.Faqs) ? "Not Available" : Model.Faqs)</span>*@
+                                        @Html.Raw(HttpUtility.HtmlDecode(string.IsNullOrEmpty(Model.Faqs) ? "Not Available" : Model.Faqs))
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+
+        $("#lnkProfile").addClass('navi_active');
+    });
+
+</script>
+

@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Spot College</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+
+    @*   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>*@
+
+    <!--[if IE]>
+        <link rel="stylesheet" href="~/Content/ie.css" type="text/css" media="screen" />
+    <![endif]-->
+
+    <!--[if gte IE 8]>
+        <link rel="stylesheet" href="~/Content/ie8.css" type="text/css" media="screen" />
+    <![endif]-->
+
+    <script type="text/javascript" src="~/Scripts/js/html5.js"></script>
+    <script type="text/ecmascript">
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+    </script>
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/WebForms/WebUIValidation.js"></script>
+    <script src="~/Scripts/js/jquery-ui.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/js/jquery.flexslider-min.js"></script>
+    <script src="~/Scripts/mask.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        try {
+            jQuery(document).ready(function ($) {
+
+                /* prepend menu icon */
+                $('#nav-wrap').prepend('<div id="menu-icon">Menu</div>');
+
+                /* toggle nav */
+                $("#menu-icon").on("click", function () {
+                    $("#nav").slideToggle();
+                    $(this).toggleClass("active");
+                });
+
+            });
+        } catch (ex) { }
+    </script>
+
+    @*for show selected file in file upload box*@
+    <script type="text/javascript">
+        //Accordian
+        $(document).ready(function () {
+            $('body .accordion-header').click(function (e) {
+                e.preventDefault();
+                $(this).closest('.shadowbox').find('.accordion-content').not(':animated').slideToggle();
+            });
+        });
+
+        // //Right Click Disable
+        // $(document).ready(function () {
+        //     $(document).bind("contextmenu", function (e) {
+        //         return false;
+        //    });
+        // });
+
+        $(function () {
+            $('input[type=file]').wrap('<div class="fileTypeHack" />');
+            $('input[type=file]').parent().addClass('withButton');
+            $('.fileTypeHack').bind('mousemove', function (e) {
+                var offset = $(this).offset();
+                $(this).find('input').css(
+                    {
+                        'top': e.pageY - offset.top - ($('.fileTypeHack input').innerHeight() / 2), //centers verticaly
+                        'left': e.pageX - offset.left - ($('.fileTypeHack input').innerWidth() * 0.95) // moves the right part under the cursor
+                    });
+            })
+
+            $('html').on("change", 'input[type=file]', function () {
+                var input = this.outerHTML; // we save html of the current input
+                var file = this.value.split("\\"); // we split the string by "\" character
+                var imageName = file[file.length - 1]; //we get the name of the file
+
+                /* and if it's too long (depends on the width of your input) 
+                we will truncate it and prepend "..." before the string*/
+
+                var fileNameLength = file[file.length - 1].length;
+                if (fileNameLength > 14) {
+                    var truncatedName = "..." + imageName.substring((fileNameLength - 14)); // zobrazi 14 poslednich znaku stringu       
+                }
+                else {
+                    var truncatedName = imageName
+                };
+                //then we recreate the content of the wrapper
+                $(this).parent().find('span').remove();
+                $('<span>' + truncatedName + '</span>').insertBefore(this); // posledni prvvek ze splitu, tj. jmeno souboru + prida input
+            });
+
+        });
+    </script>
+
+</head>
+@using SpotCollege.Common;
+@using SpotCollege.DAL;
+@using SpotCollege.BLL;
+<body>
+    <div class="bottombg">
+        <div class="bottomgreenbg">
+            <div class="header">
+                <div class="container">
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <a href="~/AdminSec/Index" class="logo">
+                                <img src="/Images/d_logo.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="span8">
+                            <nav id="nav-wrap">
+                                @{
+                                    PermissionBLL permissionBLL = new PermissionBLL();
+                                    Permission permission = permissionBLL.GetbyUsername(CookieHelper.Username);
+                                }
+                                @if (CookieHelper.UserType == ((int)LoginTypes.SubAdmin).ToString())
+                                {
+                                    
+                                    <ul class="navigation" id="nav">
+                                        @if (permission.StudentMessage == true || permission.CollegeMessage == true)
+                                        {
+                                            <li id="lnkMessage"><a id="messageLink" href="/AdminSec/MessageCenter">Message Centre</a></li>
+                                        }
+                                        @if (permission.CollegeProfile == true)
+                                        {
+                                            <li id="lnkCollege"><a id="registerLink" href="/AdminSec/UniversityInformation">University</a></li>
+                                        }
+                                        @if (permission.Article == true)
+                                        {
+                                            <li id="lnkResources"><a id="Resourceslink" href="/AdminSec/Resources">Resources</a></li>
+                                        }
+                                        @if (permission.Review == true)
+                                        {
+                                           <li id="lnkSurvey"><a id="Surveylink" href="/AdminSec/Survey">Survey</a></li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="navigation adminnevigation" id="nav">
+                                        <li id="lnkStudent" class="navi_active"><a id="studentLink" href="/AdminSec/StudentInformation">Student</a></li>
+                                        <li id="lnkCollege"><a id="registerLink" href="/AdminSec/UniversityInformation">University</a></li>
+                                        <li id="lnkMessage"><a id="messageLink" href="/AdminSec/MessageCenter">Message Centre</a></li>
+                                        <li id="lnkintrestUniversity"><a id="intrestlink" href="/AdminSec/InterestedUniversity">Intrested University</a></li>
+                                        <li id="lnkResources"><a id="Resourceslink" href="/AdminSec/Resources">Resources</a></li>
+                                        <li id="lnkSubUser"><a id="SubUserlink" href="/AdminSec/SubUserManagement">SubUser Management</a></li>                                        
+                                        <li id="lnkSurvey"><a id="Surveylink" href="/AdminSec/Survey">Survey</a></li>
+                                    </ul>
+                                }
+                            </nav>
+                        </div>
+                        <div class="span1 pull-right">
+                            <ul class="login_logoutbtn">
+                                <li><a id="loginLink" href="/Authentication/LogOff">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container">
+                    @RenderSection("featured", required: false)
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderBody()
+                    </section>
+                </div>
+            </div>
+            <div class="d_footer">
+                <div class="container">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <ul class="d_footer_toplink">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/Home/Aboutus">About Us</a></li>
+                                <li><a href="/Home/PrivacyAndPolicy">Privacy Policy</a></li>
+                                <li><a href="/Home/TermToUse">Terms of Use</a></li>
+                                <li><a href="/Home/Careers">Careers</a></li>
+                            </ul>
+                        </div>
+                        <div class="span3"><span class="d_footer_righttext">© 2013, Spot College.com, LLC</span></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Validations Script*@
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+</body>
+</html>

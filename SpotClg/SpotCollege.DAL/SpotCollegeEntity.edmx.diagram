@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="188c22e4149441de8a166f299aec5cf9" Name="Diagram1" ZoomLevel="34">
+        <EntityTypeShape EntityType="SpotCollegeModel.LoginType" Width="1.5" PointX="3.58561947549955" PointY="12.337954661034958" />
+        <EntityTypeShape EntityType="SpotCollegeModel.Student" Width="1.875" PointX="4.5" PointY="15.75" />
+        <EntityTypeShape EntityType="SpotCollegeModel.StudentAcademic" Width="1.5" PointX="0.91146931839709611" PointY="16.083506591656946" />
+        <EntityTypeShape EntityType="SpotCollegeModel.StudentWorkHistory" Width="1.5" PointX="5.9656593566600513" PointY="13.411907962249549" />
+        <EntityTypeShape EntityType="SpotCollegeModel.User" Width="1.5" PointX="11.844946112411538" PointY="9.38960890909173" />
+        <AssociationConnector Association="SpotCollegeModel.FK_User_LoginType" />
+        <AssociationConnector Association="SpotCollegeModel.FK_Student_User" />
+        <AssociationConnector Association="SpotCollegeModel.FK_StudentAcademics_Student" />
+        <AssociationConnector Association="SpotCollegeModel.FK_StudentWorkHistory_Student" />
+        <EntityTypeShape EntityType="SpotCollegeModel.StudentInterest" Width="1.5" PointX="0.2902838812630083" PointY="13.808229735963154" />
+        <AssociationConnector Association="SpotCollegeModel.FK_StudentInterest_User" />
+        <AssociationConnector Association="SpotCollegeModel.FK_StudentInterest_User1" />
+        <EntityTypeShape EntityType="SpotCollegeModel.Alert" Width="1.5" PointX="8.7822442840702113" PointY="22.346426050340025" />
+        <AssociationConnector Association="SpotCollegeModel.FK_Alert_User" />
+        <AssociationConnector Association="SpotCollegeModel.FK_Alert_User1" />
+        <EntityTypeShape EntityType="SpotCollegeModel.Message" Width="1.5" PointX="8.4339134993189546" PointY="19.639223614539588" />
+        <AssociationConnector Association="SpotCollegeModel.FK_Message_User" />
+        <AssociationConnector Association="SpotCollegeModel.FK_Message_User1" />
+        <EntityTypeShape EntityType="SpotCollegeModel.StudentTest" Width="1.5" PointX="8.125" PointY="6.875" />
+        <AssociationConnector Association="SpotCollegeModel.FK_StudentTest_Student" />
+        <EntityTypeShape EntityType="SpotCollegeModel.sysdiagram" Width="1.5" PointX="9.86479530384056" PointY="5.7695924070522153" />
+        <EntityTypeShape EntityType="SpotCollegeModel.University" Width="1.5" PointX="9.6827094767627813" PointY="8.57430410784404" />
+        <AssociationConnector Association="SpotCollegeModel.FK_University_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

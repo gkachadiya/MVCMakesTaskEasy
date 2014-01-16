@@ -1,0 +1,26 @@
+﻿Installing assembly 'E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.InstallLog
+   assemblypath = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe
+Installing service DailyEmailService...
+Service DailyEmailService has been successfully installed.
+Creating EventLog source DailyEmailService in log Application...
+Committing assembly 'E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.InstallLog
+   assemblypath = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe
+Installing assembly 'E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.InstallLog
+   assemblypath = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe
+Installing service DailyEmailService...
+Creating EventLog source DailyEmailService in log Application...
+Rolling back assembly 'E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.InstallLog
+   assemblypath = E:\Ashish\Development\SpotCollegeSVN\SpotCollegeMVC\EmailWindowsService\bin\Debug\EmailWindowsService.exe
+Restoring event log to previous state for source DailyEmailService.

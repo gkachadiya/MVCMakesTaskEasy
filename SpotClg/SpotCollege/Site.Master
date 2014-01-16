@@ -1,0 +1,293 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SpotCollege.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head id="Head1" runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - Spot College</title>
+    <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+
+    <link href="Style/style.css" rel="stylesheet" />
+    <link href="Style/bootstrap.css" rel="stylesheet" />
+    <link href="Style/bootstrap-responsive.css" rel="stylesheet" />
+
+
+    <script src="../Scripts/js/jquery.min.js"></script>
+    <script src="../Scripts/js/jquery.js"></script>
+
+    <%--imageviewer--%>
+    <script type="text/javascript" language="javascript">
+
+        // Kick off the jQuery with the document ready function on page load
+        $(document).ready(function () {
+            imagePreview();
+            MsgAlertBox();
+            setInterval(function () { MsgAlertBox() }, 60000);
+        });
+        function MsgAlertBox() {
+            $.ajax({
+                url: "../Handler/GetNoOfUnReadMsg.ashx",
+                contentType: "text/plain",
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data != "" && data != 0) {
+                        $("#spanNoOfMsg").text(data);
+                    }
+                    else { $("#spanNoOfMsg").remove() }
+                },
+                error: function () {
+                }
+            });
+        }
+        // Configuration of the x and y offsets
+        this.imagePreview = function () {
+            xOffset = -10;
+            yOffset = -100;
+
+            $("a.preview").hover(function (e) {
+                this.t = this.title;
+                this.title = "";
+                var c = (this.t != "") ? "<br/>" + this.t : "";
+                $("body").append("<p id='preview'><img src='" + this.href + "' alt='Image preview' />" + c + "</p>");
+                $("#preview")
+                   .css("top", (e.pageY - xOffset) + "px")
+                   .css("left", (e.pageX + yOffset) + "px")
+                   .fadeIn("slow");
+            },
+
+            function () {
+                this.title = this.t;
+                $("#preview").remove();
+
+            });
+
+            $("a.preview").mousemove(function (e) {
+                $("#preview")
+                    .css("top", (e.pageY - xOffset) + "px")
+                    .css("left", (e.pageX + yOffset) + "px");
+            });
+        };
+
+    </script>
+
+
+    <script type="text/javascript" src="../Scripts/js/jquery.reveal.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            /* prepend menu icon */
+            $('#nav-wrap').prepend('<div id="menu-icon">Menu</div>');
+
+            /* toggle nav */
+            $("#menu-icon").on("click", function () {
+                $("#nav").slideToggle();
+                $(this).toggleClass("active");
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.container .accordion-header').click(function (e) {
+                e.preventDefault();
+                $(this).closest('.shadowbox').find('.accordion-content').not(':animated').slideToggle();
+            });
+        });
+
+    </script>
+    <!-- Accordion end-->
+
+    <webopt:BundleReference ID="BundleReference1" runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="../Scripts/js/jquery-ui.js"></script>
+    <link href="/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+
+    <script src="../Scripts/js/jquery.flexslider-min.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('input[type=file]').wrap('<div class="fileTypeHack" />');
+            $('input[type=file]').parent().addClass('withButton');
+            $('.fileTypeHack').bind('mousemove', function (e) {
+                var offset = $(this).offset();
+                $(this).find('input').css(
+                    {
+                        'top': e.pageY - offset.top - ($('.fileTypeHack input').innerHeight() / 2), //centers verticaly
+                        'left': e.pageX - offset.left - ($('.fileTypeHack input').innerWidth() * 0.95) // moves the right part under the cursor
+                    });
+            })
+
+            $('html').on("change", 'input[type=file]', function () {
+                var input = this.outerHTML; // we save html of the current input
+                var file = this.value.split("\\"); // we split the string by "\" character
+                var imageName = file[file.length - 1]; //we get the name of the file
+
+                /* and if it's too long (depends on the width of your input) 
+                we will truncate it and prepend "..." before the string*/
+
+                var fileNameLength = file[file.length - 1].length;
+                if (fileNameLength > 14) {
+                    var truncatedName = "..." + imageName.substring((fileNameLength - 14)); // zobrazi 14 poslednich znaku stringu       
+                }
+                else {
+                    var truncatedName = imageName
+                };
+                //then we recreate the content of the wrapper
+                $(this).parent().find('span').remove();
+                $('<span>' + truncatedName + '</span>').insertBefore(this); // posledni prvvek ze splitu, tj. jmeno souboru + prida input
+            });
+
+        });
+    </script>
+
+    <!-- UserProfile Toogle -->
+    <script type="text/javascript">
+        $(document).click(function (event) {
+            var target = $(event.target);
+
+            if (!target.attr('class').match(/^dropdown-menu/) && target.parents('.dropdown_toggle_open, .dropdown_toggle_open2, .dropdown_toggle_open3').length == 0) {
+                $('.dropdown_toggle_open, .dropdown_toggle_open2, .dropdown_toggle_open3').hide();
+            }
+        });
+        function makeToggle() {
+            $(".dropdown_toggle_open").toggle();
+        }
+        function makeTogglesetting() {
+            $(".dropdown_toggle_open2").toggle();
+        }
+        function makeTogglefaq() {
+            $(".dropdown_toggle_open3").toggle();
+        }
+    </script>
+
+
+
+
+</head>
+<body>
+    <form runat="server">
+        <div class="bottombg">
+            <div class="bottomgreenbg">
+
+                <div class="header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span3">
+                                <asp:LinkButton ID="lnkLogo" runat="server" CssClass="logo" OnClick="lnkLogo_Click">
+                                    <img src="../Images/d_logo.png" alt="" /></asp:LinkButton>
+                            </div>
+                            <div class="span6">
+                                <nav id="nav-wrap">
+                                    <asp:Panel ID="pnlUniversity" runat="server">
+                                        <ul class="navigation" id="nav">
+                                            <li id="Profile">
+                                                <a href="/Account/ProfileOverviewUniversity.aspx">Profile</a>
+                                                <%--<asp:LinkButton ID="lnkProfileButton" runat="server" OnClick="lnkProfileButton_Click">Profile</asp:LinkButton>--%>
+                                            </li>
+                                            <li id="Student">
+                                                <a href="/StudentPortal.aspx">Students</a>
+                                                <%--<asp:LinkButton ID="lnkStudentButton" runat="server" OnClick="lnkStudentButton_Click">Students</asp:LinkButton>--%>
+                                            </li>
+                                            <%-- <li id="University">
+                                                <a href="/Collegelist.aspx">Universities</a></li>--%>
+                                            <%--<asp:LinkButton ID="lnkUniversities" runat="server" OnClick="lnkuniversityButton_Click">Universities</asp:LinkButton>--%>
+                                            <li id="Message">
+                                                <a href="/AllMessage.aspx">Messages</a>
+                                                <%--<asp:LinkButton ID="lnkMessages" runat="server" PostBackUrl="~/AllMessage.aspx">Messages</asp:LinkButton>--%><span id="spanNoOfMsg" style="font-size: 14px; position: absolute; top: -10px; right: -12px; text-align: center; color: #000; background: url(../images/msg_notification.png) no-repeat left top; height: 27px; width: 27px; padding-top: 3px;"></span></li>
+                                        </ul>
+                                    </asp:Panel>
+                                    <asp:Panel ID="pnlStudent" runat="server">
+                                        <ul class="navigation" id="Ul1">
+                                            <%-- <li id="Home" class="navi_active">
+                                            <asp:LinkButton ID="lnkHome" runat="server" CssClass="home" OnClick="lnkHome_Click">Home</asp:LinkButton></li>--%>
+                                            <li id="Profile">
+                                                <a href="/Account/ProfileOverview.aspx">Profile</a>
+                                                <%--<asp:LinkButton ID="LinkButton1" runat="server" OnClick="lnkProfileButton_Click">Profile</asp:LinkButton>--%>
+                                            </li>
+                                            <li id="Student">
+                                                <a href="/StudentPortal.aspx">Students</a>
+                                                <%--<asp:LinkButton ID="LinkButton2" runat="server" OnClick="lnkStudentButton_Click">Students</asp:LinkButton>--%>
+                                            </li>
+                                            <li id="University">
+                                                <a href="/Collegelist.aspx">Universities</a>
+                                                <%--<asp:LinkButton ID="LinkButton3" runat="server" OnClick="lnkuniversityButton_Click">Universities</asp:LinkButton>--%></li>
+                                            <li id="Message">
+                                                <a href="/AllMessage.aspx">Messages</a>
+                                                <%--<asp:LinkButton ID="LinkButton4" runat="server" PostBackUrl="~/AllMessage.aspx">Messages</asp:LinkButton>--%><span id="spanNoOfMsg" style="font-size: 14px; position: absolute; top: -10px; right: -12px; text-align: center; color: #000; background: url(../images/msg_notification.png) no-repeat left top; height: 27px; width: 27px; padding-top: 3px;"></span></li>
+                                        </ul>
+                                    </asp:Panel>
+                                </nav>
+                            </div>
+                            <div class="span3">
+                                <ul class="user_profile_setting">
+                                    <li>
+                                        <div class="dropdown_toggle">
+                                            <a onclick="makeToggle()">
+                                                <asp:Label ID="lblUsername" runat="server"></asp:Label><b class="caret"></b></a>
+                                        </div>
+                                        <ul class="dropdown_toggle_open">
+                                            <li>
+                                                <asp:Image ID="imgUser" runat="server" CssClass="img-circle" />
+                                                <a id="loginLink" runat="server" href="~/Account/Logout.aspx">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="setting dropdown_toggle">
+                                            <a href="../Setting.aspx" onclick="makeTogglesetting()">
+                                                <img src="../images/settings.png" alt="" /></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="setting dropdown_toggle">
+                                            <a href="../FAQ.aspx" onclick="makeTogglefaq()">
+                                                <img src="../images/faq.png" alt="" /></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="container">
+                        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+                        <section class="content-wrapper main-content clear-fix">
+                            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                        </section>
+                    </div>
+                </div>
+
+                <div class="d_footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span9">
+                                <ul class="d_footer_toplink">
+                                    <li><a href="../Account/Login.aspx">Home</a></li>
+                                    <li><a href="../AboutUs.aspx">About Us</a></li>
+                                    <li><a href="../PrivacyAndPolicy.aspx">Privacy Policy</a></li>
+                                    <li><a href="../TermToUse.aspx">Terms of Use</a></li>
+                                    <li><a href="../Careers.aspx">Careers</a></li>
+                                </ul>
+                            </div>
+                            <div class="span3"><span class="d_footer_righttext">© 2013, Spot College.com, LLC</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</body>
+</html>

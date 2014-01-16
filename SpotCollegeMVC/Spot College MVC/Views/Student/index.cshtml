@@ -1,0 +1,630 @@
+﻿@model SpotCollege.DAL.DataModels.StudentDashboardModel
+
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    jQuery(window).load(function () {
+        jQuery('#client_slide').flexslider({
+            animation: "slide",
+            animationLoop: true,
+            controlNav: false,
+            itemWidth: 125,
+            itemMargin: 10,
+            slideshowSpeed: 5000,
+            animationSpeed: 1000,
+            pauseOnHover: false,
+        });
+        AlertBox();
+        setInterval(function () { AlertBox() }, 6000);
+    });
+
+    function AlertBox() {
+        $.ajax({
+            url: "../Handler/AlertMsg.ashx",
+            contentType: "text/plain",
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data != "") {
+                    $("#AlertList").html(data);
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+   
+</script>
+
+<!-- Client logo slide -->
+<div class="row-fluid">
+    <div class="msg_replay_hide">
+        <div class="span12">
+            <div id="Dialog-Save" title="Data Saved Sucessfully" style="display: none;">
+                <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Data Saved Sucessfully</p>
+            </div>
+            <div id="Dialog-AlertIntTest" title="Alert" style="display: none;">
+                <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Atleast One International Test Record inorder to show Interest in University.</p>
+            </div>
+            <div id="Dialog-Alert" title="Message Send" style="display: none;">
+                <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Please Enter Text</p>
+            </div>
+            <div class="pattern_box box_space">
+
+                <div class="span8">
+                    <div class="width100per">
+                        <div class="shadowbox">
+                            <div class="h2_heading">
+                                <h2 id="headingcollege">College that offer @ViewBag.DesiredField in @ViewBag.StudentApplyFor</h2>
+                            </div>
+                            <div style="color: black; font-size: larger" id="divNoUniversity"></div>
+                            <div id="client_slide">
+                                @if (@Model.universityList.Count == 0)
+                                { 
+                                    <div style="color: black; font-size: larger">No Record Found</div>
+                                }
+                                <ul class="slides">
+                                    @foreach (var uni in Model.universityList)
+                                    {
+                                        <li>
+                                            <a href="javascript:Openpopup('@uni.UserName');">
+                                                @if (uni.Image == null)
+                                                {
+                                                    <img src="/Images/no_image.jpg" alt="" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="/Images/Profile/@uni.Image" alt="" />
+                                                }
+                                            </a>
+                                            <a href="javascript:Openpopup('@uni.UserName');" class="view_morebtn">@uni.UniversityName</a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="shadowbox">
+                                <div class="h2_heading">
+                                    <h2 id="headingcountry">Contact other students applying from @ViewBag.StudentCountry</h2>
+                                    <a href="/Student/Portal/Country" class="more fright stdDashboard">View All</a>
+                                    @*<a href="/Home/ViewAllList/Country" class="more fright stdDashboard">View All</a>*@
+                                </div>
+                                @if (@Model.studentlist.Count == 0)
+                                { 
+                                    <div style="color: black; font-size: larger">No Record Found</div>
+                                }
+
+                                <ul class="list_5 homesmall_block" id="ddlapplycountry">
+                                    @foreach (var s1 in Model.studentlist)
+                                    {
+                                        <li>
+                                            @*<input type='hidden' id='@s1.StudentId' value='@s1.UserName' />*@
+                                            <div class="name">
+                                                @s1.FirstName @s1.LastName
+                                                <div class="country">@s1.City</div>
+                                            </div>
+                                            <div class='img'>
+                                                <a href="#">
+                                                    @if (s1.Photo == null)
+                                                    {
+                                                        <img src="..\Images\no_image.jpg" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="..\Images\Profile\@s1.Photo" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class='detail'>
+                                                @if (s1.StartDate != 0)
+                                                {
+                                                    <ul class="list_4">
+                                                        <li>
+                                                            <label>Looking for :</label>
+                                                            <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.ProgramLookingFor)@s1.LookingFor).ToString()  in @s1.DesiredFieldofStudy</span>
+                                                        </li>
+                                                        <li>
+                                                            <label>Desired Country :</label>
+                                                            <span>@s1.LookingForCountry</span>
+                                                        </li>
+                                                        <li>
+                                                            <label>Date of Joing :</label>
+                                                            <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.expectedStart)@s1.StartDate).ToString()</span>
+                                                        </li>
+
+                                                    </ul>
+                                                }
+                                                else
+                                                {
+                                                    <div class="name">
+                                                        @s1.FirstName @s1.LastName
+                                                        <div class="country">@s1.City</div>
+                                                    </div>
+                                                    <ul class="list_4">
+                                                        <li>
+                                                            <label>Applying from</label>
+                                                            <span>@s1.Country</span>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                            <div class="morebtn_">
+                                                <a href="javascript:void(0);" onclick="javascript:OpenMsgPopup( '@s1.FirstName @s1.LastName','@s1.UserName' );" class="msgbtn" id="@s1.UserName">Message</a>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="shadowbox">
+                                <div class="h2_heading">
+                                    <h2 id="headercuurentlylooking">Contact other students applying for @ViewBag.StudentApplyFor</h2>
+                                    <a href="/Student/Portal/Course" class="more fright stdDashboard">View All</a>
+                                </div>
+                                @if (@Model.studentlist2.Count == 0)
+                                { 
+                                    <div style="color: black; font-size: larger" id="errorMsgDiv">No Record Found</div>
+                                }
+                                <ul class="list_5 homesmall_block" id="ddlapplystudent">
+
+                                    @foreach (var st2 in @Model.studentlist2)
+                                    {
+                                        <li>
+                                            <input type='hidden' id='@st2.StudentId' value='@st2.UserName' />
+                                            <div class="name">
+                                                @st2.FirstName @st2.LastName
+                                                <div class="country">@st2.City</div>
+                                            </div>
+                                            <div class='img'>
+                                                <a href="#">
+                                                    @if (st2.Photo == null)
+                                                    {
+                                                        <img src="..\Images\no_image.jpg" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img  src="..\Images\Profile\@st2.Photo" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class='detail'>
+                                                @if (@st2.StartDate != 0)
+                                                {
+                                                    <ul class="list_4">
+                                                        <li>
+                                                            <label>Looking for :</label>
+                                                            <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.ProgramLookingFor)@st2.LookingFor).ToString()  in @st2.DesiredFieldofStudy</span>
+                                                        </li>
+                                                        <li>
+                                                            <label>Desired Country :</label>
+                                                            <span>@st2.LookingForCountry</span>
+                                                        </li>
+                                                        <li>
+                                                            <label>Date of Joing :</label>
+                                                            <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.expectedStart)@st2.StartDate).ToString()</span>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                                else
+                                                {
+                                                    <div class="name">
+                                                        @st2.FirstName @st2.LastName
+                                                        <div class="country">@st2.City</div>
+                                                    </div>
+                                                    <ul class="list_4">
+                                                        <li>
+                                                            <label>Looking for :</label>
+                                                            <span>@SpotCollege.Common.EnumHelper.GetDescriptionFromEnumValue((SpotCollege.Common.ProgramLookingFor)@st2.LookingFor).ToString()</span>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                            <div class="morebtn_">
+                                                <a href="javascript:void(0);" onclick="javascript:OpenMsgPopup( '@st2.FirstName @st2.LastName','@st2.UserName' );" class="msgbtn" id="@st2.UserName">Message</a>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="shadowbox">
+                        <div class="h2_heading">
+                            <h2>Alert box</h2>
+                            <a href="/Student/ViewAllAlerts" class="more fright ">View All</a>
+                            @*@Html.ActionLink("View All", "ViewAllAlerts", "Student", new { @class = "more fright" })*@
+                        </div>
+                        <ul class="list_3" id="AlertList">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="msg_replay_show messagereplayfrom pattern_box box_space">
+        <div class="span8">
+            <div id="messageList" class="student_msg message_right shadowbox">
+            </div>
+        </div>
+        <div class="span4">
+            <ul class="student_right_block" id="ulMessageBetween">
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+@*For Message PopUp*@
+@Html.Partial("_MessageBox")
+
+@*<%--University Full Detail Popup --%>*@
+@Html.Partial("~/Views/UserControl/_UniversityInfoPopup.cshtml")
+
+<div id="Dialog-ApplicationSend" title="Application Sent" style="display: none;">
+    <p>
+        <b><label id="lbluniname"></label></b> admission's office has been notified that you are interested in learning more
+about their institution. If your profile is a match, their representative will get in touch with you soon.
+    </p>
+</div>
+<div id="LoadingImage" style="display: none" class="modal_loder">
+    @*<img src="/Images/ajaxloader.gif" />*@
+</div>
+<script src="~/Scripts/js/utility.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        
+        //Set Current tab focused
+        //----------------------------------------
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#Home").addClass('navi_active');
+        //-----------------------------------------
+        $(".msg_replay_show").hide();
+    });
+
+
+    //University Information PopUp
+    function Openpopup(universityName) {
+        $("#studInterestBlock").show();
+        $("#EnroledPerYearChina").show();
+        $("#EnroledPerYearIndianSub").show();
+        $("#EnroledPerYearAfrica").show();
+        $("#EnroledPerYearMidEast").show();
+        $("#EnroledPerYearSouthAmerica").show();
+        $("#EnroledPerYearEurope").show();
+        var University = {
+            UniversityName: universityName,
+        };
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_GetUnivercityData",
+            data: JSON.stringify(University),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                document.getElementById("lbladdress").innerHTML = data[0] + " " + data[1] + " " + data[2];
+                if (data[3] != null)
+                    document.getElementById("lblgradustudent").innerHTML = data[3];
+                else
+                    document.getElementById("lblgradustudent").innerHTML = "Not Available";
+                if (data[4] != null)
+                    document.getElementById("lblundergradute").innerHTML = data[4];
+                else
+                    document.getElementById("lblundergradute").innerHTML = "Not Available";
+                if (data[5] != null) {
+                    document.getElementById("lblinternational").innerHTML = data[5]; imgprofile;
+                }
+                else
+                    document.getElementById("lblinternational").innerHTML = "Not Available";
+
+                if (data[6] == null)
+                    document.getElementById("imgprofile").src = "/Images/no_image.jpg";
+                else {
+                    document.getElementById("imgprofile").src = "/Images/Profile/" + data[6];
+                    document.getElementById("hoverimg").href = "/Images/Profile/" + data[6];
+                }
+
+                document.getElementById("lblDescription").innerHTML = data[7];
+
+                if (data[8] != null)
+                    document.getElementById("lblundergradutefee").innerHTML = data[8];
+                else
+                    document.getElementById("lblundergradutefee").innerHTML = "Not Available";
+
+                if (data[9] != null)
+                    document.getElementById("lblgraduatefee").innerHTML = data[9];
+                else
+                    document.getElementById("lblgraduatefee").innerHTML = "Not Available";
+
+                if (data[10] != null)
+                    document.getElementById("lblbookfee").innerHTML = data[10];
+                else
+                    document.getElementById("lblbookfee").innerHTML = "Not Available";
+
+                if (data[11] != null)
+                    document.getElementById("lblroom").innerHTML = data[11];
+                else
+                    document.getElementById("lblroom").innerHTML = "Not Available";
+
+                if (data[23] != null)
+                    document.getElementById("lblapplication").innerHTML = data[11];
+                else
+                    document.getElementById("lblapplication").innerHTML = "Not Available";
+
+                if (data[12] != "" && data[12] != null)
+                    document.getElementById("lbldegreelvloffred").innerHTML = data[12];
+                else
+                    document.getElementById("lbldegreelvloffred").innerHTML = "Not Available";
+
+                if (data[13] != "" && data[13] != null)
+                    document.getElementById("lblcourceoffered").innerHTML = data[13];
+                else
+                    document.getElementById("lblcourceoffered").innerHTML = "Not Available";
+
+                if (data[14] != null)
+                    document.getElementById("lblAssociateDegree").innerHTML = data[14];
+                else
+                    document.getElementById("lblAssociateDegree").innerHTML = "Not Available";
+
+                if (data[15] != null && data[15] != 0)
+                    document.getElementById("lblEnroledPerYearChina").innerHTML = data[15];
+                else
+                    $("#EnroledPerYearChina").hide();
+
+                if (data[16] != null && data[16] != 0)
+                    document.getElementById("lblEnroledPerYearIndianSub").innerHTML = data[16];
+                else
+                    $("#EnroledPerYearIndianSub").hide();
+
+                if (data[17] != null && data[17] != 0)
+                    document.getElementById("lblEnroledPerYearAfrica").innerHTML = data[17];
+                else
+                    $("#EnroledPerYearAfrica").hide();
+
+                if (data[18] != null && data[18] != 0)
+                    document.getElementById("lblEnroledPerYearMidEast").innerHTML = data[18];
+                else
+                    $("#EnroledPerYearMidEast").hide();
+
+                if (data[19] != null && data[19] != 0)
+                    document.getElementById("lblEnroledPerYearSouthAmerica").innerHTML = data[19];
+                else
+                    $("#EnroledPerYearSouthAmerica").hide();
+
+                if (data[20] != null && data[20] != 0)
+                    document.getElementById("lblEnroledPerYearEurope").innerHTML = data[20];
+                else
+                    $("#EnroledPerYearEurope").hide();
+
+                document.getElementById("lblusername").innerHTML = data[21];
+
+                if (data[22] == "hideint")
+                    $("#studInterestBlock").hide();
+
+                $("#myModal").dialog({ modal: true, minWidth: 700, resizable: false, minHeight: 300, closeOnEscape: true, closeText: "" });
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('request failed' + JSON.stringify(xhr) + " " + JSON.stringify(textStatus) + " " + JSON.stringify(errorThrown));
+            }
+        });
+    }
+
+    // ajax call for student interest in particular university
+    $("#btnintrest").click(function () {
+        var universityName = document.getElementById("lblusername").innerHTML;
+        var University = {
+            UniversityName: universityName,
+        };
+        $("#lbluniname").html(universityName);
+        $.ajax({
+            type: "POST",
+            beforeSend: function () { $("#LoadingImage").show(); },
+            complete: function () { $("#LoadingImage").hide(); },
+            url: "/Student/_SaveStudentIntrest",
+            data: JSON.stringify(University),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg == "true") {
+                    $("#Dialog-ApplicationSend").dialog({
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                        resizable: false,
+                        height: 270, closeOnEscape: true,
+                        modal: true,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+
+                        },
+                    });
+                }
+                else {
+                    $("#Dialog-AlertIntTest").dialog({
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                        resizable: false,
+                        height: 200, closeOnEscape: true,
+                        modal: true,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                            }
+
+                        },
+                    });
+                }
+                $("#myModal").dialog('close');
+            }
+
+        });
+    });
+
+    $("#btnnointrest").click(function () {
+        $("#myModal").dialog('close');
+    });
+
+    //For open Message Dialog or Conversation
+    function OpenMsgPopup(sendToUserName, username) {
+        $("#btnMsgSend").show();
+        $("#hndMsgToUserName").val(username);
+        $("#txtSendToUserName").val(sendToUserName);
+        $("#messagebox").dialog({ modal: true, minWidth: 650, resizable: false, minHeight: 400, closeOnEscape: true, closeText: "" });
+    }
+
+    //For Send Message
+    $("#btnMsgSend").click(function () {
+        var Message = {
+            Title: $("#txtSubject").val(),
+            Description: $("#txtMessage").val(),
+            sendToUserName: $("#hndMsgToUserName").val(),
+            ParentId: "0",
+        };
+        if ($("#txtSubject").val() != "" && $("#txtMessage").val() != "") {
+            $(this).hide();
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SendMessage",
+                data: JSON.stringify(Message),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtSubject").val("");
+                    $("#txtMessage").val("");
+                    $("#messagebox").dialog("close");
+                    $("#hndMsgToUserName").val("");
+                    // retriveConversation(msg);
+                    $(".msg_replay_hide").show();
+                    $(".msg_replay_show").hide();
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140, closeOnEscape: true,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    });
+
+    // for Cancel Message
+    $("#btnMsgCancel").click(function () {
+        $("#txtSubject").val("");
+        $("#txtMessage").val("");
+        $("#messagebox").dialog().dialog("close");
+        $(".msg_replay_hide").show();
+        $(".msg_replay_show").hide();
+    });
+
+    function retriveConversation(parentId) {
+        var msgId = {
+            messageId: parentId
+        };
+        //$("#messageList").html("please wait...");
+        //$("#ulMessageBetween").html("");
+        $("#divLoader").show();
+
+        $.ajax({
+            type: "POST",
+            url: "/Student/_GetAllConversation",
+            data: JSON.stringify(msgId),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                var data = msg;
+                $("#messageList").html(data[0]);
+                $("#ulMessageBetween").html(data[1]);
+                $("#messageList").show();
+                $(".msg_replay_hide").hide();
+                $(".msg_replay_show").show();
+                $("#LoadingImage").hide();
+                bindToDisplayRemainMessage();
+            }
+        });
+
+    }
+
+
+    function SaveMessageReply(parentMsgId, title, fromuser, touser) {
+        var msgdata = {
+            parentMsgId: parentMsgId,
+            msgDesc: $('#txtReplyDesc').val(),
+            msgTitle: title,
+            fromusername: fromuser,
+            tousername: touser
+        };
+        if ($('#txtReplyDesc').val() != "") {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/Student/_SaveMessageReply",
+                data: JSON.stringify(msgdata),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#txtReplyDesc").val("");
+                    $("#ulMessage").html(msg + $("#ulMessage").html());
+                }
+            });
+        }
+        else {
+            $("#Dialog-Alert").dialog({
+                open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+                resizable: false,
+                height: 140, closeOnEscape: true,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+
+                },
+            });
+        }
+    }
+
+    function bindToDisplayRemainMessage() {
+        var str = $("#openAll").text();
+        var status = true;
+        $("#openAll").click(function () {
+            $(".remainMsg").toggle(1000);
+
+            if (status) {
+                $(this).text("hide Messages");
+                status = false;
+            }
+            else {
+                $(this).text(str);
+                status = true;
+            }
+        });
+    }
+
+
+</script>

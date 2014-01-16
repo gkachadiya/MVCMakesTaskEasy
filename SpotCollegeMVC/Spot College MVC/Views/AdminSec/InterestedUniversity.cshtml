@@ -1,0 +1,142 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+
+@{
+    ViewBag.Title = "InterestedUniversity";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model UniversitySearchModel
+<div class="pattern_box">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="shadowbox box_space">
+
+                <div id="pnlUniversityInfo">
+                    <div id="UniversityInfo" class="width100per">
+                        <div class="h2_heading">
+                            <h2>Intrested University Information</h2>
+                        </div>
+                        @if (@Model.UniversityList.Count == 0)
+                        {
+                            <div style="color: black; font-size: larger" id="errorMsgDiv">No Univertsity Detail Found</div>
+                        }
+                        <table id="GrvUniversityInfo" class="table box">
+                            <tbody>
+                                @if (@Model.UniversityList.Count != 0)
+                                {
+                                    <tr>
+
+                                        <th style="width: 10%;" scope="col">UserName</th>
+                                        <th style="width: 10%;" scope="col">University Name</th>
+                                        <th style="width: 10%;" scope="col">Address</th>
+                                        <th style="width: 10%;" scope="col">City</th>
+                                        <th style="width: 10%;" scope="col">Country</th>
+                                        <th style="width: 5%;" scope="col">Is Active</th>
+                                        <th style="width: 5%;" scope="col">Delete</th>
+                                    </tr>
+                                }
+                                @foreach (var r in @Model.UniversityList)
+                                {
+                                    <tr>
+                                        <td style="width: 10%">@r.UserName
+                                        </td>
+                                        <td style="width: 10%">
+                                            @r.UniversityName
+                                        </td>
+                                        <td style="width: 10%">
+                                            @r.Address
+                                        </td>
+                                        <td style="width: 10%">
+                                            @r.City
+                                        </td>
+                                        <td style="width: 10%">
+                                            @r.Country
+                                        </td>
+                                        <td style="width: 5%">
+                                            <input type="checkbox" id="chkStatus" value="@r.UserName" checked="@r.User.IsActive" name="chkStatus" class="chkStatusClass"/>
+                                        </td>
+                                        <td style="width: 5%">
+                                            <a id='@("lnkBtnDelete" + r.UniversityId)' href="javascript:UniversityDelete('@r.UniversityId')">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <div id="LoadingImage" style="display: none" class="modal_loder">
+    </div>
+<div id="dialog-confirm" title="Delete" style="display: none;">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure?</p>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('navi_active');
+        });
+        $("#lnkintrestUniversity").addClass("navi_active");
+    });
+
+    //For Activate to Interested University
+    $(".chkStatusClass").change(function () {
+        var u = this.value;
+        if (this.checked) {
+            var username = {
+                UserName: u
+            };
+            $.ajax({
+                type: "POST",
+                beforeSend: function () { $("#LoadingImage").show(); },
+                complete: function () { $("#LoadingImage").hide(); },
+                url: "/AdminSec/_InterestedUniversityActive",
+                data: JSON.stringify(username),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    window.location.href = "/AdminSec/InterestedUniversity";
+                }
+            });
+        }
+    });
+
+    // For Delete University record
+    function UniversityDelete(universityId) {
+        $("#dialog-confirm").dialog({
+            open: function (event, ui) { $(".ui-dialog-titlebar-close .ui-button-text").hide(); },
+            resizable: false,
+            height: 140,
+            closeOnEscape: true,
+            modal: true,
+            buttons: {
+                "Yes": function () {
+                    var Uni = {
+                        UniversityId: universityId
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        beforeSend: function () { $("#LoadingImage").show(); },
+                        complete: function () { $("#LoadingImage").hide(); },
+                        url: "/AdminSec/_UniversityDelete",
+                        data: JSON.stringify(Uni),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $("#lnkBtnDelete" + universityId).parent().parent().remove();
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+</script>

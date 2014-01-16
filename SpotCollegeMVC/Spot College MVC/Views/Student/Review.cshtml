@@ -1,0 +1,656 @@
+﻿@using SpotCollege.DAL.DataModels
+@using SpotCollege.Common
+<div id="FeedbackModal" class="student_msg " title="Leave Feedback" style="display: none">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="message_right feedbackform">
+                
+                <div class="progressbar">
+                    <span class="progress_heading">Your Progress</span>
+                    <ul id="nav">   
+                        <li id="progFirstScreen"><span>1</span></li>
+                        <li id="progSecondScreen"><span>2</span></li>
+                        <li id="progThirdScreen"><span>3</span></li>
+                        <li id="progFourthScreen"><span>4</span></li>
+                        <li id="progFifthScreen"><span>5</span></li>
+                        <li id="progSixthScreen"><span>6</span></li>
+                        <li id="progSeventhScreen"><span>7</span></li>
+                        <li id="progEightScreen"><span>8</span></li>
+                        <li id="progNineScreen"><span>9</span></li>
+                        <li id="progTenScreen"><span>10</span></li>
+                        <li id="progElevenScreen"><span>11</span></li>
+                    </ul>
+                </div>
+               
+                <input type="hidden" id="hndSurveyId" />
+                <div id="divFirstScreen">
+                    <form id="formFirstScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)1)</h1>
+                        <ul class="profile_form" id="FirstScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which country are you from:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_2"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which city:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_3"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Name of the university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_4"></span>
+                                </div>
+                            </li>
+
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Year of gradution:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_5"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Course:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_6"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Degree you Pursued:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_7"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" id="btnFirstScreen" data-hide="divFirstScreen" data-show="divSecondScreen" value="Next" class="button fright goNext" />
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div id="divSecondScreen" style="display: none">
+                    <form id="formSecondScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)2)</h1>
+                        <input type="hidden" id="hndSecondSectionId" value="2" />
+                        <ul class="profile_form" id="SecondScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you apply on your own or use a agent: </label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_8"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>If you used a local agent, What fees did the agent charge:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_9"></span>
+                                </div>
+                            </li>
+                            @if (CookieHelper.UserType != ((int)LoginTypes.Student).ToString())
+                            {
+                                <li class="row-fluid">
+                                    <div class="span4">
+                                        <label>Name of agent (this will not be displayed to students):</label>
+                                    </div>
+                                    <div class="span6">
+                                        <input id="ans_10" type="text" />
+                                        @*<label id="errorans_10" class="error" style="color: red; display: none">*Required</label>*@
+                                    </div>
+                                </li>
+                            }
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divFirstScreen" data-hide="divSecondScreen" value="Back" />
+                                   
+                                        <input type="button" id="btnSecondScreen" data-hide="divSecondScreen" data-show="divThirdScreen" value="Next" class="button fright goNext" />
+                                    
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divThirdScreen" style="display: none">
+                    <form id="formThirdScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)3)</h1>
+                        <input type="hidden" id="hndThirdSectionId" value="3" />
+                        <ul class="profile_form" id="ThirdScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>where did you first live when you landed at your university:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_11"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Does the unviersity provide assistance in looking for housing:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_12"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you have your own room or you shared it with others:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_13"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Monthly rent:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_14"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Where did you live:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_15"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Address:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_16"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How would you rate your building:</label>
+                                </div>
+                                <div class="span6">
+                                    <div class="span6">
+                                    <span id="ans_17"></span>
+                                </div>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any feedback on the landlord:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_18"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did your landlord return your deposit:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_19"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any Suggestions about housing for future students:</label>
+                                </div>
+                                <div class="span6">
+                                    <span id="ans_20"></span>
+                                </div>
+                            </li>
+                           
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divSecondScreen" data-hide="divThirdScreen" value="Back" />
+                                    
+                                        <input type="button" id="btnThirdScreen" data-hide="divThirdScreen" data-show="divFourthScreen" value="Next" class="button fright goNext" />
+                                  
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div id="divFourthScreen" style="display: none">
+                    <form id="formFourthScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)4)</h1>
+                        <input type="hidden" id="hndFourthSectionId" value="4" />
+                        <ul class="profile_form" id="FourthScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you look for on-campus jobs:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_21"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Were you able to find an on-campus job:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_22"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How soon did you get one:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_23"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which department:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_24"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Hourly pay:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_25"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any Suggestions for future students:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_26"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divThirdScreen" data-hide="divFourthScreen" value="Back" />
+                                    
+                                        <input type="button" id="btnFourthScreen" data-hide="divFourthScreen" data-show="divFifthScreen" value="Next" class="button fright goNext" />
+                                   
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divFifthScreen" style="display: none">
+                    <form id="formFifthScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)5)</h1>
+                        <input type="hidden" id="hndFifthSectionId" value="5" />
+                        <ul class="profile_form" id="FifthScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you feel safe on-campus:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_27"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you feel safe just outside the university area:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_28"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Are there a lot of thefts/violent incidents happening (in/around) the campus:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_29"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How visible are the campus police on campus: </label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_30"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Were any of your things stolen:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_31"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>what was it:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_32"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Were you able to retrieve it back:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_33"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divFourthScreen" data-hide="divFifthScreen" value="Back" />
+                                   
+                                        <input type="button" id="btnFifthScreen" data-hide="divFifthScreen" data-show="divSixthScreen" value="Next" class="button fright goNext" />
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <div id="divSixthScreen" style="display: none">
+                    <form id="formSixthScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)6)</h1>
+                        <input type="hidden" id="hndSixthSectionId" value="6" />
+                        <ul class="profile_form" id="SixthScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you get a scholarship before you joined:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_34"></span>
+                                </div>
+
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you get one afterwards:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_35"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How easy is it to get one after joining the university:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_36"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any Suggestions for future students:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_37"></span>
+                                </div>
+                            </li>
+                           
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divFifthScreen" data-hide="divSixthScreen" value="Back" />
+                                   
+                                        <input type="button" id="btnSixthScreen" data-hide="divSixthScreen" data-show="divSeventhScreen" value="Next" class="button fright goNext" />
+                                    
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divSeventhScreen" style="display: none">
+                    <form id="formSeventhScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)7)</h1>
+                        <input type="hidden" id="hndSeventhSectionId" value="7" />
+                        <ul class="profile_form" id="SeventhScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Are there sufficient eating options on/around the campus:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_38"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Are there sufficient markets in/around the campus:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_39"></span>
+                                </div>
+                            </li>
+                          
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divSixthScreen" data-hide="divSeventhScreen" value="Back" />
+                                  
+                                        <input type="button" id="btnSeventhScreen" data-hide="divSeventhScreen" data-show="divEightScreen" value="Next" class="button fright goNext" />
+                                   
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divEightScreen" style="display: none">
+                    <form id="formEightScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)8)</h1>
+                        <input type="hidden" id="hndEightSectionId" value="8" />
+                        <ul class="profile_form" id="EightScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Please share with us your test scores:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_40"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>What other universities did you apply to:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_41"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Which all universities did you get into:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_42"></span>
+                                </div>
+                            </li>
+                           
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divSeventhScreen" data-hide="divEightScreen" value="Back" />
+                                   
+                                        <input type="button" id="btnEightScreen" data-hide="divEightScreen" data-show="divNineScreen" value="Next" class="button fright goNext" />
+                                   
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divNineScreen" style="display: none">
+                    <form id="formNineScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)9)</h1>
+                        <input type="hidden" id="hndNineSectionId" value="9" />
+                        <ul class="profile_form" id="NineScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>How helpful is the career center in helping students find jobs or internships:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_43"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Did you have health insurance at the university:</label>
+                                </div>
+                               <div class="span6">
+                                    <span id="ans_48"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Where did you purchase the health insurance from:  </label>
+                                </div>
+                               <div class="span6">
+                                    <span id="ans_49"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divEightScreen" data-hide="divNineScreen" value="Back" />
+                                    
+                                        <input type="button" id="btnNineScreen" data-hide="divNineScreen" data-show="divTenScreen" value="Next" class="button fright goNext" />
+                                   
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divTenScreen" style="display: none">
+                    <form id="formTenScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)10)</h1>
+                        <input type="hidden" id="hndTenSectionId" value="10" />
+                        <ul class="profile_form" id="TenScreen">
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Do you want to give any suggestions to the university:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_44"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4">
+                                    <label>Any suggestions for future students:</label>
+                                </div>
+                                 <div class="span6">
+                                    <span id="ans_45"></span>
+                                </div>
+                            </li>
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divNineScreen" data-hide="divTenScreen" value="Back" />
+                                     <input type="button" id="btnTenScreen" data-hide="divTenScreen" data-show="divElevenScreen" value="Next" class="button fright goNext" />
+                                   
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+
+                <div id="divElevenScreen" style="display: none">
+                    <form id="formElevenScreen">
+                        <h1>@EnumHelper.GetDescriptionFromEnumValue((QuestionSection)11)</h1>
+                        <input type="hidden" id="hndElevenSectionId" value="11" />
+                        <ul class="profile_form" id="ElevenScreen">
+                            @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                            {
+                                <li class="row-fluid">
+                                    <div class="span4">
+                                        <label>Write Message to Student</label>
+                                    </div>
+                                    <div class="span6">
+                                        <input type="hidden" id="hndStudentUsername" />
+                                        <textarea id="txtMessage" required></textarea>
+                                        <label class="error" style="color: red; display: none">*Please Write Some Message</label>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="row-fluid">
+                                    <div class="span4">
+                                        <label>Please enter your email address. Your email address will not be displayed to universities or students.</label>
+                                    </div>
+                                    <div class="span6">
+                                        <input id="ans_46" type="email" />
+                                        <label id="errorans_46" class="error" style="color: red; display: none">*Enter Proper Email Format</label>
+                                    </div>
+                                </li>
+                                <li class="row-fluid">
+                                    <div class="span4">
+                                        <label>Forward me any questions that students have:</label>
+                                    </div>
+                                    <div class="span6">
+                                        <input id="ans_47" type="checkbox" />
+                                    </div>
+                                </li>
+                            }
+                            <li class="row-fluid">
+                                <div class="span4"></div>
+                                <div class="span6">
+                                    <input type="button" class="button goback" data-show="divTenScreen" data-hide="divElevenScreen" value="Back" />
+                                    @if (CookieHelper.UserType == ((int)LoginTypes.Student).ToString())
+                                    {
+                                        <input type="button" id="btnElevenScreen" data-hide="divElevenScreen" data-show="divElevenScreen" value="Send" class="button fright" />
+                                    }
+                                    else
+                                    {
+                                        <input type="button" id="btnSaveElevenScreen" data-hide="divElevenScreen" data-show="divElevenScreen" value="Save and continue" class="button fright" />
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#nav li").each(function () {
+            $(this).removeClass('progress_active');
+        });
+        $("#progFirstScreen").addClass('progress_active');
+    });
+</script>
